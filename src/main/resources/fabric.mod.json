@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "molecularcraft",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "MolecularCraft",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
-    "Me!"
+    "arthurbambou"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -14,16 +14,15 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/molecularcraft/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "io.github.arthurbambou.molecularcraft.MolecularCraft"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
   ],
 
   "depends": {
