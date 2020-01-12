@@ -1,4 +1,4 @@
-package io.github.arthurbambou.molecularcraft.enums;
+package io.github.vampirestudios.molecularcraft.enums;
 
 public enum AtomFamilies {
     ALKALI_METAL(AtomFamiliesGroup.METAL),

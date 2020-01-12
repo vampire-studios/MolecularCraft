@@ -1,4 +1,4 @@
-package io.github.arthurbambou.molecularcraft;
+package io.github.vampirestudios.molecularcraft;
 
 import net.fabricmc.api.ModInitializer;
 

@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "MolecularCraft",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "",
   "authors": [
-    "arthurbambou"
+    "Vampire Studio"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/vampire-studios/MolecularCraft"
   },
 
   "license": "CC0-1.0",
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.arthurbambou.molecularcraft.MolecularCraft"
+      "io.github.vampirestudios.molecularcraft.MolecularCraft"
     ]
   },
   "mixins": [
@@ -28,8 +28,5 @@
   "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*"
-  },
-  "suggests": {
-    "flamingo": "*"
   }
 }

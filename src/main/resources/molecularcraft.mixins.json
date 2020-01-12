@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "io.github.arthurbambou.molecularcraft.mixin",
+  "package": "io.github.vampirestudios.molecularcraft.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],

@@ -1,4 +1,4 @@
-package io.github.arthurbambou.molecularcraft.enums;
+package io.github.vampirestudios.molecularcraft.enums;
 
 public enum AtomType {
     GAS,SOLID,LIQUID,UNKNOW;
