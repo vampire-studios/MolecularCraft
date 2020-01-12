@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "molecularcraft.mixins.json"
   ],
 
   "depends": {

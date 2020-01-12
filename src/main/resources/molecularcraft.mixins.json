@@ -1,11 +1,11 @@
 {
   "required": true,
-  "package": "io.github.vampirestudios.molecularcraft.mixin",
+  "package": "io.github.vampirestudios.molecularcraft.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
-    "ExampleMixin"
+    "MixinItemStack"
   ],
   "injectors": {
     "defaultRequire": 1

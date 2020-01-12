@@ -1,5 +1,8 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+
 public enum Atoms {
     HYDROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F),
     HELIUM(AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F),
@@ -159,6 +162,10 @@ public enum Atoms {
         this.atomOccurence = atomOccurence;
     }
 
+    public AtomOccurence getAtomOccurence() {
+        return atomOccurence;
+    }
+
     public AtomFamilies getAtomFamily() {
         return atomFamily;
     }
@@ -174,4 +181,13 @@ public enum Atoms {
     public float getAtomicMass() {
         return atomicMass;
     }
+
+    public String getTranslatableName() {
+        return "atom.molecularcraft." + name().toLowerCase() + ".name";
+    }
+
+    public String getSymbol() {
+        return "atom.molecularcraft." + name().toLowerCase() + ".symbol";
+    }
+
 }
