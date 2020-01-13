@@ -1,16 +1,58 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
+import io.github.vampirestudios.molecularcraft.molecules.Isotope;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.time.Year;
+import java.util.Date;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
+import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
 
 public enum Atoms {
-    HYDROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F),
-    HELIUM(AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F),
-    LITHIUM(AtomFamilies.ALKALI_METAL,3, 6.94F),
-    BERYLLIUM(AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F),
-    BORON(AtomFamilies.METALLOID,5, 10.81F),
-    CARBON(AtomFamilies.REACTIVE_NONMETAL,6, 12.011F),
-    NITROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F),
+    HYDROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F, new Isotope[]{
+            new Isotope("hydrogen", 0, 99.98F, Isotope.DecayMod.STABLE),
+            new Isotope("hydrogen", 1, 0.02F, Isotope.DecayMod.STABLE),
+            new Isotope("hydrogen", 2, (long)(1000L * SECONDS_IN_A_YEAR * 12.32F), Isotope.DecayMod.BETA_MINUS,
+                    new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE))
+    }),
+    HELIUM(AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F, new Isotope[]{
+            new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE),
+            new Isotope("helium", 2, 99.9998F, Isotope.DecayMod.STABLE)
+    }),
+    LITHIUM(AtomFamilies.ALKALI_METAL,3, 6.94F, new Isotope[]{
+            new Isotope("lithium", 3, 7.59F, Isotope.DecayMod.STABLE),
+            new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)
+    }),
+    BERYLLIUM(AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F, new Isotope[]{
+            new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.ELECTRON_CAPTURE,
+                    new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)),
+            new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.GAMMA_RAY),
+            new Isotope("beryllium", 5, 100F, Isotope.DecayMod.STABLE),
+            new Isotope("beryllium", 6, (long)(1000L * SECONDS_IN_A_YEAR * (1.39F * 10 * 10 * 10 * 10 * 10 * 10)), Isotope.DecayMod.BETA_MINUS,
+                    new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE))
+    }),
+    BORON(AtomFamilies.METALLOID,5, 10.81F, new Isotope[]{
+            new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE),
+            new Isotope("boron", 6, 80F, Isotope.DecayMod.STABLE)
+    }),
+    CARBON(AtomFamilies.REACTIVE_NONMETAL,6, 12.011F, new Isotope[]{
+            new Isotope("carbon", 5, -1, (long)(1000L * SECONDS_IN_A_MINUTE * 20), Isotope.DecayMod.BETA_PLUS,
+                    new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE)),
+            new Isotope("carbon", 6, 98.9F, Isotope.DecayMod.STABLE),
+            new Isotope("carbon", 7, 1.1F, Isotope.DecayMod.STABLE),
+            new Isotope("carbon", 8, (long)(1000L * SECONDS_IN_A_YEAR * 5730L), Isotope.DecayMod.BETA_MINUS,
+                    new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE))
+    }),
+    NITROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F, new Isotope[]{
+            new Isotope("nitrogen", 6, -1F, (long)(1000L * SECONDS_IN_A_MINUTE * 9.965F), Isotope.DecayMod.ELECTRON_CAPTURE,
+                    new Isotope("carbon", 7, 1.1F, Isotope.DecayMod.STABLE)),
+            new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE),
+            new Isotope("nitrogen", 8, 0.4F, Isotope.DecayMod.STABLE)
+    }),
     OXYGEN(AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,8,15.999F),
     FLUORINE(AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,9,18.998F),
     NEON(AtomFamilies.NOBLE_GAS,AtomType.GAS,10,20.180F),
@@ -122,15 +164,16 @@ public enum Atoms {
     LIVERMORIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 116, 293, AtomOccurence.SYNTHETIC),
     TENNESSINE(AtomFamilies.UNKNOW, AtomType.UNKNOW, 117, 294, AtomOccurence.SYNTHETIC),
     OGANESSON(AtomFamilies.UNKNOW, AtomType.UNKNOW, 118, 294, AtomOccurence.SYNTHETIC);
-    // Source : https://en.wikipedia.org/wiki/Periodic_table. 
+    // Source : https://en.wikipedia.org/wiki/Periodic_table.
 
     private AtomFamilies atomFamily;
     private AtomType atomType;
     private int atomicNumber;
     private float atomicMass;
     private AtomOccurence atomOccurence;
+    private Isotope[] isotopes;
 
-    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass) {
+    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, Isotope[] isotopes) {
         this.atomFamily = atomFamily;
         this.atomType = atomType;
         this.atomicNumber = atomicNumber;
@@ -138,7 +181,7 @@ public enum Atoms {
         this.atomOccurence = AtomOccurence.PRIMORDIAL;
     }
 
-    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass) {
+    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, Isotope[] isotopes) {
         this.atomFamily = atomFamily;
         this.atomType = AtomType.SOLID;
         this.atomicNumber = atomicNumber;
@@ -146,7 +189,7 @@ public enum Atoms {
         this.atomOccurence = AtomOccurence.PRIMORDIAL;
     }
 
-    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence) {
+    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
         this.atomFamily = atomFamily;
         this.atomType = atomType;
         this.atomicNumber = atomicNumber;
@@ -154,12 +197,16 @@ public enum Atoms {
         this.atomOccurence = atomOccurence;
     }
 
-    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence) {
+    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
         this.atomFamily = atomFamily;
         this.atomType = AtomType.SOLID;
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = atomOccurence;
+    }
+
+    public Isotope[] getIsotopes() {
+        return isotopes;
     }
 
     public AtomOccurence getAtomOccurence() {
