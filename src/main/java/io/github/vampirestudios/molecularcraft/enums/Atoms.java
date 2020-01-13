@@ -1,14 +1,6 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import org.apache.commons.lang3.time.DateUtils;
-
-import java.time.Year;
-import java.util.Date;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
 
@@ -179,6 +171,7 @@ public enum Atoms {
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = AtomOccurence.PRIMORDIAL;
+        this.isotopes = isotopes;
     }
 
     Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, Isotope[] isotopes) {
@@ -187,6 +180,7 @@ public enum Atoms {
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = AtomOccurence.PRIMORDIAL;
+        this.isotopes = isotopes;
     }
 
     Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
@@ -195,6 +189,7 @@ public enum Atoms {
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = atomOccurence;
+        this.isotopes = isotopes;
     }
 
     Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
@@ -203,6 +198,7 @@ public enum Atoms {
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = atomOccurence;
+        this.isotopes = isotopes;
     }
 
     public Isotope[] getIsotopes() {
