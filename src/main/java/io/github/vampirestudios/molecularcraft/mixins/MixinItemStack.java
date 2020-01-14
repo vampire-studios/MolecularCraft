@@ -27,15 +27,11 @@ public class MixinItemStack {
 
     @Inject(method = "getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     public void molecularcraft_getToolTip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable callbackInfo) {
-        System.out.println("HEY");
         List<Text> tooltip = (List<Text>)callbackInfo.getReturnValue();
         String id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem()).toString();
         for (ItemMolecules itemMolecules : ItemMolecules.registry) {
-            System.out.println(itemMolecules.getId() + "==" + id);
             if (itemMolecules.getId().trim().equals(id.trim())) {
                 StringBuilder builder = new StringBuilder();
-                System.out.println(builder.toString());
-                System.out.println("Test?");
                 for (MoleculeStack moleculeStack : itemMolecules.getList()) {
                     int moleculeStackAmount = moleculeStack.getAmount();
                     builder.append(moleculeStackAmount);
@@ -43,14 +39,28 @@ public class MixinItemStack {
                         int moleculeAmount = molecule.getAmount();
                         Atoms atom = molecule.getAtom();
                         builder.append(new TranslatableText(atom.getSymbol()).asString());
-                        builder.append(moleculeAmount);
+                        if (moleculeAmount > 1) builder.append(subscriptNumbers(Integer.toString(moleculeAmount)));
                     }
                     builder.append(" ");
                 }
-                System.out.println(builder.toString().toString());
-                tooltip.add(new LiteralText(builder.toString().toString()));
+                tooltip.add(new LiteralText(builder.toString()));
             }
         };
         callbackInfo.setReturnValue(tooltip);
+    }
+
+    private String subscriptNumbers(String string)
+    {
+        string = string.replace('0', '\u2080');
+        string = string.replace('1', '\u2081');
+        string = string.replace('2', '\u2082');
+        string = string.replace('3', '\u2083');
+        string = string.replace('4', '\u2084');
+        string = string.replace('5', '\u2085');
+        string = string.replace('6', '\u2086');
+        string = string.replace('7', '\u2087');
+        string = string.replace('8', '\u2088');
+        string = string.replace('9', '\u2089');
+        return string;
     }
 }

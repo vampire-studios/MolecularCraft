@@ -5,21 +5,21 @@ import io.github.vampirestudios.molecularcraft.molecules.Isotope;
 import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
 
 public enum Atoms {
-    HYDROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F, new Isotope[]{
+    HYDROGEN("H", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F, new Isotope[]{
             new Isotope("hydrogen", 0, 99.98F, Isotope.DecayMod.STABLE),
             new Isotope("hydrogen", 1, 0.02F, Isotope.DecayMod.STABLE),
             new Isotope("hydrogen", 2, (long)(1000L * SECONDS_IN_A_YEAR * 12.32F), Isotope.DecayMod.BETA_MINUS,
                     new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE))
     }),
-    HELIUM(AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F, new Isotope[]{
+    HELIUM("He", AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F, new Isotope[]{
             new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE),
             new Isotope("helium", 2, 99.9998F, Isotope.DecayMod.STABLE)
     }),
-    LITHIUM(AtomFamilies.ALKALI_METAL,3, 6.94F, new Isotope[]{
+    LITHIUM("Li", AtomFamilies.ALKALI_METAL,3, 6.94F, new Isotope[]{
             new Isotope("lithium", 3, 7.59F, Isotope.DecayMod.STABLE),
             new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)
     }),
-    BERYLLIUM(AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F, new Isotope[]{
+    BERYLLIUM("Be", AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F, new Isotope[]{
             new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.ELECTRON_CAPTURE,
                     new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)),
             new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.GAMMA_RAY),
@@ -27,11 +27,11 @@ public enum Atoms {
             new Isotope("beryllium", 6, (long)(1000L * SECONDS_IN_A_YEAR * (1.39F * 10 * 10 * 10 * 10 * 10 * 10)), Isotope.DecayMod.BETA_MINUS,
                     new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE))
     }),
-    BORON(AtomFamilies.METALLOID,5, 10.81F, new Isotope[]{
+    BORON("B", AtomFamilies.METALLOID,5, 10.81F, new Isotope[]{
             new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE),
             new Isotope("boron", 6, 80F, Isotope.DecayMod.STABLE)
     }),
-    CARBON(AtomFamilies.REACTIVE_NONMETAL,6, 12.011F, new Isotope[]{
+    CARBON("C", AtomFamilies.REACTIVE_NONMETAL,6, 12.011F, new Isotope[]{
             new Isotope("carbon", 5, -1, (long)(1000L * SECONDS_IN_A_MINUTE * 20), Isotope.DecayMod.BETA_PLUS,
                     new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE)),
             new Isotope("carbon", 6, 98.9F, Isotope.DecayMod.STABLE),
@@ -39,125 +39,126 @@ public enum Atoms {
             new Isotope("carbon", 8, (long)(1000L * SECONDS_IN_A_YEAR * 5730L), Isotope.DecayMod.BETA_MINUS,
                     new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE))
     }),
-    NITROGEN(AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F, new Isotope[]{
+    NITROGEN("N", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F, new Isotope[]{
             new Isotope("nitrogen", 6, -1F, (long)(1000L * SECONDS_IN_A_MINUTE * 9.965F), Isotope.DecayMod.ELECTRON_CAPTURE,
                     new Isotope("carbon", 7, 1.1F, Isotope.DecayMod.STABLE)),
             new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE),
             new Isotope("nitrogen", 8, 0.4F, Isotope.DecayMod.STABLE)
     }),
-    OXYGEN(AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,8,15.999F),
-    FLUORINE(AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,9,18.998F),
-    NEON(AtomFamilies.NOBLE_GAS,AtomType.GAS,10,20.180F),
-    SODIUM(AtomFamilies.ALKALI_METAL,11,22.990F),
-    MAGNESIUM(AtomFamilies.ALKALIN_EARTH_METAL,12,24.305F),
-    ALUMINIUM(AtomFamilies.POST_TRANSITION_METAL,13,26.982F),
-    SILICON(AtomFamilies.METALLOID,14,28.085F),
-    PHOSPHORUS(AtomFamilies.REACTIVE_NONMETAL,15,30.974F),
-    SULFUR(AtomFamilies.REACTIVE_NONMETAL,16,32.06F),
-    CHLORINE(AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,17,35.45F),
-    ARGON(AtomFamilies.NOBLE_GAS,AtomType.GAS,18,39.88F),
-    POTASSIUM(AtomFamilies.ALKALI_METAL, 19, 39.098F),
-    CALCIUM(AtomFamilies.ALKALIN_EARTH_METAL, 20, 40.078F),
-    SCANDIUM(AtomFamilies.TRANSITION_METAL, 21, 44.956F),
-    TITANIUM(AtomFamilies.TRANSITION_METAL, 22, 47.867F),
-    VANADIUM(AtomFamilies.TRANSITION_METAL, 23, 50.942F),
-    CHROMIUM(AtomFamilies.TRANSITION_METAL, 24,51.996F),
-    MANGANESE(AtomFamilies.TRANSITION_METAL, 25, 54.938F),
-    IRON(AtomFamilies.TRANSITION_METAL,  26, 55.845F),
-    COBALT(AtomFamilies.TRANSITION_METAL, 27, 58.933F),
-    NICKEL(AtomFamilies.TRANSITION_METAL, 28, 58.693F),
-    COPPER(AtomFamilies.TRANSITION_METAL, 29, 63.546F),
-    ZINC(AtomFamilies.POST_TRANSITION_METAL, 30, 65.38F),
-    GALLIUM(AtomFamilies.POST_TRANSITION_METAL, 31, 69.723F),
-    GERMANIUM(AtomFamilies.METALLOID, 32, 72.630F),
-    ARSENIC(AtomFamilies.METALLOID, 33, 74.922F),
-    SELENIUM(AtomFamilies.REACTIVE_NONMETAL, 34, 78.971F),
-    BROMINE(AtomFamilies.REACTIVE_NONMETAL, AtomType.LIQUID, 35, 79.904F),
-    KRYPTON(AtomFamilies.NOBLE_GAS, AtomType.GAS, 36, 83.798F),
-    RUBIDIUM(AtomFamilies.ALKALI_METAL, 37, 85.468F),
-    STRONTIUM(AtomFamilies.ALKALIN_EARTH_METAL, 38, 87.62F),
-    YTTRIUM(AtomFamilies.TRANSITION_METAL, 39, 88.906F),
-    ZIRCONIUM(AtomFamilies.TRANSITION_METAL, 40, 91.224F),
-    NIOBIUM(AtomFamilies.TRANSITION_METAL, 41, 92.906F),
-    MOLYBDENUM(AtomFamilies.TRANSITION_METAL, 42, 95.95F),
-    TECHNETIUM(AtomFamilies.TRANSITION_METAL, 43, 97.0F, AtomOccurence.FROM_DECAY),
-    RUTHENIUM(AtomFamilies.TRANSITION_METAL, 44, 101.07F),
-    RHODIUM(AtomFamilies.TRANSITION_METAL, 45, 102.91F),
-    PALLADIUM(AtomFamilies.TRANSITION_METAL, 46, 106.42F),
-    SILVER(AtomFamilies.TRANSITION_METAL, 47, 107.87F),
-    CADMIUM(AtomFamilies.POST_TRANSITION_METAL, 48, 112.41F),
-    INDIUM(AtomFamilies.POST_TRANSITION_METAL, 49, 114.82F),
-    TIN(AtomFamilies.POST_TRANSITION_METAL, 50, 118.71F),
-    ANTIMONY(AtomFamilies.METALLOID, AtomType.SOLID, 51, 121.76F),
-    TELLURIUM(AtomFamilies.METALLOID, AtomType.SOLID, 52, 127.60F),
-    IODINE(AtomFamilies.REACTIVE_NONMETAL, 53, 126.90F),
-    XENON(AtomFamilies.NOBLE_GAS, AtomType.GAS, 54, 131.29F),
-    CAESIUM(AtomFamilies.ALKALI_METAL, 55, 132.91F),
-    BARIUM(AtomFamilies.ALKALIN_EARTH_METAL, 56, 137.33F),
-    LANTHANUM(AtomFamilies.LANTHANIDE, 57, 138.91F),
-    CERIUM(AtomFamilies.LANTHANIDE, 58, 140.12F),
-    PRASEODYMIUM(AtomFamilies.LANTHANIDE, 59, 140.91F),
-    NEODYMIUM(AtomFamilies.LANTHANIDE, 60, 144.24F),
-    PROMETHIUM(AtomFamilies.LANTHANIDE, 61, 145.0F, AtomOccurence.FROM_DECAY),
-    SAMARIUM(AtomFamilies.LANTHANIDE, 62, 150.36F),
-    EUROPIUM(AtomFamilies.LANTHANIDE, 63, 151.96F),
-    GADOLINIUM(AtomFamilies.LANTHANIDE, 64, 157.25F),
-    TERBIUM(AtomFamilies.LANTHANIDE, 65, 158.93F),
-    DYSPROSIUM(AtomFamilies.LANTHANIDE, 66, 162.50F),
-    HOLMIUM(AtomFamilies.LANTHANIDE, 67, 164.93F),
-    ERBIUM(AtomFamilies.LANTHANIDE, 68, 167.26F),
-    THULIUM(AtomFamilies.LANTHANIDE, 69, 168.93F),
-    YTTERBIUM(AtomFamilies.LANTHANIDE, 70, 173.05F),
-    LUTETIUM(AtomFamilies.LANTHANIDE, 71, 174.97F),
-    HAFNIUM(AtomFamilies.TRANSITION_METAL, 72, 178.49F),
-    TANTALUM(AtomFamilies.TRANSITION_METAL, 73, 180.95F),
-    TUNGSTEN(AtomFamilies.TRANSITION_METAL, 74, 183.84F),
-    RHENIUM(AtomFamilies.TRANSITION_METAL, 75, 186.21F),
-    OSMIUM(AtomFamilies.TRANSITION_METAL, 76, 190.23F),
-    IRIDIUM(AtomFamilies.TRANSITION_METAL, 77, 192.22F),
-    PLATINUM(AtomFamilies.TRANSITION_METAL, 78, 195.08F),
-    GOLD(AtomFamilies.TRANSITION_METAL, 79, 196.97F),
-    MERCURY(AtomFamilies.POST_TRANSITION_METAL, AtomType.LIQUID, 80, 200.59F),
-    THALLIUM(AtomFamilies.POST_TRANSITION_METAL, 81, 204.38F),
-    LEAD(AtomFamilies.POST_TRANSITION_METAL, 82, 207.2F),
-    BISMUTH(AtomFamilies.POST_TRANSITION_METAL, 83, 208.98F),
-    POLONIUM(AtomFamilies.POST_TRANSITION_METAL, 84, 209.0F, AtomOccurence.FROM_DECAY),
-    ASTATINE(AtomFamilies.METALLOID, 85, 210.0F),
-    RADON(AtomFamilies.NOBLE_GAS, AtomType.GAS, 86, 222.0F, AtomOccurence.FROM_DECAY),
-    FRANCIUM(AtomFamilies.ALKALI_METAL, 87, 223.0F, AtomOccurence.FROM_DECAY),
-    RADIUM(AtomFamilies.ALKALIN_EARTH_METAL, 88, 226.0F, AtomOccurence.FROM_DECAY),
-    ACTINIUM(AtomFamilies.ACTINIDE, 89, 227, AtomOccurence.FROM_DECAY),
-    THORIUM(AtomFamilies.ACTINIDE, 90, 232.04F),
-    PROTACTINIUM(AtomFamilies.ACTINIDE, 91, 231.04F, AtomOccurence.FROM_DECAY),
-    URANIUM(AtomFamilies.ACTINIDE, 92, 238.03F),
-    NEPTUNIUM(AtomFamilies.ACTINIDE, 93, 237.0F, AtomOccurence.FROM_DECAY),
-    PLUTONIUM(AtomFamilies.ACTINIDE, 94, 244.0F, AtomOccurence.FROM_DECAY),
-    AMERICIUM(AtomFamilies.ACTINIDE, 95, 243.0F, AtomOccurence.SYNTHETIC),
-    CURIUM(AtomFamilies.ACTINIDE, 96, 247, AtomOccurence.SYNTHETIC),
-    BERKELIUM(AtomFamilies.ACTINIDE, 97, 251, AtomOccurence.SYNTHETIC),
-    CALIFORNIUM(AtomFamilies.ACTINIDE, 98, 251, AtomOccurence.SYNTHETIC),
-    EINSTEINIUM(AtomFamilies.ACTINIDE, 99, 252, AtomOccurence.SYNTHETIC),
-    FERMIUM(AtomFamilies.ACTINIDE, AtomType.UNKNOW, 100, 257, AtomOccurence.SYNTHETIC),
-    MENDELEVIUM(AtomFamilies.ACTINIDE, AtomType.UNKNOW, 101, 258, AtomOccurence.SYNTHETIC),
-    NOBELIUM(AtomFamilies.ACTINIDE, AtomType.UNKNOW, 102, 259, AtomOccurence.SYNTHETIC),
-    LAWRENCIUM(AtomFamilies.ACTINIDE, AtomType.UNKNOW, 103, 266, AtomOccurence.SYNTHETIC),
-    RUTHERFORDIUM(AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 104, 267, AtomOccurence.SYNTHETIC),
-    DUBNIUM(AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 105, 268, AtomOccurence.SYNTHETIC),
-    SEABORGIUM(AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 106, 269, AtomOccurence.SYNTHETIC),
-    BOHRIUM(AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 107, 270, AtomOccurence.SYNTHETIC),
-    HASSIUM(AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 108, 269, AtomOccurence.SYNTHETIC),
-    MEITNERIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 109, 278, AtomOccurence.SYNTHETIC),
-    DARMSTADTIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 110, 281, AtomOccurence.SYNTHETIC),
-    ROENTGENIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 111, 282, AtomOccurence.SYNTHETIC),
-    COPERNICIUM(AtomFamilies.POST_TRANSITION_METAL, AtomType.UNKNOW, 112, 285, AtomOccurence.SYNTHETIC),
-    NIHONIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 113, 286, AtomOccurence.SYNTHETIC),
-    FLEROVIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 114, 289, AtomOccurence.SYNTHETIC),
-    MOSCOVIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 115, 290, AtomOccurence.SYNTHETIC),
-    LIVERMORIUM(AtomFamilies.UNKNOW, AtomType.UNKNOW, 116, 293, AtomOccurence.SYNTHETIC),
-    TENNESSINE(AtomFamilies.UNKNOW, AtomType.UNKNOW, 117, 294, AtomOccurence.SYNTHETIC),
-    OGANESSON(AtomFamilies.UNKNOW, AtomType.UNKNOW, 118, 294, AtomOccurence.SYNTHETIC);
+    OXYGEN("O", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,8,15.999F),
+    FLUORINE("F", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,9,18.998F),
+    NEON("Ne", AtomFamilies.NOBLE_GAS,AtomType.GAS,10,20.180F),
+    SODIUM("Na", AtomFamilies.ALKALI_METAL,11,22.990F),
+    MAGNESIUM("Mg", AtomFamilies.ALKALIN_EARTH_METAL,12,24.305F),
+    ALUMINIUM("Al", AtomFamilies.POST_TRANSITION_METAL,13,26.982F),
+    SILICON("Si", AtomFamilies.METALLOID,14,28.085F),
+    PHOSPHORUS("P", AtomFamilies.REACTIVE_NONMETAL,15,30.974F),
+    SULFUR("S", AtomFamilies.REACTIVE_NONMETAL,16,32.06F),
+    CHLORINE("Cl", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,17,35.45F),
+    ARGON("Ar", AtomFamilies.NOBLE_GAS,AtomType.GAS,18,39.88F),
+    POTASSIUM("K", AtomFamilies.ALKALI_METAL, 19, 39.098F),
+    CALCIUM("Ca", AtomFamilies.ALKALIN_EARTH_METAL, 20, 40.078F),
+    SCANDIUM("Sc", AtomFamilies.TRANSITION_METAL, 21, 44.956F),
+    TITANIUM("Ti", AtomFamilies.TRANSITION_METAL, 22, 47.867F),
+    VANADIUM("V", AtomFamilies.TRANSITION_METAL, 23, 50.942F),
+    CHROMIUM("Cr", AtomFamilies.TRANSITION_METAL, 24,51.996F),
+    MANGANESE("Mn", AtomFamilies.TRANSITION_METAL, 25, 54.938F),
+    IRON("Fe", AtomFamilies.TRANSITION_METAL,  26, 55.845F),
+    COBALT("Co", AtomFamilies.TRANSITION_METAL, 27, 58.933F),
+    NICKEL("Ni", AtomFamilies.TRANSITION_METAL, 28, 58.693F),
+    COPPER("Cu", AtomFamilies.TRANSITION_METAL, 29, 63.546F),
+    ZINC("Zn", AtomFamilies.POST_TRANSITION_METAL, 30, 65.38F),
+    GALLIUM("Ga", AtomFamilies.POST_TRANSITION_METAL, 31, 69.723F),
+    GERMANIUM("Ge", AtomFamilies.METALLOID, 32, 72.630F),
+    ARSENIC("As", AtomFamilies.METALLOID, 33, 74.922F),
+    SELENIUM("Se", AtomFamilies.REACTIVE_NONMETAL, 34, 78.971F),
+    BROMINE("Br", AtomFamilies.REACTIVE_NONMETAL, AtomType.LIQUID, 35, 79.904F),
+    KRYPTON("Kr", AtomFamilies.NOBLE_GAS, AtomType.GAS, 36, 83.798F),
+    RUBIDIUM("Rb", AtomFamilies.ALKALI_METAL, 37, 85.468F),
+    STRONTIUM("Sr", AtomFamilies.ALKALIN_EARTH_METAL, 38, 87.62F),
+    YTTRIUM("Y", AtomFamilies.TRANSITION_METAL, 39, 88.906F),
+    ZIRCONIUM("Zr", AtomFamilies.TRANSITION_METAL, 40, 91.224F),
+    NIOBIUM("Nb", AtomFamilies.TRANSITION_METAL, 41, 92.906F),
+    MOLYBDENUM("Mo", AtomFamilies.TRANSITION_METAL, 42, 95.95F),
+    TECHNETIUM("Tc", AtomFamilies.TRANSITION_METAL, 43, 97.0F, AtomOccurence.FROM_DECAY),
+    RUTHENIUM("Ru", AtomFamilies.TRANSITION_METAL, 44, 101.07F),
+    RHODIUM("Rh", AtomFamilies.TRANSITION_METAL, 45, 102.91F),
+    PALLADIUM("Pd", AtomFamilies.TRANSITION_METAL, 46, 106.42F),
+    SILVER("Ag", AtomFamilies.TRANSITION_METAL, 47, 107.87F),
+    CADMIUM("Cd", AtomFamilies.POST_TRANSITION_METAL, 48, 112.41F),
+    INDIUM("In", AtomFamilies.POST_TRANSITION_METAL, 49, 114.82F),
+    TIN("Sn", AtomFamilies.POST_TRANSITION_METAL, 50, 118.71F),
+    ANTIMONY("Sb", AtomFamilies.METALLOID, AtomType.SOLID, 51, 121.76F),
+    TELLURIUM("Te", AtomFamilies.METALLOID, AtomType.SOLID, 52, 127.60F),
+    IODINE("I", AtomFamilies.REACTIVE_NONMETAL, 53, 126.90F),
+    XENON("Xe", AtomFamilies.NOBLE_GAS, AtomType.GAS, 54, 131.29F),
+    CAESIUM("Cs", AtomFamilies.ALKALI_METAL, 55, 132.91F),
+    BARIUM("Ba", AtomFamilies.ALKALIN_EARTH_METAL, 56, 137.33F),
+    LANTHANUM("La", AtomFamilies.LANTHANIDE, 57, 138.91F),
+    CERIUM("Ce", AtomFamilies.LANTHANIDE, 58, 140.12F),
+    PRASEODYMIUM("Pr", AtomFamilies.LANTHANIDE, 59, 140.91F),
+    NEODYMIUM("Nd", AtomFamilies.LANTHANIDE, 60, 144.24F),
+    PROMETHIUM("Pm", AtomFamilies.LANTHANIDE, 61, 145.0F, AtomOccurence.FROM_DECAY),
+    SAMARIUM("Sm", AtomFamilies.LANTHANIDE, 62, 150.36F),
+    EUROPIUM("Eu", AtomFamilies.LANTHANIDE, 63, 151.96F),
+    GADOLINIUM("Gd", AtomFamilies.LANTHANIDE, 64, 157.25F),
+    TERBIUM("Tb", AtomFamilies.LANTHANIDE, 65, 158.93F),
+    DYSPROSIUM("Dy", AtomFamilies.LANTHANIDE, 66, 162.50F),
+    HOLMIUM("Ho", AtomFamilies.LANTHANIDE, 67, 164.93F),
+    ERBIUM("Er", AtomFamilies.LANTHANIDE, 68, 167.26F),
+    THULIUM("Tm", AtomFamilies.LANTHANIDE, 69, 168.93F),
+    YTTERBIUM("Yb", AtomFamilies.LANTHANIDE, 70, 173.05F),
+    LUTETIUM("Lu", AtomFamilies.LANTHANIDE, 71, 174.97F),
+    HAFNIUM("Hf", AtomFamilies.TRANSITION_METAL, 72, 178.49F),
+    TANTALUM("Ta", AtomFamilies.TRANSITION_METAL, 73, 180.95F),
+    TUNGSTEN("W", AtomFamilies.TRANSITION_METAL, 74, 183.84F),
+    RHENIUM("Re", AtomFamilies.TRANSITION_METAL, 75, 186.21F),
+    OSMIUM("Os", AtomFamilies.TRANSITION_METAL, 76, 190.23F),
+    IRIDIUM("Ir", AtomFamilies.TRANSITION_METAL, 77, 192.22F),
+    PLATINUM("Pt", AtomFamilies.TRANSITION_METAL, 78, 195.08F),
+    GOLD("Au", AtomFamilies.TRANSITION_METAL, 79, 196.97F),
+    MERCURY("Hg", AtomFamilies.POST_TRANSITION_METAL, AtomType.LIQUID, 80, 200.59F),
+    THALLIUM("Tl", AtomFamilies.POST_TRANSITION_METAL, 81, 204.38F),
+    LEAD("Pb", AtomFamilies.POST_TRANSITION_METAL, 82, 207.2F),
+    BISMUTH("Bi", AtomFamilies.POST_TRANSITION_METAL, 83, 208.98F),
+    POLONIUM("Po", AtomFamilies.POST_TRANSITION_METAL, 84, 209.0F, AtomOccurence.FROM_DECAY),
+    ASTATINE("At", AtomFamilies.METALLOID, 85, 210.0F),
+    RADON("Rn", AtomFamilies.NOBLE_GAS, AtomType.GAS, 86, 222.0F, AtomOccurence.FROM_DECAY),
+    FRANCIUM("Fr", AtomFamilies.ALKALI_METAL, 87, 223.0F, AtomOccurence.FROM_DECAY),
+    RADIUM("Ra", AtomFamilies.ALKALIN_EARTH_METAL, 88, 226.0F, AtomOccurence.FROM_DECAY),
+    ACTINIUM("Ac", AtomFamilies.ACTINIDE, 89, 227, AtomOccurence.FROM_DECAY),
+    THORIUM("Th", AtomFamilies.ACTINIDE, 90, 232.04F),
+    PROTACTINIUM("Pa", AtomFamilies.ACTINIDE, 91, 231.04F, AtomOccurence.FROM_DECAY),
+    URANIUM("U", AtomFamilies.ACTINIDE, 92, 238.03F),
+    NEPTUNIUM("Np", AtomFamilies.ACTINIDE, 93, 237.0F, AtomOccurence.FROM_DECAY),
+    PLUTONIUM("Pu", AtomFamilies.ACTINIDE, 94, 244.0F, AtomOccurence.FROM_DECAY),
+    AMERICIUM("Am", AtomFamilies.ACTINIDE, 95, 243.0F, AtomOccurence.SYNTHETIC),
+    CURIUM("Cm", AtomFamilies.ACTINIDE, 96, 247, AtomOccurence.SYNTHETIC),
+    BERKELIUM("Bk", AtomFamilies.ACTINIDE, 97, 251, AtomOccurence.SYNTHETIC),
+    CALIFORNIUM("Cf", AtomFamilies.ACTINIDE, 98, 251, AtomOccurence.SYNTHETIC),
+    EINSTEINIUM("Es", AtomFamilies.ACTINIDE, 99, 252, AtomOccurence.SYNTHETIC),
+    FERMIUM("Fm", AtomFamilies.ACTINIDE, AtomType.UNKNOW, 100, 257, AtomOccurence.SYNTHETIC),
+    MENDELEVIUM("Md", AtomFamilies.ACTINIDE, AtomType.UNKNOW, 101, 258, AtomOccurence.SYNTHETIC),
+    NOBELIUM("No", AtomFamilies.ACTINIDE, AtomType.UNKNOW, 102, 259, AtomOccurence.SYNTHETIC),
+    LAWRENCIUM("Lr", AtomFamilies.ACTINIDE, AtomType.UNKNOW, 103, 266, AtomOccurence.SYNTHETIC),
+    RUTHERFORDIUM("Rf", AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 104, 267, AtomOccurence.SYNTHETIC),
+    DUBNIUM("Db", AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 105, 268, AtomOccurence.SYNTHETIC),
+    SEABORGIUM("Sg", AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 106, 269, AtomOccurence.SYNTHETIC),
+    BOHRIUM("Bh", AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 107, 270, AtomOccurence.SYNTHETIC),
+    HASSIUM("Hs", AtomFamilies.TRANSITION_METAL, AtomType.UNKNOW, 108, 269, AtomOccurence.SYNTHETIC),
+    MEITNERIUM("Mt", AtomFamilies.UNKNOW, AtomType.UNKNOW, 109, 278, AtomOccurence.SYNTHETIC),
+    DARMSTADTIUM("Ds", AtomFamilies.UNKNOW, AtomType.UNKNOW, 110, 281, AtomOccurence.SYNTHETIC),
+    ROENTGENIUM("Rg", AtomFamilies.UNKNOW, AtomType.UNKNOW, 111, 282, AtomOccurence.SYNTHETIC),
+    COPERNICIUM("Cn", AtomFamilies.POST_TRANSITION_METAL, AtomType.UNKNOW, 112, 285, AtomOccurence.SYNTHETIC),
+    NIHONIUM("Nh", AtomFamilies.UNKNOW, AtomType.UNKNOW, 113, 286, AtomOccurence.SYNTHETIC),
+    FLEROVIUM("Fl", AtomFamilies.UNKNOW, AtomType.UNKNOW, 114, 289, AtomOccurence.SYNTHETIC),
+    MOSCOVIUM("Mc", AtomFamilies.UNKNOW, AtomType.UNKNOW, 115, 290, AtomOccurence.SYNTHETIC),
+    LIVERMORIUM("Lv", AtomFamilies.UNKNOW, AtomType.UNKNOW, 116, 293, AtomOccurence.SYNTHETIC),
+    TENNESSINE("Ts", AtomFamilies.UNKNOW, AtomType.UNKNOW, 117, 294, AtomOccurence.SYNTHETIC),
+    OGANESSON("Og", AtomFamilies.UNKNOW, AtomType.UNKNOW, 118, 294, AtomOccurence.SYNTHETIC);
     // Source : https://en.wikipedia.org/wiki/Periodic_table.
 
+    private String symbol;
     private AtomFamilies atomFamily;
     private AtomType atomType;
     private int atomicNumber;
@@ -165,7 +166,8 @@ public enum Atoms {
     private AtomOccurence atomOccurence;
     private Isotope[] isotopes;
 
-    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, Isotope[] isotopes) {
+    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, Isotope[] isotopes) {
+        this.symbol = symbol;
         this.atomFamily = atomFamily;
         this.atomType = atomType;
         this.atomicNumber = atomicNumber;
@@ -174,7 +176,8 @@ public enum Atoms {
         this.isotopes = isotopes;
     }
 
-    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, Isotope[] isotopes) {
+    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass, Isotope[] isotopes) {
+        this.symbol = symbol;
         this.atomFamily = atomFamily;
         this.atomType = AtomType.SOLID;
         this.atomicNumber = atomicNumber;
@@ -183,7 +186,8 @@ public enum Atoms {
         this.isotopes = isotopes;
     }
 
-    Atoms(AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
+    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
+        this.symbol = symbol;
         this.atomFamily = atomFamily;
         this.atomType = atomType;
         this.atomicNumber = atomicNumber;
@@ -192,13 +196,50 @@ public enum Atoms {
         this.isotopes = isotopes;
     }
 
-    Atoms(AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
+    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
+        this.symbol = symbol;
         this.atomFamily = atomFamily;
         this.atomType = AtomType.SOLID;
         this.atomicNumber = atomicNumber;
         this.atomicMass = atomicMass;
         this.atomOccurence = atomOccurence;
         this.isotopes = isotopes;
+    }
+
+    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass) {
+        this.symbol = symbol;
+        this.atomFamily = atomFamily;
+        this.atomType = atomType;
+        this.atomicNumber = atomicNumber;
+        this.atomicMass = atomicMass;
+        this.atomOccurence = AtomOccurence.PRIMORDIAL;
+    }
+
+    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass) {
+        this.symbol = symbol;
+        this.atomFamily = atomFamily;
+        this.atomType = AtomType.SOLID;
+        this.atomicNumber = atomicNumber;
+        this.atomicMass = atomicMass;
+        this.atomOccurence = AtomOccurence.PRIMORDIAL;
+    }
+
+    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence) {
+        this.symbol = symbol;
+        this.atomFamily = atomFamily;
+        this.atomType = atomType;
+        this.atomicNumber = atomicNumber;
+        this.atomicMass = atomicMass;
+        this.atomOccurence = atomOccurence;
+    }
+
+    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence) {
+        this.symbol = symbol;
+        this.atomFamily = atomFamily;
+        this.atomType = AtomType.SOLID;
+        this.atomicNumber = atomicNumber;
+        this.atomicMass = atomicMass;
+        this.atomOccurence = atomOccurence;
     }
 
     public Isotope[] getIsotopes() {
@@ -230,7 +271,7 @@ public enum Atoms {
     }
 
     public String getSymbol() {
-        return "atom.molecularcraft." + name().toLowerCase() + ".symbol";
+        return symbol;
     }
 
 }

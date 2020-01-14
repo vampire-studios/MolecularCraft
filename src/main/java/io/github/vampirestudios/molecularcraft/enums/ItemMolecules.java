@@ -31,5 +31,9 @@ public class ItemMolecules {
                 new MoleculeStack(16, new Molecule(Atoms.HYDROGEN, 2), new Molecule(Atoms.OXYGEN)),
                 new MoleculeStack(48, new Molecule(Atoms.IRON))
         );
+        new ItemMolecules("minecraft:bucket",
+                new MoleculeStack(48, new Molecule(Atoms.IRON)));
+        new ItemMolecules("minecraft:iron_ingot",
+                new MoleculeStack(16, new Molecule(Atoms.IRON)));
     }
 }

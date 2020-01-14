@@ -11,10 +11,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class AtomMole extends Item {
+public class AtomItem extends Item {
     private Atoms atom;
 
-    public AtomMole(Atoms atom) {
+    public AtomItem(Atoms atom) {
         super(new Settings().maxCount(16).group(ItemGroup.BREWING));
         this.atom = atom;
     }
