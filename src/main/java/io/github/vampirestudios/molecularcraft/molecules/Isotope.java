@@ -32,6 +32,14 @@ public class Isotope {
         this.product = product;
     }
 
+    public Isotope(String atomName, int neutronNumber, int abundance, long halfLife, DecayMod decayMod) {
+        this.atomName = atomName;
+        this.neutronNumber = neutronNumber;
+        this.abundance = abundance;
+        this.halfLife = halfLife;
+        this.decayMod = decayMod;
+    }
+
     public String getAtomName() {
         return atomName;
     }
@@ -57,6 +65,6 @@ public class Isotope {
     }
 
     public enum DecayMod {
-        STABLE,BETA_MINUS,BETA_PLUS,ELECTRON_CAPTURE,GAMMA_RAY;
+        STABLE,BETA_MINUS,BETA_PLUS,DOUBLE_BETA_MINUS,DOUBLE_BETA_PLUS,ELECTRON_CAPTURE,GAMMA_RAY, INTERNAL_CONVERSION;
     }
 }
