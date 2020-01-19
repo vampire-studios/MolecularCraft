@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "io.github.vampirestudios.molecularcraft.MolecularCraft"
+    ],
+    "client": [
+      "io.github.vampirestudios.molecularcraft.MolecularCraftClient"
     ]
   },
   "mixins": [

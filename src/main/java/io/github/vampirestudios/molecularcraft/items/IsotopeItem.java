@@ -13,7 +13,7 @@ public class IsotopeItem extends Item {
     private Isotope isotope;
 
     public IsotopeItem(Isotope isotope) {
-        super(new Settings().maxCount(1).group(ItemGroup.FOOD));
+        super(new Settings().group(ItemGroup.FOOD));
         this.isotope = isotope;
     }
 

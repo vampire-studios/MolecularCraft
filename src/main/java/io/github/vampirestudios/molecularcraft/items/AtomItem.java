@@ -16,7 +16,7 @@ public class AtomItem extends Item {
     private Atoms atom;
 
     public AtomItem(Atoms atom) {
-        super(new Settings().maxCount(16).group(ItemGroup.BREWING));
+        super(new Settings().group(ItemGroup.BREWING));
         this.atom = atom;
     }
 
