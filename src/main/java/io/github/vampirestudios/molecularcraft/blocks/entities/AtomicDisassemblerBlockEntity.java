@@ -1,15 +1,25 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
+import com.google.common.collect.Lists;
 import io.github.vampirestudios.molecularcraft.container.ImplementedInventory;
+import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
+import java.util.List;
 
-public class AtomicDisassemblerBlockEntity extends BlockEntity implements ImplementedInventory {
+public class AtomicDisassemblerBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, Tickable {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(19, ItemStack.EMPTY);
 
     public AtomicDisassemblerBlockEntity() {
@@ -31,5 +41,95 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
     @Override
     public DefaultedList<ItemStack> getItems() {
         return items;
+    }
+
+    @Override
+    public boolean canInsertInvStack(int slot, ItemStack stack, Direction direction) {
+        return slot == 0 && stack.isItemEqual(getInvStack(0));
+    }
+
+    @Override
+    public boolean canExtractInvStack(int slot, ItemStack stack, Direction direction) {
+        return slot != 0;
+    }
+
+    @Override
+    public int[] getInvAvailableSlots(Direction side) {
+        // Just return an array of all slots
+        int[] result = new int[getItems().size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = i;
+        }
+
+        return result;
+    }
+
+    @Override
+    public int getInvMaxStackAmount() {
+        return 1024;
+    }
+
+    @Override
+    public void tick() {
+        if (!this.world.isClient) {
+            ItemStack firstSlotItemStack = getInvStack(0);
+            if (firstSlotItemStack.isEmpty()) return;
+
+            String id = Registry.ITEM.getId(firstSlotItemStack.getItem()).toString();
+            firstSlotItemStack.decrement(1);
+            for (ItemMolecules itemMolecule : ItemMolecules.registry) {
+                if (itemMolecule.getId().equals(id)) {
+                    List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+                    boolean[] booleans = new boolean[moleculeStackList.size()];
+                    for (int x = 0; x < booleans.length; x++)
+                        booleans[x] = false;
+                    for (int k = 1; k < getInvSize(); k++) {
+                        ItemStack itemStack = getInvStack(k);
+                        for (int g = 0; g < moleculeStackList.size(); g++) {
+                            if (booleans[g]) continue;
+                            ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
+                            if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
+                                moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+                                        new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
+                                        moleculeStackList.get(g).getAmount());
+                            }
+                            if (itemStack.isEmpty()) {
+                                setInvStack(k, moleculeStackItemStack);
+                                booleans[g] = true;
+                                break;
+                            } else {
+                                if (itemStack.isItemEqual(moleculeStackItemStack)) {
+                                    int amount = itemStack.getCount();
+                                    int count = moleculeStackItemStack.getCount();
+                                    int som = count + amount;
+//                                        if (som > 63) {
+//                                            System.out.println("I don't know what to do in this case");
+//                                            booleans[molamount] = false;
+//                                        } else {
+//                                            moleculeStackItemStack.setCount(som);
+//                                            setInvStack(k, moleculeStackItemStack);
+//                                            booleans[molamount] = true;
+//                                            break;
+//                                        }
+                                    moleculeStackItemStack.setCount(som);
+                                    setInvStack(k, moleculeStackItemStack);
+                                    booleans[g] = true;
+                                    break;
+                                } else {
+                                    booleans[g] = false;
+                                    continue;
+                                }
+                            }
+                        }
+                        boolean molboolean = true;
+                        for (boolean boo : booleans) {
+                            if (!boo) molboolean = false;
+                        }
+                        if (molboolean) break;
+                    }
+                break;
+                }
+            }
+        }
     }
 }
