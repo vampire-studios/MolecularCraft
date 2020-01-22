@@ -1,5 +1,8 @@
 {
   "item.molecularcraft.atom_mole": "Mole of Atom",
+  "item.molecularcraft.molecule_mole": "Mole of Molecule",
+
+  "molecule.molecularcraft.h2o1": "Water",
 
   "atom.molecularcraft.hydrogen.name": "Hydrogen",
   "atom.molecularcraft.helium.name": "Helium",

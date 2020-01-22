@@ -3,6 +3,7 @@ package io.github.vampirestudios.molecularcraft.molecules;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
+import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -72,5 +73,15 @@ public class MoleculeStack {
 
     public ItemStack getMoleculeStackItemStack() {
         return new ItemStack(this::getMoleculeStackItem, getAmount());
+    }
+
+    public String getFormula() {
+        StringBuilder string = new StringBuilder();
+
+        for (Molecule molecule : getMolecules()) {
+            string.append(molecule.getAtom().getSymbol()).append(molecule.getAmount());
+        }
+
+        return StringHelper.subscriptNumbers(string.toString());
     }
 }

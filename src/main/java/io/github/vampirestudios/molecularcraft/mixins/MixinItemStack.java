@@ -8,6 +8,7 @@ import io.github.vampirestudios.molecularcraft.items.IsotopeItem;
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
+import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import io.github.vampirestudios.molecularcraft.utils.TimeHelper;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -67,7 +68,7 @@ public class MixinItemStack implements IsotopeItemStackImpl {
                         int moleculeAmount = molecule.getAmount();
                         Atoms atom = molecule.getAtom();
                         builder.append(new TranslatableText(atom.getSymbol()).asString());
-                        if (moleculeAmount > 1) builder.append(molecularcraft_subscriptNumbers(Integer.toString(moleculeAmount)));
+                        if (moleculeAmount > 1) builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
                     }
                     builder.append(" ");
                 }
@@ -152,21 +153,6 @@ public class MixinItemStack implements IsotopeItemStackImpl {
 
 
         callbackInfo.setReturnValue(itemStack);
-    }
-
-    private String molecularcraft_subscriptNumbers(String string)
-    {
-        string = string.replace('0', '\u2080');
-        string = string.replace('1', '\u2081');
-        string = string.replace('2', '\u2082');
-        string = string.replace('3', '\u2083');
-        string = string.replace('4', '\u2084');
-        string = string.replace('5', '\u2085');
-        string = string.replace('6', '\u2086');
-        string = string.replace('7', '\u2087');
-        string = string.replace('8', '\u2088');
-        string = string.replace('9', '\u2089');
-        return string;
     }
 
     @Override
