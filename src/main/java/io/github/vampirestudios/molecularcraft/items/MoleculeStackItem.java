@@ -10,6 +10,7 @@ public class MoleculeStackItem extends Item {
     public MoleculeStackItem(MoleculeStack moleculeStack) {
         super(new Item.Settings().group(ItemGroup.COMBAT));
         this.moleculeStack = moleculeStack;
+        this.moleculeStack.setMoleculeStackItem(this);
     }
 
     public MoleculeStack getMoleculeStack() {

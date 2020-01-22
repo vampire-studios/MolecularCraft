@@ -62,6 +62,10 @@ public class MoleculeStack {
         return string.toString().toLowerCase();
     }
 
+    public void setMoleculeStackItem(MoleculeStackItem moleculeStackItem) {
+        this.moleculeStackItem = moleculeStackItem;
+    }
+
     public MoleculeStackItem getMoleculeStackItem() {
         return moleculeStackItem;
     }

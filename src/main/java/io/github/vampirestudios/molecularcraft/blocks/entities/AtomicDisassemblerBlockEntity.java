@@ -3,6 +3,8 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 import com.google.common.collect.Lists;
 import io.github.vampirestudios.molecularcraft.container.ImplementedInventory;
 import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
+import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
@@ -102,32 +104,69 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
                                     int amount = itemStack.getCount();
                                     int count = moleculeStackItemStack.getCount();
                                     int som = count + amount;
-//                                        if (som > 63) {
-//                                            System.out.println("I don't know what to do in this case");
-//                                            booleans[molamount] = false;
-//                                        } else {
-//                                            moleculeStackItemStack.setCount(som);
-//                                            setInvStack(k, moleculeStackItemStack);
-//                                            booleans[molamount] = true;
-//                                            break;
-//                                        }
                                     moleculeStackItemStack.setCount(som);
                                     setInvStack(k, moleculeStackItemStack);
                                     booleans[g] = true;
                                     break;
                                 } else {
                                     booleans[g] = false;
-                                    continue;
                                 }
                             }
                         }
                         boolean molboolean = true;
                         for (boolean boo : booleans) {
-                            if (!boo) molboolean = false;
+                            if (!boo) {
+                                molboolean = false;
+                                break;
+                            }
                         }
                         if (molboolean) break;
                     }
                 break;
+                }
+            }
+
+            if (firstSlotItemStack.getItem() instanceof MoleculeStackItem) {
+                MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
+                MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
+                List<Molecule> moleculeList = moleculeStack.getMolecules();
+                boolean[] booleans = new boolean[moleculeList.size()];
+                for (int x = 0; x < booleans.length; x++)
+                    booleans[x] = false;
+                for (int k = 0; k < getInvSize(); k++) {
+                    ItemStack itemStack = getInvStack(k);
+                    for (int g = 0; g < moleculeList.size(); g++) {
+                        if (booleans[g]) continue;
+                        ItemStack moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+                                    new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
+                                    moleculeList.get(g).getAmount() * moleculeStack.getAmount());
+                        if (itemStack.isEmpty()) {
+                            setInvStack(k, moleculeStackItemStack);
+                            booleans[g] = true;
+                            break;
+                        } else {
+                            if (itemStack.isItemEqual(moleculeStackItemStack)) {
+                                int amount = itemStack.getCount();
+                                int count = moleculeStackItemStack.getCount();
+                                int som = count + amount;
+                                moleculeStackItemStack.setCount(som);
+                                setInvStack(k, moleculeStackItemStack);
+                                booleans[g] = true;
+                                break;
+                            } else {
+                                booleans[g] = false;
+                            }
+                        }
+                    }
+
+                    boolean molboolean = true;
+                    for (boolean boo : booleans) {
+                        if (!boo) {
+                            molboolean = false;
+                            break;
+                        }
+                    }
+                    if (molboolean) break;
                 }
             }
         }
