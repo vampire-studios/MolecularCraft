@@ -47,7 +47,7 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
 
     @Override
     public boolean canInsertInvStack(int slot, ItemStack stack, Direction direction) {
-        return slot == 0 && stack.isItemEqual(getInvStack(0));
+        return slot == 0;
     }
 
     @Override
@@ -78,7 +78,6 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
             if (firstSlotItemStack.isEmpty()) return;
 
             String id = Registry.ITEM.getId(firstSlotItemStack.getItem()).toString();
-            firstSlotItemStack.decrement(1);
             for (ItemMolecules itemMolecule : ItemMolecules.registry) {
                 if (itemMolecule.getId().equals(id)) {
                     List<MoleculeStack> moleculeStackList = itemMolecule.getList();
@@ -122,7 +121,8 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
                         }
                         if (molboolean) break;
                     }
-                break;
+                    firstSlotItemStack.decrement(1);
+                    break;
                 }
             }
 
@@ -139,7 +139,7 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
                         if (booleans[g]) continue;
                         ItemStack moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
                                     new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
-                                    moleculeList.get(g).getAmount() * moleculeStack.getAmount());
+                                    moleculeList.get(g).getAmount());
                         if (itemStack.isEmpty()) {
                             setInvStack(k, moleculeStackItemStack);
                             booleans[g] = true;
@@ -168,7 +168,14 @@ public class AtomicDisassemblerBlockEntity extends BlockEntity implements Implem
                     }
                     if (molboolean) break;
                 }
+                firstSlotItemStack.decrement(1);
             }
         }
+    }
+
+    @Override
+    public boolean isValidInvStack(int slot, ItemStack stack) {
+        return slot == 0 && (stack.getItem() instanceof MoleculeStackItem
+                || ItemMolecules.items.contains(Registry.ITEM.getId(stack.getItem()).toString()));
     }
 }

@@ -13,6 +13,7 @@ import static io.github.vampirestudios.molecularcraft.enums.Atoms.*;
 public class ItemMolecules {
 
     public static List<ItemMolecules> registry = new ArrayList<>();
+    public static List<String> items = new ArrayList<>();
 
     private String id;
     private List<MoleculeStack> list;
@@ -21,6 +22,7 @@ public class ItemMolecules {
         this.id = id;
         this.list = Arrays.asList(stack);
         registry.add(this);
+        items.add(this.id);
     }
 
     public String getId() {
