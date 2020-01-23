@@ -1,6 +1,5 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
-import com.google.common.collect.Lists;
 import io.github.vampirestudios.molecularcraft.container.ImplementedInventory;
 import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
@@ -8,7 +7,6 @@ import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
@@ -21,11 +19,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import java.util.List;
 
-public class AtomicDisassemblerBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, Tickable {
+public class DisassemblerBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, Tickable {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(19, ItemStack.EMPTY);
 
-    public AtomicDisassemblerBlockEntity() {
-        super(ModBlockEntities.atomicDisassemblerBlockEntityBlockEntityType);
+    public DisassemblerBlockEntity() {
+        super(ModBlockEntities.disassemblerBlockEntityBlockEntityType);
     }
 
     @Override

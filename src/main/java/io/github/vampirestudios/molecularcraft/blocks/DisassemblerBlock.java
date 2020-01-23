@@ -1,14 +1,10 @@
 package io.github.vampirestudios.molecularcraft.blocks;
 
-import io.github.vampirestudios.molecularcraft.blocks.entities.AtomicDisassemblerBlockEntity;
+import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.network.ClientDummyContainerProvider;
-import net.minecraft.container.BlockContext;
-import net.minecraft.container.NameableContainerProvider;
-import net.minecraft.container.StonecutterContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
@@ -22,18 +18,18 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class AtomicDisassemblerBlock extends BlockWithEntity {
-    private static final TranslatableText CONTAINER_NAME = new TranslatableText("container.stonecutter", new Object[0]);
+public class DisassemblerBlock extends BlockWithEntity {
+    public static final TranslatableText CONTAINER_NAME = new TranslatableText("container.molecularcraft.disassembler");
     public static final DirectionProperty FACING;
 
-    public AtomicDisassemblerBlock() {
+    public DisassemblerBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
         this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.NORTH));
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockView blockView) {
-        return new AtomicDisassemblerBlockEntity();
+        return new DisassemblerBlockEntity();
     }
 
     @Override
@@ -41,12 +37,17 @@ public class AtomicDisassemblerBlock extends BlockWithEntity {
         if (world.isClient) return ActionResult.PASS;
 
         BlockEntity be = world.getBlockEntity(pos);
-        if (be instanceof AtomicDisassemblerBlockEntity) {
+        if (be instanceof DisassemblerBlockEntity) {
             ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:disassembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         }
 
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
