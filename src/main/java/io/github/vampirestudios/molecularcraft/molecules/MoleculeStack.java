@@ -22,6 +22,11 @@ public class MoleculeStack {
         this.molecules.addAll(Arrays.asList(molecules));
     }
 
+    public MoleculeStack(int amount, List<Molecule> list) {
+        this.amount = amount;
+        this.molecules = list;
+    }
+
     public MoleculeStack(MoleculesAmountHelper.MoleculeAmountUnit amountUnit, Molecule... molecules) {
         this.amount = amountUnit.getAmount();
         this.molecules.addAll(Arrays.asList(molecules));
@@ -41,8 +46,7 @@ public class MoleculeStack {
     }
 
     public MoleculeStack setAmount(int amount) {
-        this.amount = amount;
-        return this;
+        return new MoleculeStack(amount, getMolecules());
     }
 
     public int getAmount() {

@@ -83,7 +83,7 @@ public class ItemMolecules {
                 new MoleculeStack(new MoleculeAmount(4, INGOT), ironMolecule));
 
         new ItemMolecules("minecraft:acacia_log",
-                new MoleculeStack(new MoleculeAmount(4, BLOCK), celluloseMolecule));
+                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
 
         new ItemMolecules("minecraft:acacia_planks",
                 new MoleculeStack(new MoleculeAmount(9, INGOT), celluloseMolecule));
