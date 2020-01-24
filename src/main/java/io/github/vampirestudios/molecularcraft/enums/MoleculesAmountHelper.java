@@ -25,8 +25,8 @@ public class MoleculesAmountHelper {
     }
 
     public static class MoleculeAmount {
-        int amount;
-        MoleculeAmountUnit moleculeAmountUnit;
+        private int amount;
+        private MoleculeAmountUnit moleculeAmountUnit;
 
         public MoleculeAmount(int amount, MoleculeAmountUnit moleculeAmountUnit) {
             this.amount = amount;
