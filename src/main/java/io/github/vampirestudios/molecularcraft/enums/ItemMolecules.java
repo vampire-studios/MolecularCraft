@@ -165,5 +165,47 @@ public class ItemMolecules {
 
         new ItemMolecules("minecraft:oak_wood",
                 new MoleculeStack(new MoleculeAmount(82, NUGGET), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_log",
+                new MoleculeStack(new MoleculeAmount(4, BLOCK), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_planks",
+                new MoleculeStack(new MoleculeAmount(9, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_button",
+                new MoleculeStack(new MoleculeAmount(2, NUGGET), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_door",
+                new MoleculeStack(new MoleculeAmount(6, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_slab",
+                new MoleculeStack(new MoleculeAmount(2, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_stairs",
+                new MoleculeStack(new MoleculeAmount(6, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_pressure_plate",
+                new MoleculeStack(new MoleculeAmount(2, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_button",
+                new MoleculeStack(new MoleculeAmount(4, NUGGET), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_boat",
+                new MoleculeStack(new MoleculeAmount(5, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_fence",
+                new MoleculeStack(new MoleculeAmount(64, NUGGET), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_fence_gate",
+                new MoleculeStack(new MoleculeAmount(64, NUGGET), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_leaves",
+                new MoleculeStack(new MoleculeAmount(27, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_sapling",
+                new MoleculeStack(new MoleculeAmount(6, INGOT), celluloseMolecule));
+
+        new ItemMolecules("minecraft:birch_wood",
+                new MoleculeStack(new MoleculeAmount(82, NUGGET), celluloseMolecule));
     }
 }
