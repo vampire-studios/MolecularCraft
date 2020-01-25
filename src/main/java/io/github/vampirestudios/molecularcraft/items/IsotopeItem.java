@@ -3,11 +3,17 @@ package io.github.vampirestudios.molecularcraft.items;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.impl.IsotopeItemStackImpl;
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class IsotopeItem extends Item {
     private Isotope isotope;
@@ -29,5 +35,23 @@ public class IsotopeItem extends Item {
 
     public Isotope getIsotope() {
         return isotope;
+    }
+
+    @Override
+    public Text getName() {
+        return new TranslatableText("item.molecularcraft.isotope_mole");
+    }
+
+    @Override
+    public Text getName(ItemStack itemStack) {
+        return new TranslatableText("item.molecularcraft.isotope_mole");
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        Atoms atom = Atoms.valueOf(this.isotope.getAtomName().toUpperCase());
+        String atomName = new TranslatableText(atom.getTranslatableName()).asString();
+        tooltip.add(new LiteralText(atomName + " " + (atom.getAtomicNumber() + this.isotope.getNeutronNumber())));
     }
 }

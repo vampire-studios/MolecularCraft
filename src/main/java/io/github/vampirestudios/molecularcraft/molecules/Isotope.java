@@ -40,6 +40,19 @@ public class Isotope {
         this.decayMod = decayMod;
     }
 
+    public Isotope(String atomName, int neutronNumber, DecayMod decayMod, Isotope isotope) {
+        this.atomName = atomName;
+        this.neutronNumber = neutronNumber;
+        this.decayMod = decayMod;
+        this.product = isotope;
+    }
+
+    public Isotope(String atomName, int neutronNumber, DecayMod decayMod) {
+        this.atomName = atomName;
+        this.neutronNumber = neutronNumber;
+        this.decayMod = decayMod;
+    }
+
     public String getAtomName() {
         return atomName;
     }

@@ -46,8 +46,8 @@ public class MixinItemStack implements IsotopeItemStackImpl {
                         System.out.println("-");
                         System.out.println(isotopeItem.getIsotope().getHalfLife());
                         System.out.println("- -");
-                        System.out.println((isotopeItem.getIsotope().getHalfLife() / 1000) * 2 * 20);
-                        this.life = (isotopeItem.getIsotope().getHalfLife() / 1000) * 2 * 20;
+                        System.out.println((isotopeItem.getIsotope().getHalfLife() / 1000) * 20);
+                        this.life = (isotopeItem.getIsotope().getHalfLife() / 1000) * 20;
                     }
                 }
             }

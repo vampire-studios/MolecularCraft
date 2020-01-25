@@ -21,7 +21,7 @@ public class AssemblerContainer extends CottonCraftingController {
         setRootPanel(wGridPanel);
         wGridPanel.setSize(150, 180);
 
-        WTextField containerName = new WTextField(AssemblerBlock.CONTAINER_NAME);
+        WTitle containerName = new WTitle(AssemblerBlock.CONTAINER_NAME);
         wGridPanel.add(containerName, 5, 0);
 
         int c = 0;
