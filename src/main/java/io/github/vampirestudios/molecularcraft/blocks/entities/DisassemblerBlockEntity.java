@@ -5,6 +5,7 @@ import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
+import io.github.vampirestudios.molecularcraft.recipes.DisassemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -17,6 +18,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
+
 import java.util.List;
 
 public class DisassemblerBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, Tickable {
@@ -71,109 +74,17 @@ public class DisassemblerBlockEntity extends BlockEntity implements ImplementedI
 
     @Override
     public void tick() {
-        if (!this.world.isClient) {
-            ItemStack firstSlotItemStack = getInvStack(0);
-            if (firstSlotItemStack.isEmpty()) return;
-
-            String id = Registry.ITEM.getId(firstSlotItemStack.getItem()).toString();
-            for (ItemMolecules itemMolecule : ItemMolecules.registry) {
-                if (itemMolecule.getId().equals(id)) {
-                    List<MoleculeStack> moleculeStackList = itemMolecule.getList();
-                    boolean[] booleans = new boolean[moleculeStackList.size()];
-                    for (int x = 0; x < booleans.length; x++)
-                        booleans[x] = false;
-                    for (int k = 1; k < getInvSize(); k++) {
-                        ItemStack itemStack = getInvStack(k);
-                        for (int g = 0; g < moleculeStackList.size(); g++) {
-                            if (booleans[g]) continue;
-                            ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
-                            if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
-                                moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                                        new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
-                                        moleculeStackList.get(g).getAmount());
-                            }
-                            if (itemStack.isEmpty()) {
-                                setInvStack(k, moleculeStackItemStack);
-                                booleans[g] = true;
-                                break;
-                            } else {
-                                if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                                    int amount = itemStack.getCount();
-                                    int count = moleculeStackItemStack.getCount();
-                                    int som = count + amount;
-                                    moleculeStackItemStack.setCount(som);
-                                    setInvStack(k, moleculeStackItemStack);
-                                    booleans[g] = true;
-                                    break;
-                                } else {
-                                    booleans[g] = false;
-                                }
-                            }
-                        }
-                        boolean molboolean = true;
-                        for (boolean boo : booleans) {
-                            if (!boo) {
-                                molboolean = false;
-                                break;
-                            }
-                        }
-                        if (molboolean) break;
-                    }
-                    firstSlotItemStack.decrement(1);
-                    break;
-                }
-            }
-
-            if (firstSlotItemStack.getItem() instanceof MoleculeStackItem) {
-                MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
-                MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
-                List<Molecule> moleculeList = moleculeStack.getMolecules();
-                boolean[] booleans = new boolean[moleculeList.size()];
-                for (int x = 0; x < booleans.length; x++)
-                    booleans[x] = false;
-                for (int k = 0; k < getInvSize(); k++) {
-                    ItemStack itemStack = getInvStack(k);
-                    for (int g = 0; g < moleculeList.size(); g++) {
-                        if (booleans[g]) continue;
-                        ItemStack moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                                    new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
-                                    moleculeList.get(g).getAmount());
-                        if (itemStack.isEmpty()) {
-                            setInvStack(k, moleculeStackItemStack);
-                            booleans[g] = true;
-                            break;
-                        } else {
-                            if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                                int amount = itemStack.getCount();
-                                int count = moleculeStackItemStack.getCount();
-                                int som = count + amount;
-                                moleculeStackItemStack.setCount(som);
-                                setInvStack(k, moleculeStackItemStack);
-                                booleans[g] = true;
-                                break;
-                            } else {
-                                booleans[g] = false;
-                            }
-                        }
-                    }
-
-                    boolean molboolean = true;
-                    for (boolean boo : booleans) {
-                        if (!boo) {
-                            molboolean = false;
-                            break;
-                        }
-                    }
-                    if (molboolean) break;
-                }
-                firstSlotItemStack.decrement(1);
-            }
-        }
+        DisassemblerRecipeManager.tick(this);
     }
 
     @Override
     public boolean isValidInvStack(int slot, ItemStack stack) {
         return slot == 0 && (stack.getItem() instanceof MoleculeStackItem
                 || ItemMolecules.items.contains(Registry.ITEM.getId(stack.getItem()).toString()));
+    }
+
+    @Override
+    public World getWorld() {
+        return super.getWorld();
     }
 }

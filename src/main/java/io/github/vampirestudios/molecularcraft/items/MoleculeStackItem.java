@@ -42,4 +42,8 @@ public class MoleculeStackItem extends Item {
                 new TranslatableText("molecule.molecularcraft." + this.getMoleculeStack().getRegistryName()).asString()
                         + " (" + this.getMoleculeStack().getFormula() + ")"));
     }
+
+    public void setMoleculeStack(MoleculeStack moleculeStack) {
+        this.moleculeStack = moleculeStack;
+    }
 }
