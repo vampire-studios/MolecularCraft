@@ -1,9 +1,7 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
-import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper.MoleculeAmount;
-import net.minecraft.item.Item;
 
 import java.util.*;
 
