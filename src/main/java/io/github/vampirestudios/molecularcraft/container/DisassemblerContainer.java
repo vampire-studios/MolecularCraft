@@ -1,10 +1,7 @@
 package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.cottonmc.cotton.gui.CottonCraftingController;
-import io.github.cottonmc.cotton.gui.widget.WGridPanel;
-import io.github.cottonmc.cotton.gui.widget.WItemSlot;
-import io.github.cottonmc.cotton.gui.widget.WTextField;
-import io.github.cottonmc.cotton.gui.widget.WTitle;
+import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.vampirestudios.molecularcraft.blocks.DisassemblerBlock;
 import net.minecraft.container.BlockContext;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,7 +16,7 @@ public class DisassemblerContainer extends CottonCraftingController {
         setRootPanel(wGridPanel);
         wGridPanel.setSize(150, 180);
 
-        WTitle containerName = new WTitle(DisassemblerBlock.CONTAINER_NAME);
+        WLabel containerName = new WLabel(DisassemblerBlock.CONTAINER_NAME.asString());
         wGridPanel.add(containerName, 5, 0);
 
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);

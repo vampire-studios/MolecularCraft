@@ -13,26 +13,33 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHandler;
 
 import java.util.List;
 import java.util.Random;
 
 public class DisassemblerRecipeManager {
 
+    private static long consumption = 210;
+
+
     public static void tick(DisassemblerBlockEntity disassemblerBlockEntity) {
         if (!disassemblerBlockEntity.getWorld().isClient) {
+            EnergyHandler handler = Energy.of(disassemblerBlockEntity);
+            if (handler.getEnergy() < consumption) return;
             ItemStack firstSlotItemStack = disassemblerBlockEntity.getInvStack(0);
             if (firstSlotItemStack.isEmpty()) return;
 
             if (firstSlotItemStack.getItem() instanceof MoleculeStackItem) {
-                stackToMolecule(disassemblerBlockEntity, firstSlotItemStack);
+                stackToMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
             } else {
-                itemToStackAndMolecule(disassemblerBlockEntity, firstSlotItemStack);
+                itemToStackAndMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
             }
         }
     }
 
-    public static void itemToStackAndMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack) {
+    public static void itemToStackAndMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler) {
         String id = Registry.ITEM.getId(firstSlotItemStack.getItem()).toString();
         for (ItemMolecules itemMolecule : ItemMolecules.registry) {
             if (itemMolecule.getId().equals(id)) {
@@ -78,12 +85,13 @@ public class DisassemblerRecipeManager {
                     if (molboolean) break;
                 }
                 firstSlotItemStack.decrement(1);
+                handler.use(moleculeStackList.size() * consumption);
                 break;
             }
         }
     }
 
-    private static void stackToMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack) {
+    private static void stackToMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler energyHandler) {
         MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
         MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
         List<Molecule> moleculeList = moleculeStack.getMolecules();
@@ -98,29 +106,29 @@ public class DisassemblerRecipeManager {
                 Molecule molecule = moleculeList.get(g);
                 Atoms atom = molecule.getAtom();
                 ItemStack moleculeStackItemStack = null;
-                if (atom.getIsotopes() != null) {
-
-                    Isotope[] isotopes = atom.getIsotopes();
-                    float rand = new Random().nextFloat() * 100F;
-                    float abundance = 0.0F;
-                    for (int a = 0; a < isotopes.length; a++) {
-                        if (isotopes[a].getAbundance() == 0.00F || isotopes[a].getAbundance() == -1F) continue;
-                        abundance = abundance + isotopes[a].getAbundance();
-                        if (rand < abundance) {
-                            moleculeStackItemStack = new ItemStack(
-                                    Registry.ITEM.get(new Identifier("molecularcraft", "isotope_" + atom.getSymbol().toLowerCase() + "_" + a)),
-                                    molecule.getAmount()
-                            );
-                            break;
-                        }
-
-                    }
-
-                } else {
+//                if (atom.getIsotopes() != null) {
+//
+//                    Isotope[] isotopes = atom.getIsotopes();
+//                    float rand = new Random().nextFloat() * 100F;
+//                    float abundance = 0.0F;
+//                    for (int a = 0; a < isotopes.length; a++) {
+//                        if (isotopes[a].getAbundance() == 0.00F || isotopes[a].getAbundance() == -1F) continue;
+//                        abundance = abundance + isotopes[a].getAbundance();
+//                        if (rand < abundance) {
+//                            moleculeStackItemStack = new ItemStack(
+//                                    Registry.ITEM.get(new Identifier("molecularcraft", "isotope_" + atom.getSymbol().toLowerCase() + "_" + a)),
+//                                    molecule.getAmount()
+//                            );
+//                            break;
+//                        }
+//
+//                    }
+//
+//                } else {
                     moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
                         new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
                         moleculeList.get(g).getAmount());
-                }
+//                }
 
 
                 if (itemStack.isEmpty()) {
@@ -128,7 +136,6 @@ public class DisassemblerRecipeManager {
                     booleans[g] = true;
                     break;
                 } else {
-                    assert moleculeStackItemStack != null;
                     if (itemStack.isItemEqual(moleculeStackItemStack)) {
                         int amount = itemStack.getCount();
                         int count = moleculeStackItemStack.getCount();
@@ -153,5 +160,6 @@ public class DisassemblerRecipeManager {
             if (molboolean) break;
         }
         firstSlotItemStack.decrement(1);
+        energyHandler.use(moleculeList.size() * consumption);
     }
 }

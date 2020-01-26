@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.2.6-SNAPSHOT'
 	id 'maven-publish'
+	id "com.wynprice.cursemaven" version "2.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -14,6 +15,10 @@ repositories {
 	maven {
 		name = "CottonMC"
 		url = "http://server.bbkr.space:8081/artifactory/libs-release"
+	}
+	maven {
+		name = "Modmuss50"
+		url = "https://maven.modmuss50.me/"
 	}
 }
 
@@ -33,6 +38,12 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 	modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
 	include "io.github.cottonmc:LibGui:${project.libgui_version}"
+
+	compile 'teamreborn:energy:+'
+	include 'teamreborn:energy:+'
+
+	modCompile "curse.maven:techreborn:2865199"
+	modCompile "curse.maven:reborncore:2865196"
 }
 
 processResources {
