@@ -19,7 +19,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class DisassemblerBlock extends BlockWithEntity {
-    public static final TranslatableText CONTAINER_NAME = new TranslatableText("container.molecularcraft.disassembler");
     public static final DirectionProperty FACING;
 
     public DisassemblerBlock() {

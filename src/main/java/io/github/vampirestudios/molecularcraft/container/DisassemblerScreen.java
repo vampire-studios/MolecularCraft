@@ -7,4 +7,10 @@ public class DisassemblerScreen extends CottonInventoryScreen<DisassemblerContai
     public DisassemblerScreen(DisassemblerContainer container, PlayerEntity player) {
         super(container, player);
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.container.tick();
+    }
 }
