@@ -20,6 +20,10 @@ repositories {
 		name = "Modmuss50"
 		url = "https://maven.modmuss50.me/"
 	}
+	maven {
+		name = "GitHub"
+		url "https://jitpack.io"
+	}
 }
 
 minecraft {
@@ -34,10 +38,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
-	modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
-	include "io.github.cottonmc:LibGui:${project.libgui_version}"
+
+	// Spinnery
+	modCompile "com.github.vini2003:Spinnery:${project.spinnery_version}"
+	include "com.github.vini2003:Spinnery:${project.spinnery_version}"
 
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
