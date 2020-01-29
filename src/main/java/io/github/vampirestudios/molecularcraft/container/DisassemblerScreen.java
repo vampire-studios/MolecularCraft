@@ -1,16 +1,45 @@
 package io.github.vampirestudios.molecularcraft.container;
 
-import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import spinnery.common.BaseContainer;
+import spinnery.common.BaseContainerScreen;
+import spinnery.widget.*;
 
-public class DisassemblerScreen extends CottonInventoryScreen<DisassemblerContainer> {
-    public DisassemblerScreen(DisassemblerContainer container, PlayerEntity player) {
-        super(container, player);
-    }
+public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContainer> {
+    public DisassemblerScreen(DisassemblerContainer linkedContainer, PlayerEntity player, BlockPos pos) {
+        super(new LiteralText(""), linkedContainer, player);
 
-    @Override
-    public void tick() {
-        super.tick();
-        this.container.tick();
+        WInterface mainInterface = new WInterface(WPosition.of(WType.FREE, 0, 0, 0), WSize.of(170, 180), linkedContainer);
+
+        mainInterface.setLabel(new LiteralText("Disassembler"));
+
+        mainInterface.center();
+
+        getHolder().add(mainInterface);
+
+        WSlot.addPlayerInventory(WSize.of(18, 18), mainInterface, BaseContainer.PLAYER_INVENTORY);
+
+        WSlot.addArray(WPosition.of(WType.ANCHORED, 75, 22, 0, mainInterface), WSize.of(18, 18), mainInterface, 0, 1, 1, 1);
+
+        WSlot.addArray(WPosition.of(WType.ANCHORED, 4, 50, 0, mainInterface), WSize.of(18, 18), mainInterface, 1, 1, 9, 2);
+
+        for (WWidget widget : mainInterface.getWidgets()) {
+            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
+                ((WSlot) widget).setOverrideMaximumCount(true);
+                ((WSlot) widget).setMaximumCount(1024);
+            }
+        }
     }
+//    public DisassemblerScreen(DisassemblerContainer container, PlayerEntity player) {
+//        super(container, player);
+//    }
+
+//    @Override
+//    public void tick() {
+//        super.tick();
+//        this.container.tick();
+//    }
 }
