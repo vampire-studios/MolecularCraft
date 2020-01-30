@@ -46,8 +46,8 @@ dependencies {
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
 
-	modCompile "curse.maven:techreborn:2865199"
-	modCompile "curse.maven:reborncore:2865196"
+//	modCompile "curse.maven:techreborn:2865199"
+//	modCompile "curse.maven:reborncore:2865196"
 }
 
 processResources {

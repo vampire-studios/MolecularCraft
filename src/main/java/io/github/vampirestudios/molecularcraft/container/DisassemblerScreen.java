@@ -33,9 +33,6 @@ public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContaine
             }
         }
     }
-//    public DisassemblerScreen(DisassemblerContainer container, PlayerEntity player) {
-//        super(container, player);
-//    }
 
 //    @Override
 //    public void tick() {

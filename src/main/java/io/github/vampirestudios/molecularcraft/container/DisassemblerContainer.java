@@ -5,6 +5,7 @@ import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlock
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.BlockContext;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
@@ -45,7 +46,7 @@ public class DisassemblerContainer extends BaseContainer {
         }
     }
 
-//    public DisassemblerContainer(int syncId, PlayerInventory playerInventory, BlockContext context) {
+    //    public DisassemblerContainer(int syncId, PlayerInventory playerInventory, BlockContext context) {
 //        super(RecipeType.STONECUTTING, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
 //
 //        this.context = context;

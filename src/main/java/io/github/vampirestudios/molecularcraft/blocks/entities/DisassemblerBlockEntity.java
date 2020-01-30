@@ -1,25 +1,12 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
-import io.github.vampirestudios.molecularcraft.MolecularCraft;
-import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
-import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.recipes.DisassemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import spinnery.common.BaseInventory;
 import spinnery.util.InventoryUtilities;
@@ -27,10 +14,7 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-import java.util.stream.Stream;
-
 public class DisassemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, BlockEntityClientSerializable {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(19, ItemStack.EMPTY);
     private double energy;
     public BaseInventory inventory = new BaseInventory(19);
 
@@ -123,5 +107,17 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
         tag = InventoryUtilities.write(this.inventory);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
+    }
+
+    public int getInvSize() {
+        return this.inventory.getInvSize();
+    }
+
+    public ItemStack getInvStack(int k) {
+        return this.inventory.getInvStack(k);
+    }
+
+    public void setInvStack(int k, ItemStack itemStack) {
+        this.inventory.setInvStack(k, itemStack);
     }
 }
