@@ -14,16 +14,16 @@ public class ModItems {
         for (Atoms atom : Atoms.values()) {
             Item item = new AtomItem(atom);
             Registry.register(Registry.ITEM, new Identifier("molecularcraft", atom.getSymbol().toLowerCase()), item);
-            if (atom.getIsotopes() != null) {
-                int num = 0;
-                for (Isotope isotope : atom.getIsotopes()) {
-                    Item isotopeItem = new IsotopeItem(isotope);
-                    Registry.register(Registry.ITEM,
-                            new Identifier("molecularcraft:isotope_" + atom.getSymbol().toLowerCase() + "_" + num),
-                            isotopeItem);
-                    num++;
-                }
-            }
+//            if (atom.getIsotopes() != null) {
+//                int num = 0;
+//                for (Isotope isotope : atom.getIsotopes()) {
+//                    Item isotopeItem = new IsotopeItem(isotope);
+//                    Registry.register(Registry.ITEM,
+//                            new Identifier("molecularcraft:isotope_" + atom.getSymbol().toLowerCase() + "_" + num),
+//                            isotopeItem);
+//                    num++;
+//                }
+//            }
         }
     }
 }
