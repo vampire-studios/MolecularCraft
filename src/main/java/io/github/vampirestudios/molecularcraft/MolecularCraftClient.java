@@ -1,11 +1,16 @@
 package io.github.vampirestudios.molecularcraft;
 
+import com.swordglowsblue.artifice.api.Artifice;
 import io.github.vampirestudios.molecularcraft.container.DisassemblerContainer;
 import io.github.vampirestudios.molecularcraft.container.DisassemblerScreen;
+import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+
+import static io.github.vampirestudios.molecularcraft.MolecularCraft.MODID;
 
 public class MolecularCraftClient implements ClientModInitializer {
     @Override
@@ -17,18 +22,28 @@ public class MolecularCraftClient implements ClientModInitializer {
         });
 //        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:assembler"),
 //                (syncId, id, player, buf) -> new AssemblerScreen(new AssemblerContainer(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())),player));
-//
-//        ClientSidePacketRegistry.INSTANCE.register(MolecularCraft.DISASSEMBLER_ENERGY_UPDATE_PACKET_ID,
-//                (packetContext, attachedData) -> {
-//                    BlockPos blockPos = attachedData.readBlockPos();
-//                    double energy = attachedData.readDouble();
-//                    packetContext.getTaskQueue().execute(() -> {
-//                        World world = packetContext.getPlayer().world;
-//                        BlockEntity blockEntity = world.getBlockEntity(blockPos);
-//                        if (blockEntity instanceof DisassemblerBlockEntity) {
-//                            ((DisassemblerBlockEntity)blockEntity).setStored(energy);
-//                        }
-//                    });
-//                });
+
+        Artifice.registerAssets(id("assets").toString(), clientResourcePackBuilder -> {
+            for (Atoms atom : Atoms.values()) {
+                clientResourcePackBuilder.addItemModel(id(atom.getSymbol().toLowerCase()), modelBuilder -> {
+                    modelBuilder.parent(id("minecraft", "item/generated"));
+                    modelBuilder.texture("layer0", id("items/atom"));
+                });
+            }
+            for (String identifier : Molecules.identifiers) {
+                clientResourcePackBuilder.addItemModel(id(identifier), modelBuilder -> {
+                    modelBuilder.parent(id("minecraft", "item/generated"));
+                    modelBuilder.texture("layer0", id("items/molecule"));
+                });
+            }
+        });
+    }
+
+    public static Identifier id(String path) {
+        return id(MODID, path);
+    }
+
+    public static Identifier id(String modID, String path) {
+        return new Identifier(modID, path);
     }
 }

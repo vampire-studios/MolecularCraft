@@ -24,6 +24,7 @@ repositories {
 		name = "GitHub"
 		url "https://jitpack.io"
 	}
+	jcenter()
 }
 
 minecraft {
@@ -43,8 +44,13 @@ dependencies {
 	modCompile "com.github.vini2003:Spinnery:${project.spinnery_version}"
 	include "com.github.vini2003:Spinnery:${project.spinnery_version}"
 
+	// Energy API
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
+
+	// Artifice
+	modImplementation "com.lettuce.fudge:artifice:0.6.0+1.15.2"
+	include "com.lettuce.fudge:artifice:0.6.0+1.15.2"
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"

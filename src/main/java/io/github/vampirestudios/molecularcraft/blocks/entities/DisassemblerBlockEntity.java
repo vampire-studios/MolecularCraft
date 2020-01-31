@@ -56,21 +56,6 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
     @Override
     public void setStored(double amount) {
         this.energy = amount;
-//        if (this.world != null) {
-//            if (!this.world.isClient) {
-//                Stream<PlayerEntity> watchingPlayers = PlayerStream.watching(this.getWorld(), this.getPos());
-//                // Look at the other methods of `PlayerStream` to capture different groups of players.
-//
-//                // We'll get to this later
-//                PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-//                passedData.writeBlockPos(this.getPos());
-//                passedData.writeDouble(this.energy);
-//
-//                // Then we'll send the packet to all the players
-//                watchingPlayers.forEach(player ->
-//                        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MolecularCraft.DISASSEMBLER_ENERGY_UPDATE_PACKET_ID, passedData));
-//            }
-//        }
     }
 
     @Override

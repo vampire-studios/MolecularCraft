@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
@@ -45,6 +46,7 @@ public class MoleculeStack {
         this.moleculeStackItem = Registry.register(Registry.ITEM,
                 new Identifier("molecularcraft", getRegistryName()),
                 new MoleculeStackItem(this));
+        Molecules.identifiers.add(getRegistryName());
     }
 
     public MoleculeStack setAmount(int amount) {
