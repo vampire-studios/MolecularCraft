@@ -26,7 +26,7 @@ public class DisassemblerRecipeManager {
 
     public static void tick(DisassemblerBlockEntity disassemblerBlockEntity) {
         EnergyHandler handler = Energy.of(disassemblerBlockEntity);
-//        if (handler.getEnergy() < consumption) return;
+        if (handler.getEnergy() < consumption) return;
         ItemStack firstSlotItemStack = disassemblerBlockEntity.getInvStack(0);
         if (firstSlotItemStack.isEmpty()) return;
 
@@ -83,7 +83,7 @@ public class DisassemblerRecipeManager {
                     if (molboolean) break;
                 }
                 firstSlotItemStack.decrement(1);
-//                handler.use(moleculeStackList.size() * consumption);
+                handler.use(moleculeStackList.size() * consumption);
                 break;
             }
         }
@@ -158,6 +158,6 @@ public class DisassemblerRecipeManager {
             if (molboolean) break;
         }
         firstSlotItemStack.decrement(1);
-//        energyHandler.use(moleculeList.size() * consumption);
+        energyHandler.use(moleculeList.size() * consumption);
     }
 }

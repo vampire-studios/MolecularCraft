@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.items;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -16,7 +17,7 @@ public class AtomItem extends Item {
     private Atoms atom;
 
     public AtomItem(Atoms atom) {
-        super(new Settings().group(ItemGroup.BREWING));
+        super(new Settings().group(ModItems.ATOMS));
         this.atom = atom;
     }
 

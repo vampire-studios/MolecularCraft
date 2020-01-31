@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.items;
 
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
+import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -16,7 +17,7 @@ public class MoleculeStackItem extends Item {
     private MoleculeStack moleculeStack;
 
     public MoleculeStackItem(MoleculeStack moleculeStack) {
-        super(new Item.Settings().group(ItemGroup.COMBAT));
+        super(new Item.Settings().group(ModItems.MOLECULES));
         this.moleculeStack = moleculeStack;
         this.moleculeStack.setMoleculeStackItem(this);
     }

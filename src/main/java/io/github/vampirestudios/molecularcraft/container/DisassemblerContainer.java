@@ -1,19 +1,12 @@
 package io.github.vampirestudios.molecularcraft.container;
 
-import io.github.vampirestudios.molecularcraft.blocks.DisassemblerBlock;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.BlockContext;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import spinnery.common.BaseContainer;
 import spinnery.widget.WInterface;
 import spinnery.widget.WSlot;
 import spinnery.widget.WWidget;
-import team.reborn.energy.EnergySide;
 
 public class DisassemblerContainer extends BaseContainer {
 
