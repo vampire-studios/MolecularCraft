@@ -2,11 +2,10 @@ package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import spinnery.common.BaseContainer;
-import spinnery.widget.WInterface;
-import spinnery.widget.WSlot;
-import spinnery.widget.WWidget;
+import spinnery.widget.*;
 
 public class DisassemblerContainer extends BaseContainer {
 
@@ -30,6 +29,9 @@ public class DisassemblerContainer extends BaseContainer {
 
         WSlot.addArray(wInterface, 0, 1, 1, 1);
         WSlot.addArray(wInterface, 1, 1, 9, 2);
+
+        new WDynamicText(WPosition.of(WType.ANCHORED, 4, 22, 0, wInterface), WSize.of(60, 18), wInterface)
+                .setLabel(new LiteralText("§oTest"));
 
         for (WWidget widget : wInterface.getWidgets()) {
             if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {

@@ -33,8 +33,11 @@ public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContaine
 
         WSlot.addArray(WPosition.of(WType.ANCHORED, 4, 50, 0, mainInterface), WSize.of(18, 18), mainInterface, 1, 1, 9, 2);
 
-        dynamicText = new WDynamicText(WPosition.of(WType.ANCHORED, 4, 22, 0, mainInterface), WSize.of(100, 18), mainInterface);
-        dynamicText.setText("Test");
+
+//        dynamicText =
+        new WDynamicText(WPosition.of(WType.ANCHORED, 4, 22, 0, mainInterface), WSize.of(60, 18), mainInterface)
+                .setLabel(new LiteralText("§oTest"));
+        new WStaticText(WPosition.of(WType.ANCHORED, 4, 22, 0, mainInterface), mainInterface, new LiteralText("Test"));
 
         for (WWidget widget : mainInterface.getWidgets()) {
             if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
@@ -48,13 +51,7 @@ public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContaine
     public void tick() {
         double max = this.blockEntity.getMaxStoredPower();
         double energy = this.blockEntity.getStored(EnergySide.UNKNOWN);
-        this.dynamicText.setText("Energy: " + energy + "/" + max);
+//        this.dynamicText.setLabel(new LiteralText("Energy: " + energy + "/" + max));
         super.tick();
     }
-
-    //    @Override
-//    public void tick() {
-//        super.tick();
-//        this.container.tick();
-//    }
 }
