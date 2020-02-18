@@ -1,6 +1,6 @@
 package io.github.vampirestudios.molecularcraft;
 
-import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import io.github.vampirestudios.molecularcraft.registries.ModBlocks;

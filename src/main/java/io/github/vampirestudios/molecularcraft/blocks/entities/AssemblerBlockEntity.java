@@ -1,7 +1,7 @@
 //package io.github.vampirestudios.molecularcraft.blocks.entities;
 //
 //import io.github.vampirestudios.molecularcraft.container.ImplementedInventory;
-//import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
+//import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 //import io.github.vampirestudios.molecularcraft.items.AtomItem;
 //import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 //import io.github.vampirestudios.molecularcraft.molecules.Molecule;

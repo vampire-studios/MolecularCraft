@@ -1,35 +1,25 @@
 package io.github.vampirestudios.molecularcraft.mixins;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
-import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
-import io.github.vampirestudios.molecularcraft.impl.IsotopeItemStackImpl;
-import io.github.vampirestudios.molecularcraft.impl.ItemStackUtils;
-import io.github.vampirestudios.molecularcraft.items.IsotopeItem;
-import io.github.vampirestudios.molecularcraft.molecules.Isotope;
+import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
-import io.github.vampirestudios.molecularcraft.utils.TimeHelper;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(ItemStack.class)
 public class MixinItemStack
@@ -59,23 +49,22 @@ public class MixinItemStack
     @Inject(method = "getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     public void molecularcraft_getToolTip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable callbackInfo) {
         List<Text> tooltip = (List<Text>)callbackInfo.getReturnValue();
-        String id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem()).toString();
-        for (ItemMolecules itemMolecules : ItemMolecules.registry) {
-            if (itemMolecules.getId().trim().equals(id.trim())) {
-                StringBuilder builder = new StringBuilder();
-                for (MoleculeStack moleculeStack : itemMolecules.getList()) {
-                    int moleculeStackAmount = moleculeStack.getAmount();
-                    builder.append(moleculeStackAmount);
-                    for (Molecule molecule : moleculeStack.getMolecules()) {
-                        int moleculeAmount = molecule.getAmount();
-                        Atoms atom = molecule.getAtom();
-                        builder.append(new TranslatableText(atom.getSymbol()).asString());
-                        if (moleculeAmount > 1) builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
-                    }
-                    builder.append(" ");
+        Identifier id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem());
+        if (ItemMolecules.registry.containsKey(id.toString())) {
+            ItemMolecules itemMolecules = ItemMolecules.registry.get(id.toString());
+            StringBuilder builder = new StringBuilder();
+            for (MoleculeStack moleculeStack : itemMolecules.getList()) {
+                int moleculeStackAmount = moleculeStack.getAmount();
+                builder.append(moleculeStackAmount);
+                for (Molecule molecule : moleculeStack.getMolecules()) {
+                    int moleculeAmount = molecule.getAmount();
+                    Atoms atom = molecule.getAtom();
+                    builder.append(new TranslatableText(atom.getSymbol()).asString());
+                    if (moleculeAmount > 1) builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
                 }
-                tooltip.add(new LiteralText(builder.toString()));
+                builder.append(" ");
             }
+            tooltip.add(new LiteralText(builder.toString()));
         }
 //        if (((ItemStack)(Object)this).getItem() instanceof IsotopeItem) {
 //            IsotopeItem isotopeItem = (IsotopeItem) ((ItemStack)(Object)this).getItem();

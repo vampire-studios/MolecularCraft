@@ -2,22 +2,19 @@ package io.github.vampirestudios.molecularcraft.recipes;
 
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
-import io.github.vampirestudios.molecularcraft.enums.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
-import io.github.vampirestudios.molecularcraft.molecules.Isotope;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHandler;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 public class DisassemblerRecipeManager {
 
@@ -38,54 +35,52 @@ public class DisassemblerRecipeManager {
     }
 
     public static void itemToStackAndMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler) {
-        String id = Registry.ITEM.getId(firstSlotItemStack.getItem()).toString();
-        for (ItemMolecules itemMolecule : ItemMolecules.registry) {
-            if (itemMolecule.getId().equals(id)) {
-                List<MoleculeStack> moleculeStackList = itemMolecule.getList();
-                boolean[] booleans = new boolean[moleculeStackList.size()];
-                for (int x = 0; x < booleans.length; x++)
-                    booleans[x] = false;
-                for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
-                    ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
-                    for (int g = 0; g < moleculeStackList.size(); g++) {
-                        if (booleans[g]) continue;
-                        ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
-                        if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
-                            moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                                    new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
-                                    moleculeStackList.get(g).getAmount());
-                        }
-                        if (itemStack.isEmpty()) {
+        Identifier id = Registry.ITEM.getId(firstSlotItemStack.getItem());
+        if (ItemMolecules.registry.containsKey(id.toString())) {
+            ItemMolecules itemMolecule = ItemMolecules.registry.get(id.toString());
+            List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+            boolean[] booleans = new boolean[moleculeStackList.size()];
+            for (int x = 0; x < booleans.length; x++)
+                booleans[x] = false;
+            for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
+                ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
+                for (int g = 0; g < moleculeStackList.size(); g++) {
+                    if (booleans[g]) continue;
+                    ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
+                    if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
+                        moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+                                new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
+                                moleculeStackList.get(g).getAmount());
+                    }
+                    if (itemStack.isEmpty()) {
+                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+                        booleans[g] = true;
+                        break;
+                    } else {
+                        if (itemStack.isItemEqual(moleculeStackItemStack)) {
+                            int amount = itemStack.getCount();
+                            int count = moleculeStackItemStack.getCount();
+                            int som = count + amount;
+                            moleculeStackItemStack.setCount(som);
                             disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
                             booleans[g] = true;
                             break;
                         } else {
-                            if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                                int amount = itemStack.getCount();
-                                int count = moleculeStackItemStack.getCount();
-                                int som = count + amount;
-                                moleculeStackItemStack.setCount(som);
-                                disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                                booleans[g] = true;
-                                break;
-                            } else {
-                                booleans[g] = false;
-                            }
+                            booleans[g] = false;
                         }
                     }
-                    boolean molboolean = true;
-                    for (boolean boo : booleans) {
-                        if (!boo) {
-                            molboolean = false;
-                            break;
-                        }
-                    }
-                    if (molboolean) break;
                 }
-                firstSlotItemStack.decrement(1);
-                handler.use(moleculeStackList.size() * consumption);
-                break;
+                boolean molboolean = true;
+                for (boolean boo : booleans) {
+                    if (!boo) {
+                        molboolean = false;
+                        break;
+                    }
+                }
+                if (molboolean) break;
             }
+            firstSlotItemStack.decrement(1);
+            handler.use(moleculeStackList.size() * consumption);
         }
     }
 

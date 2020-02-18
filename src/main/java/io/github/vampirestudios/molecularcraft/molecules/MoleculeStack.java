@@ -26,8 +26,8 @@ public class MoleculeStack {
     public MoleculeStack(int amount, List<Molecule> list, MoleculeStackItem moleculeStackItem) {
         this.amount = amount;
         this.molecules = list;
-        this.moleculeStackItem = moleculeStackItem;
-        this.moleculeStackItem.setMoleculeStack(this);
+//        this.moleculeStackItem = moleculeStackItem;
+//        this.moleculeStackItem.setMoleculeStack(this);
     }
 
     public MoleculeStack(MoleculesAmountHelper.MoleculeAmountUnit amountUnit, Molecule... molecules) {
