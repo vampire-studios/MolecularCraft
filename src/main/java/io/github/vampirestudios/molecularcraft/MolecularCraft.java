@@ -1,11 +1,7 @@
 package io.github.vampirestudios.molecularcraft;
 
-import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
-import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
-import io.github.vampirestudios.molecularcraft.registries.ModBlocks;
-import io.github.vampirestudios.molecularcraft.registries.ModContainers;
-import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 
@@ -22,6 +18,7 @@ public class MolecularCraft implements ModInitializer {
 		Molecules.init();
 		ModItems.init();
 		ItemMolecules.init();
+		MolecularInfoSetters.init();
 	}
 
 	public static Identifier id(String path) {
