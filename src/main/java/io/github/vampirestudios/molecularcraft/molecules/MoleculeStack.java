@@ -6,6 +6,7 @@ import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -43,9 +44,14 @@ public class MoleculeStack {
     public MoleculeStack(Molecule... molecules) {
         this.amount = 1;
         this.molecules.addAll(Arrays.asList(molecules));
-        this.moleculeStackItem = Registry.register(Registry.ITEM,
-                new Identifier("molecularcraft", getRegistryName()),
-                new MoleculeStackItem(this));
+        if (Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName())) == null
+                || Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName())) == Items.AIR) {
+            this.moleculeStackItem = Registry.register(Registry.ITEM,
+                    new Identifier("molecularcraft", getRegistryName()),
+                    new MoleculeStackItem(this));
+        } else {
+            this.moleculeStackItem = (MoleculeStackItem) Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
+        }
         Molecules.identifiers.add(getRegistryName());
     }
 

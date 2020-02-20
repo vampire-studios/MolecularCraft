@@ -1,5 +1,7 @@
 package io.github.vampirestudios.molecularcraft.registries;
 
+import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper.MoleculeAmount;
@@ -12,8 +14,6 @@ import static io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelpe
 
 public class ItemMolecules {
 
-//    public static List<ItemMolecules> registry = new ArrayList<>();
-//    public static List<String> items = new ArrayList<>();
     public static Map<String, ItemMolecules> registry = new HashMap<>();
 
     private List<MoleculeStack> list;
@@ -66,7 +66,7 @@ public class ItemMolecules {
                 new MoleculeStack(NUGGET, ironMolecule));
 
         register("acacia_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("acacia_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -75,10 +75,10 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("acacia_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("oak_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("oak_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -87,10 +87,10 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("oak_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("dark_oak_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("dark_oak_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -99,10 +99,10 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("dark_oak_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("birch_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("birch_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -111,10 +111,10 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("birch_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("jungle_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("jungle_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -123,10 +123,10 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("jungle_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("spruce_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("spruce_leaves",
                 celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET).getAmount()));
@@ -135,49 +135,49 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT).getAmount()));
 
         register("spruce_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(5, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_acacia_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_oak_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_dark_oak_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_jungle_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_spruce_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_birch_log",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_acacia_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_acacia_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_oak_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_dark_oak_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_jungle_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_spruce_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("stripped_birch_wood",
-                celluloseMolecule.setAmount(new MoleculeAmount(4, BLOCK).getAmount()));
+                celluloseMolecule.setAmount(8));
 
         register("obsidian",
-                obsidianMolecule.setAmount(new MoleculeAmount(1, BLOCK).getAmount()));
+                obsidianMolecule.setAmount(1));
 
         register("paper",
                 celluloseMolecule.setAmount(new MoleculeAmount(3, INGOT).getAmount()));
@@ -326,16 +326,60 @@ public class ItemMolecules {
 
         register("string",
                 woolMolecule.setAmount(new MoleculeAmount(1, INGOT).getAmount()));
+
+        register("stone", new MoleculeStack[]{
+                new MoleculeStack(
+                        new Molecule(Atoms.SILICON),
+                        new Molecule(Atoms.OXYGEN)
+                )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.IRON),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.MAGNESIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.TITANIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.LEAD),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.ZINC),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.ALUMINIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                });
     }
 
     public static void register(String id, MoleculeStack... stack) {
         registry.put(new Identifier(id).toString(), new ItemMolecules(stack));
     }
 
+    public static void register(String id, MoleculeStack[]... stacks) {
+        registry.put(new Identifier(id).toString(), new ChanceItemMolecule(stacks));
+    }
+
     public static void register(String id, ItemMolecules itemMolecule) {
-        List<MoleculeStack> list = itemMolecule.getList();
-
-
         registry.put(id, itemMolecule);
     }
 
