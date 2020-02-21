@@ -24,11 +24,18 @@ public class MoleculeStack {
         this.molecules.addAll(Arrays.asList(molecules));
     }
 
-    public MoleculeStack(int amount, List<Molecule> list, MoleculeStackItem moleculeStackItem) {
+    public MoleculeStack(int amount, List<Molecule> list) {
         this.amount = amount;
         this.molecules = list;
-//        this.moleculeStackItem = moleculeStackItem;
-//        this.moleculeStackItem.setMoleculeStack(this);
+        if (Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName())) == null
+                || Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName())) == Items.AIR) {
+            this.moleculeStackItem = Registry.register(Registry.ITEM,
+                    new Identifier("molecularcraft", getRegistryName()),
+                    new MoleculeStackItem(this));
+        } else {
+            this.moleculeStackItem = (MoleculeStackItem) Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
+        }
+        this.moleculeStackItem.setMoleculeStack(this);
     }
 
     public MoleculeStack(MoleculesAmountHelper.MoleculeAmountUnit amountUnit, Molecule... molecules) {
@@ -52,11 +59,12 @@ public class MoleculeStack {
         } else {
             this.moleculeStackItem = (MoleculeStackItem) Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
         }
+        this.moleculeStackItem.setMoleculeStack(this);
         Molecules.identifiers.add(getRegistryName());
     }
 
     public MoleculeStack setAmount(int amount) {
-        return new MoleculeStack(amount, this.getMolecules(), this.moleculeStackItem);
+        return new MoleculeStack(amount, this.getMolecules());
     }
 
     public MoleculeStack setAmount(MoleculesAmountHelper.MoleculeAmountUnit amount) {
