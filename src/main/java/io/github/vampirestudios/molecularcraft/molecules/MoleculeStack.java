@@ -59,6 +59,10 @@ public class MoleculeStack {
         return new MoleculeStack(amount, this.getMolecules(), this.moleculeStackItem);
     }
 
+    public MoleculeStack setAmount(MoleculesAmountHelper.MoleculeAmountUnit amount) {
+        return this.setAmount(amount.getAmount());
+    }
+
     public int getAmount() {
         return amount;
     }
