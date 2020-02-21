@@ -1,11 +1,13 @@
 package io.github.vampirestudios.molecularcraft.recipes.molecularinfo;
 
+import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +33,16 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                             ItemMolecules itemMolecules = ItemMolecules.registry.get(identifier.toString());
                             itemMolecule.addMoleculeStacks(itemMolecules.getList());
                         }
+                        break;
                     }
                 }
-                if (!itemMolecule.getList().isEmpty()) {
+                ItemMolecules itemMolecule1 = new ItemMolecules();
+                for (MoleculeStack stack : itemMolecule.getList()) {
+                    itemMolecule1.addMoleculeStack(stack.setAmount(stack.getAmount()/output.getCount()));
+                }
+                if (!itemMolecule1.getList().isEmpty()) {
                     if (!ItemMolecules.registry.containsKey(Registry.ITEM.getId(output.getItem()).toString())) {
-                        ItemMolecules.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule);
+                        ItemMolecules.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
                     }
                 } else {
                     if (!ItemMolecules.registry.containsKey(Registry.ITEM.getId(output.getItem()).toString())) {
@@ -59,11 +66,16 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                             ItemMolecules itemMolecules = ItemMolecules.registry.get(identifier.toString());
                             itemMolecule.addMoleculeStacks(itemMolecules.getList());
                         }
+                        break;
                     }
                 }
-                if (!itemMolecule.getList().isEmpty()) {
+                ItemMolecules itemMolecule1 = new ItemMolecules();
+                for (MoleculeStack stack : itemMolecule.getList()) {
+                    itemMolecule1.addMoleculeStack(stack.setAmount(stack.getAmount()/output.getCount()));
+                }
+                if (!itemMolecule1.getList().isEmpty()) {
                     toRemove.add(id);
-                    ItemMolecules.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule);
+                    ItemMolecules.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
                 }
             }
             for (String id : toRemove)
@@ -80,6 +92,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 for (ItemStack input : ingredient.getMatchingStacksClient()) {
                     Identifier identifier = Registry.ITEM.getId(input.getItem());
                     inputbuilder.append(identifier.toString()).append("\n");
+                    break;
                 }
             }
             String builder = "____________\n" +

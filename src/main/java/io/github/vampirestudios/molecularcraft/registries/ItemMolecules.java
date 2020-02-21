@@ -369,6 +369,42 @@ public class ItemMolecules {
                                 new Molecule(Atoms.OXYGEN)
                         )
                 });
+        register("cobblestone", new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.SILICON),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.IRON),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.MAGNESIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.TITANIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.LEAD),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                },
+                new MoleculeStack[]{
+                        new MoleculeStack(
+                                new Molecule(Atoms.SODIUM),
+                                new Molecule(Atoms.OXYGEN)
+                        )
+                });
     }
 
     public static void register(String id, MoleculeStack... stack) {
