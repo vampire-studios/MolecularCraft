@@ -3,8 +3,8 @@ package io.github.vampirestudios.molecularcraft.molecules;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 
 public class Molecule {
-    private Atoms atom;
-    private int amount;
+    private Atoms atom = null;
+    private int amount = 1;
 
     public Molecule(Atoms atom, int amount) {
         this.atom = atom;
@@ -13,7 +13,6 @@ public class Molecule {
 
     public Molecule(Atoms atom) {
         this.atom = atom;
-        this.amount = 1;
     }
 
     public Atoms getAtom() {

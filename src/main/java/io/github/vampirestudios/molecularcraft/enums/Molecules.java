@@ -33,6 +33,11 @@ public class Molecules {
     public static MoleculeStack goldMolecule;
     public static MoleculeStack slimeMolecule;
 
+    public static MoleculeStack nitrate;
+
+    public static MoleculeStack serine;
+    public static MoleculeStack glycine;
+    public static MoleculeStack alinine;
 
 
     public static void init() {
@@ -58,5 +63,10 @@ public class Molecules {
         goldMolecule = new MoleculeStack(new Molecule(GOLD,1));
         slimeMolecule = new MoleculeStack(new Molecule(SILICON, 2), new Molecule(HYDROGEN, 2), new Molecule(OXYGEN,1 ));
 
+        nitrate = new MoleculeStack(new Molecule(NITROGEN), new Molecule(OXYGEN, 3));
+
+        serine = new MoleculeStack(new Molecule(CARBON, 3), new Molecule(HYDROGEN, 7), new Molecule(NITROGEN), new Molecule(OXYGEN, 3));
+        glycine = new MoleculeStack(new Molecule(CARBON, 2), new Molecule(HYDROGEN, 5), new Molecule(NITROGEN), new Molecule(OXYGEN, 2));
+        alinine = new MoleculeStack(new Molecule(CARBON, 2), new Molecule(HYDROGEN, 7), new Molecule(NITROGEN), new Molecule(OXYGEN, 2));
     }
 }

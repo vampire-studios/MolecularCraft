@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.6-SNAPSHOT'
+	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
 	id "com.wynprice.cursemaven" version "2.1.0"
 }
@@ -54,6 +54,7 @@ dependencies {
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.5.2")
 }
 
 processResources {

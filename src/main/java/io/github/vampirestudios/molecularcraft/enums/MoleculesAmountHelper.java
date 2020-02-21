@@ -24,6 +24,22 @@ public class MoleculesAmountHelper {
         int getAmount();
     }
 
+    public enum BaseMaterials implements MoleculeAmountUnit {
+        WOOD(128),
+        STONE(2);
+
+        private final int amount;
+
+        BaseMaterials(int amount) {
+            this.amount = amount;
+        }
+
+        @Override
+        public int getAmount() {
+            return this.amount;
+        }
+    }
+
     public static class MoleculeAmount {
         private int amount;
         private MoleculeAmountUnit moleculeAmountUnit;
