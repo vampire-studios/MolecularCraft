@@ -61,6 +61,7 @@ public class DisassemblerRecipeManager {
                             int amount = itemStack.getCount();
                             int count = moleculeStackItemStack.getCount();
                             int som = count + amount;
+                            if (som > 1024) continue;
                             moleculeStackItemStack.setCount(som);
                             disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
                             booleans[g] = true;
@@ -79,8 +80,77 @@ public class DisassemblerRecipeManager {
                 }
                 if (molboolean) break;
             }
+            boolean molboolean = true;
+            for (boolean boo : booleans) {
+                if (!boo) {
+                    molboolean = false;
+                }
+            }
+            if (molboolean) {
+                firstSlotItemStack.decrement(1);
+//            handler.use(moleculeStackList.size() * consumption);
+            } else {
+//                handler.use(ff * consumption);
+//                loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
+            }
+        }
+    }
+
+    private static void loopItemStack(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler, ItemMolecules itemMolecule, boolean[] booleans) {
+        List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+        for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
+            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
+            for (int g = 0; g < moleculeStackList.size(); g++) {
+                if (booleans[g]) continue;
+                ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
+                if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
+                    moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+                            new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
+                            moleculeStackList.get(g).getAmount());
+                }
+                if (itemStack.isEmpty()) {
+                    disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+                    booleans[g] = true;
+                    break;
+                } else {
+                    if (itemStack.isItemEqual(moleculeStackItemStack)) {
+                        int amount = itemStack.getCount();
+                        int count = moleculeStackItemStack.getCount();
+                        int som = count + amount;
+                        if (som > 1024) continue;
+                        moleculeStackItemStack.setCount(som);
+                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+                        booleans[g] = true;
+                        break;
+                    } else {
+                        booleans[g] = false;
+                    }
+                }
+            }
+            boolean molboolean = true;
+            for (boolean boo : booleans) {
+                if (!boo) {
+                    molboolean = false;
+                    break;
+                }
+            }
+            if (molboolean) break;
+        }
+        boolean molboolean = true;
+        int ff = 0;
+        for (boolean boo : booleans) {
+            if (!boo) {
+                molboolean = false;
+            } else {
+                ff++;
+            }
+        }
+        if (molboolean) {
             firstSlotItemStack.decrement(1);
-            handler.use(moleculeStackList.size() * consumption);
+//            handler.use(moleculeStackList.size() * consumption);
+        } else {
+//                handler.use(ff * consumption);
+//            loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
         }
     }
 
@@ -133,6 +203,7 @@ public class DisassemblerRecipeManager {
                         int amount = itemStack.getCount();
                         int count = moleculeStackItemStack.getCount();
                         int som = count + amount;
+                        if (som > 1024) continue;
                         moleculeStackItemStack.setCount(som);
                         disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
                         booleans[g] = true;

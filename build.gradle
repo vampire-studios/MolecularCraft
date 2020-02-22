@@ -54,7 +54,7 @@ dependencies {
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.5.2")
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.5.3")
 }
 
 processResources {

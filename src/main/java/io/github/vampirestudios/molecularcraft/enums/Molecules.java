@@ -44,8 +44,8 @@ public class Molecules {
         water = new MoleculeStack(new Molecule(HYDROGEN, 2), new Molecule(OXYGEN));
         ironMolecule = new Molecule(IRON);
         celluloseMolecule = new MoleculeStack(new Molecule(CARBON, 6), new Molecule(HYDROGEN, 10), new Molecule(OXYGEN, 5));
-        carbonMolecule = new MoleculeStack(new Molecule(CARBON,1));
-        diamondMolecule = carbonMolecule.setAmount(new MoleculesAmountHelper.MoleculeAmount(4, INGOT).getAmount());
+        carbonMolecule = new MoleculeStack(new Molecule(CARBON));
+        diamondMolecule = new MoleculeStack(new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64));
         lava = new MoleculeStack(new Molecule(CARBON, 5));
         glassMolecule = new MoleculeStack(new Molecule(SILICON), new Molecule(OXYGEN, 2));
         woolMolecule = new MoleculeStack(new Molecule(CARBON, 2), new Molecule(HYDROGEN, 13), new Molecule(OXYGEN, 7), new Molecule(NITROGEN, 6));

@@ -71,6 +71,10 @@ public class MoleculeStack {
         return this.setAmount(amount.getAmount());
     }
 
+    public MoleculeStack multiplyAmountBy(int multiplier) {
+        return this.setAmount(this.getAmount() * multiplier);
+    }
+
     public int getAmount() {
         return amount;
     }

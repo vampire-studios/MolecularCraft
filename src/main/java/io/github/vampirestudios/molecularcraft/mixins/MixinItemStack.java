@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.mixins;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
@@ -53,18 +54,40 @@ public class MixinItemStack
         if (ItemMolecules.registry.containsKey(id.toString())) {
             ItemMolecules itemMolecules = ItemMolecules.registry.get(id.toString());
             StringBuilder builder = new StringBuilder();
-            for (MoleculeStack moleculeStack : itemMolecules.getList()) {
-                int moleculeStackAmount = moleculeStack.getAmount();
-                builder.append(moleculeStackAmount);
-                for (Molecule molecule : moleculeStack.getMolecules()) {
-                    int moleculeAmount = molecule.getAmount();
-                    Atoms atom = molecule.getAtom();
-                    builder.append(new TranslatableText(atom.getSymbol()).asString());
-                    if (moleculeAmount > 1) builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+            if (itemMolecules instanceof ChanceItemMolecule) {
+                List<List<MoleculeStack>> listList = ((ChanceItemMolecule) itemMolecules).getLists();
+                for (List<MoleculeStack> list : listList) {
+                    for (MoleculeStack moleculeStack : list) {
+                        int moleculeStackAmount = moleculeStack.getAmount();
+                        builder.append(moleculeStackAmount);
+                        for (Molecule molecule : moleculeStack.getMolecules()) {
+                            int moleculeAmount = molecule.getAmount();
+                            Atoms atom = molecule.getAtom();
+                            builder.append(new TranslatableText(atom.getSymbol()).asString());
+                            if (moleculeAmount > 1)
+                                builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+                        }
+                        builder.append(" ");
+                    }
+                    builder.append("/ ");
                 }
-                builder.append(" ");
+            } else {
+                for (MoleculeStack moleculeStack : itemMolecules.getList()) {
+                    int moleculeStackAmount = moleculeStack.getAmount();
+                    builder.append(moleculeStackAmount);
+                    for (Molecule molecule : moleculeStack.getMolecules()) {
+                        int moleculeAmount = molecule.getAmount();
+                        Atoms atom = molecule.getAtom();
+                        builder.append(new TranslatableText(atom.getSymbol()).asString());
+                        if (moleculeAmount > 1)
+                            builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+                    }
+                    builder.append(" ");
+                }
             }
-            tooltip.add(new LiteralText(builder.toString()));
+            String string = builder.toString();
+            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
+            tooltip.add(new LiteralText(string));
         }
 //        if (((ItemStack)(Object)this).getItem() instanceof IsotopeItem) {
 //            IsotopeItem isotopeItem = (IsotopeItem) ((ItemStack)(Object)this).getItem();
