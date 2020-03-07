@@ -3,6 +3,8 @@ package io.github.vampirestudios.molecularcraft;
 import com.swordglowsblue.artifice.api.Artifice;
 import io.github.vampirestudios.molecularcraft.container.DisassemblerContainer;
 import io.github.vampirestudios.molecularcraft.container.DisassemblerScreen;
+import io.github.vampirestudios.molecularcraft.container.MicroscopeContainer;
+import io.github.vampirestudios.molecularcraft.container.MicroscopeScreen;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,8 +22,11 @@ public class MolecularCraftClient implements ClientModInitializer {
                     BlockPos pos = buf.readBlockPos();
                     return new DisassemblerScreen(new DisassemblerContainer(syncId, player.inventory, pos), player, pos);
         });
-//        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:assembler"),
-//                (syncId, id, player, buf) -> new AssemblerScreen(new AssemblerContainer(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())),player));
+        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:microscope"),
+                (syncId, id, player, buf) -> {
+                    BlockPos pos = buf.readBlockPos();
+                    return new MicroscopeScreen(new MicroscopeContainer(syncId, player.inventory, pos), player, pos);
+        });
 
         Artifice.registerAssets(id("assets").toString(), clientResourcePackBuilder -> {
             for (Atoms atom : Atoms.values()) {

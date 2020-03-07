@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.registries;
 
 import io.github.vampirestudios.molecularcraft.blocks.DisassemblerBlock;
+import io.github.vampirestudios.molecularcraft.blocks.MicroscopeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -11,11 +12,11 @@ import net.minecraft.util.registry.Registry;
 public class ModBlocks {
 
     public static Block DISASSEMBLER;
-//    public static Block ASSEMBLER;
+    public static Block MICROSCOPE;
 
     public static void init() {
         DISASSEMBLER = register("disassembler", new DisassemblerBlock());
-//        ASSEMBLER = register("assembler", new AssemblerBlock());
+        MICROSCOPE = register("microscope", new MicroscopeBlock());
     }
 
     private static Block register(String name, Block block) {

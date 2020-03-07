@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 
 public class MolecularCraft implements ModInitializer {
 	public static final String MODID = "molecularcraft";
-//	public static final Identifier DISASSEMBLER_ENERGY_UPDATE_PACKET_ID = id("disassembler_energy_update");
 
 	@Override
 	public void onInitialize() {
