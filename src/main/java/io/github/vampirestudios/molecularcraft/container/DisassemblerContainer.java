@@ -17,23 +17,21 @@ public class DisassemblerContainer extends BaseContainer {
     public DisassemblerContainer(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
         super(synchronizationID, linkedPlayerInventory);
 
-        blockEntity = (DisassemblerBlockEntity) getLinkedWorld().getBlockEntity(pos);
+        blockEntity = (DisassemblerBlockEntity) getWorld().getBlockEntity(pos);
 
-        WInterface wInterface = new WInterface(this);
-
-        getHolder().add(wInterface);
+        WInterface wInterface = getInterface();
 
         getInventories().put(1, blockEntity.inventory);
 
-        WSlot.addPlayerInventory(wInterface, PLAYER_INVENTORY);
+        WSlot.addHeadlessPlayerInventory(wInterface);
 
-        WSlot.addArray(wInterface, 0, 1, 1, 1);
-        WSlot.addArray(wInterface, 1, 1, 9, 2);
+        WSlot.addHeadlessArray(wInterface, 0, 1, 1, 1);
+        WSlot.addHeadlessArray(wInterface, 1, 1, 9, 2);
 
-        new WDynamicText(WPosition.of(WType.ANCHORED, 4, 22, 0, wInterface), WSize.of(60, 18), wInterface)
+        new WStaticText()
                 .setLabel(new LiteralText("§oTest"));
 
-        for (WWidget widget : wInterface.getWidgets()) {
+        for (WAbstractWidget widget : wInterface.getWidgets()) {
             if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
                 ((WSlot) widget).setOverrideMaximumCount(true);
                 ((WSlot) widget).setMaximumCount(1024);

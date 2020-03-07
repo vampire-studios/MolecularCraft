@@ -21,6 +21,10 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
+		name = "Spinnery"
+		url  "https://dl.bintray.com/spinnery/Spinnery"
+	}
+	maven {
 		name = "GitHub"
 		url "https://jitpack.io"
 	}
@@ -41,20 +45,20 @@ dependencies {
 
 
 	// Spinnery
-	modCompile "com.github.vini2003:Spinnery:${project.spinnery_version}"
-	include "com.github.vini2003:Spinnery:${project.spinnery_version}"
+	modCompile "com.github.vini2003:spinnery:${project.spinnery_version}"
+	include "com.github.vini2003:spinnery:${project.spinnery_version}"
 
 	// Energy API
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
 
 	// Artifice
-	modImplementation "com.lettuce.fudge:artifice:0.6.0+1.15.2"
-	include "com.lettuce.fudge:artifice:0.6.0+1.15.2"
+	modImplementation "com.lettuce.fudge:artifice:0.6.0+20w06a"
+	include "com.lettuce.fudge:artifice:0.6.0+20w06a"
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.5.3")
+//	modCompile ("me.shedaniel:RoughlyEnoughItems:4.0.8-unstable")
 }
 
 processResources {

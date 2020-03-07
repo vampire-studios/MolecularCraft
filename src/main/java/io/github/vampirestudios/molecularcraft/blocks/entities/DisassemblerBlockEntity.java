@@ -25,7 +25,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag = InventoryUtilities.write(this.inventory);
+        InventoryUtilities.write(this.inventory, tag);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
@@ -89,7 +89,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
 
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
-        tag = InventoryUtilities.write(this.inventory);
+        InventoryUtilities.write(this.inventory, tag);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
