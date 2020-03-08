@@ -12,7 +12,6 @@ import spinnery.widget.WStaticText;
 public class MicroscopeContainer extends BaseContainer {
 
     MicroscopeBlockEntity blockEntity = null;
-    WStaticText staticText = null;
 
     public MicroscopeContainer(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
         super(synchronizationID, linkedPlayerInventory);
@@ -28,8 +27,6 @@ public class MicroscopeContainer extends BaseContainer {
         WSlot.addHeadlessArray(wInterface, 1, 1, 1, 1);
         WSlot.addHeadlessArray(wInterface, 2, 1, 1, 1);
 
-        staticText = new WStaticText();
-        staticText.setText("BaseText");
-        wInterface.add(staticText);
+
     }
 }
