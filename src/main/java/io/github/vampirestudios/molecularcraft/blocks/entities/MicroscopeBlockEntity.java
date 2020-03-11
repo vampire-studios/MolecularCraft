@@ -19,7 +19,7 @@ import team.reborn.energy.EnergyTier;
 
 public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage, BlockEntityClientSerializable {
     private double energy;
-    public BaseInventory inventory = new BaseInventory(2);
+    public BaseInventory inventory = new BaseInventory(3);
 
     public MicroscopeBlockEntity() {
         super(ModBlockEntities.microscopeBlockEntityBlockEntityType);
@@ -36,7 +36,7 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
     @Override
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
-        inventory = new BaseInventory(2);
+        inventory = new BaseInventory(3);
         InventoryUtilities.read(inventory, tag);
         this.setStored(tag.getDouble("energy"));
     }
@@ -84,7 +84,7 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
     @Override
     public void fromClientTag(CompoundTag tag) {
         super.fromTag(tag);
-        inventory = new BaseInventory(2);
+        inventory = new BaseInventory(3);
         InventoryUtilities.read(inventory, tag);
         this.setStored(tag.getDouble("energy"));
 

@@ -8,7 +8,7 @@ public class AssemblerRecipe {
     private List<ItemStack> inputs;
     private ItemStack output;
 
-    public AssemblerRecipe(List<ItemStack> inputs, ItemStack output, int cost) {
+    public AssemblerRecipe(List<ItemStack> inputs, ItemStack output) {
         this.inputs = inputs;
         this.output = output;
     }

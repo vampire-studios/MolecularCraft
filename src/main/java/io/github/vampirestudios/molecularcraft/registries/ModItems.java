@@ -5,6 +5,7 @@ import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.items.AtomItem;
 import io.github.vampirestudios.molecularcraft.items.IsotopeItem;
+import io.github.vampirestudios.molecularcraft.items.RecipeItem;
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
@@ -33,10 +34,13 @@ public class ModItems {
         return new ItemStack(item);
     }).build();
 
+    public static Item RECIPE;
+
     public static void init() {
+        RECIPE = Registry.register(Registry.ITEM, new Identifier(MolecularCraft.MODID, "recipe"), new RecipeItem());
         for (Atoms atom : Atoms.values()) {
             Item item = new AtomItem(atom);
-            Registry.register(Registry.ITEM, new Identifier("molecularcraft", atom.getSymbol().toLowerCase()), item);
+            Registry.register(Registry.ITEM, new Identifier(MolecularCraft.MODID, atom.getSymbol().toLowerCase()), item);
 //            if (atom.getIsotopes() != null) {
 //                int num = 0;
 //                for (Isotope isotope : atom.getIsotopes()) {

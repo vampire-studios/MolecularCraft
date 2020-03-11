@@ -13,42 +13,18 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AssemblerRecipeManager {
 
-    public static boolean isValidRecipe(AssemblerRecipe recipe) {
-        ItemStack output = recipe.getOutput();
-        List<ItemStack> inputs = recipe.getInputs();
-        String id = Registry.ITEM.getId(output.getItem()).toString();
-        List<Boolean> booleans = new ArrayList<>();
-        if (output.getItem() instanceof MoleculeStackItem) {
-            MoleculeStack moleculeStack = ((MoleculeStackItem) output.getItem()).getMoleculeStack();
-            for (int b = 0; b < inputs.size(); b++) {
-                ItemStack input = inputs.get(b);
-                boolean bol = false;
-                for (Molecule molecule : moleculeStack.getMolecules()) {
-                    Item atom = Registry.ITEM.get(new Identifier(MolecularCraft.MODID, molecule.getAtom().getSymbol().toLowerCase()));
-                    if (input.getItem() == atom && input.getCount() == molecule.getAmount()) bol = true;
-                }
-                booleans.add(bol);
-            }
-        } else {
-            ItemMolecules itemMolecule = ItemMolecules.registry.get(id);
-            if (itemMolecule == null) return false;
-            for (int b = 0; b < inputs.size(); b++) {
-                ItemStack input = inputs.get(b);
-                boolean bool = false;
-                for (MoleculeStack moleculeStack : itemMolecule.getList()) {
-                    if (moleculeStack.getMoleculeStackItem() == input.getItem() && moleculeStack.getAmount() == input.getCount()) bool = true;
-                }
-                booleans.add(bool);
-            }
+    public static AssemblerRecipe createRecipe(String id, ItemMolecules itemMolecule) {
+        Item output = Registry.ITEM.get(new Identifier(id));
+        List<ItemStack> list = new ArrayList<>();
+        for (MoleculeStack moleculeStack : itemMolecule.getList()) {
+            Item input = moleculeStack.getMoleculeStackItem();
+            list.add(new ItemStack(input, moleculeStack.getAmount()));
         }
-
-        for (boolean bool : booleans) {
-            if (!bool) return false;
-        }
-        return true;
+        return new AssemblerRecipe(list, new ItemStack(output));
     }
 
 }

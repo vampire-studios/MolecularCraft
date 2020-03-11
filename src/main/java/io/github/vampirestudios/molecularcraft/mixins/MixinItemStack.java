@@ -9,6 +9,7 @@ import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -23,9 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 @Mixin(ItemStack.class)
-public class MixinItemStack
-//        implements IsotopeItemStackImpl
-{
+public class MixinItemStack {
+//        implements IsotopeItemStackImpl {
 //    private long life;
 //
 //    @Inject(method = "<init>(Lnet/minecraft/item/ItemConvertible;)V", at = @At("RETURN"))
@@ -50,45 +50,52 @@ public class MixinItemStack
     @Inject(method = "getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     public void molecularcraft_getToolTip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable callbackInfo) {
         List<Text> tooltip = (List<Text>)callbackInfo.getReturnValue();
-        Identifier id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem());
-        if (ItemMolecules.registry.containsKey(id.toString())) {
-            ItemMolecules itemMolecules = ItemMolecules.registry.get(id.toString());
-            StringBuilder builder = new StringBuilder();
-            if (itemMolecules instanceof ChanceItemMolecule) {
-                List<List<MoleculeStack>> listList = ((ChanceItemMolecule) itemMolecules).getLists();
-                for (List<MoleculeStack> list : listList) {
-                    for (MoleculeStack moleculeStack : list) {
-                        int moleculeStackAmount = moleculeStack.getAmount();
-                        builder.append(moleculeStackAmount);
-                        for (Molecule molecule : moleculeStack.getMolecules()) {
-                            int moleculeAmount = molecule.getAmount();
-                            Atoms atom = molecule.getAtom();
-                            builder.append(new TranslatableText(atom.getSymbol()).asString());
-                            if (moleculeAmount > 1)
-                                builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
-                        }
-                        builder.append(" ");
-                    }
-                    builder.append("/ ");
-                }
-            } else {
-                for (MoleculeStack moleculeStack : itemMolecules.getList()) {
-                    int moleculeStackAmount = moleculeStack.getAmount();
-                    builder.append(moleculeStackAmount);
-                    for (Molecule molecule : moleculeStack.getMolecules()) {
-                        int moleculeAmount = molecule.getAmount();
-                        Atoms atom = molecule.getAtom();
-                        builder.append(new TranslatableText(atom.getSymbol()).asString());
-                        if (moleculeAmount > 1)
-                            builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
-                    }
-                    builder.append(" ");
-                }
-            }
-            String string = builder.toString();
-            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
-            tooltip.add(new LiteralText(string));
+        CompoundTag tag = ((ItemStack)(Object)this).getOrCreateTag();
+        if (tag.contains("inputs", 9)) {
+            String outputId = tag.getString("outputId");
+            tooltip.add(new LiteralText("Recipe ID: " + outputId));
         }
+
+//        Identifier id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem());
+//        if (ItemMolecules.registry.containsKey(id.toString())) {
+//            ItemMolecules itemMolecules = ItemMolecules.registry.get(id.toString());
+//            StringBuilder builder = new StringBuilder();
+//            if (itemMolecules instanceof ChanceItemMolecule) {
+//                List<List<MoleculeStack>> listList = ((ChanceItemMolecule) itemMolecules).getLists();
+//                for (List<MoleculeStack> list : listList) {
+//                    for (MoleculeStack moleculeStack : list) {
+//                        int moleculeStackAmount = moleculeStack.getAmount();
+//                        builder.append(moleculeStackAmount);
+//                        for (Molecule molecule : moleculeStack.getMolecules()) {
+//                            int moleculeAmount = molecule.getAmount();
+//                            Atoms atom = molecule.getAtom();
+//                            builder.append(new TranslatableText(atom.getSymbol()).asString());
+//                            if (moleculeAmount > 1)
+//                                builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+//                        }
+//                        builder.append(" ");
+//                    }
+//                    builder.append("/ ");
+//                }
+//            } else {
+//                for (MoleculeStack moleculeStack : itemMolecules.getList()) {
+//                    int moleculeStackAmount = moleculeStack.getAmount();
+//                    builder.append(moleculeStackAmount);
+//                    for (Molecule molecule : moleculeStack.getMolecules()) {
+//                        int moleculeAmount = molecule.getAmount();
+//                        Atoms atom = molecule.getAtom();
+//                        builder.append(new TranslatableText(atom.getSymbol()).asString());
+//                        if (moleculeAmount > 1)
+//                            builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+//                    }
+//                    builder.append(" ");
+//                }
+//            }
+//            String string = builder.toString();
+//            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
+//            tooltip.add(new LiteralText(string));
+//        }
+
 //        if (((ItemStack)(Object)this).getItem() instanceof IsotopeItem) {
 //            IsotopeItem isotopeItem = (IsotopeItem) ((ItemStack)(Object)this).getItem();
 //            if (isotopeItem.getIsotope().getDecayMod() != Isotope.DecayMod.STABLE) {

@@ -26,7 +26,5 @@ public class MicroscopeContainer extends BaseContainer {
         WSlot.addHeadlessArray(wInterface, 0, 1, 1, 1);
         WSlot.addHeadlessArray(wInterface, 1, 1, 1, 1);
         WSlot.addHeadlessArray(wInterface, 2, 1, 1, 1);
-
-
     }
 }
