@@ -1,5 +1,6 @@
 package io.github.vampirestudios.molecularcraft.container;
 
+import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import io.github.vampirestudios.molecularcraft.items.RecipeItem;
@@ -98,9 +99,8 @@ public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
                         AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(oneId, ItemMolecules.registry.get(oneId));
                         ItemStack recipeItem = new ItemStack(ModItems.RECIPE);
                         RecipeItem.setRecipeComponent(recipeItem, recipe);
-                        this.getLinkedContainer().getInventory(1).setInvStack(2, recipeItem);
-                        this.getLinkedContainer().getInventory(1).setInvStack(1, new ItemStack(two.getItem(), two.getCount() - 1));
-                        this.getLinkedContainer().sendContentUpdates();
+                        MolecularCraft.sendSlotUpdatePacket(this.getContainer().syncId, 2, 1, recipeItem);
+                        MolecularCraft.sendSlotUpdatePacket(this.getContainer().syncId, 1, 1, new ItemStack(two.getItem(), two.getCount() - 1));
                     }
                 }
             }
