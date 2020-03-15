@@ -193,7 +193,7 @@ public class ItemMolecules {
                 diamondMolecule.setAmount(new MoleculeAmount(11, INGOT).getAmount()));
 
         register("gold_nugget",
-                goldMolecule.setAmount(new MoleculeAmount(1, NUGGET).getAmount()));
+                new MoleculeStack(NUGGET, goldMolecule));
 
         register("beef",
                 livingMolecules.setAmount(new MoleculeAmount(2, INGOT).getAmount()));

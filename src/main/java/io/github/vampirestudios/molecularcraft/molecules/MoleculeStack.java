@@ -5,6 +5,7 @@ import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
@@ -17,7 +18,7 @@ import java.util.List;
 public class MoleculeStack {
     private List<Molecule> molecules = new ArrayList<>();
     private int amount;
-    private MoleculeStackItem moleculeStackItem;
+    private Item moleculeStackItem;
 
     public MoleculeStack(int amount, Molecule... molecules) {
         this.amount = amount;
@@ -33,9 +34,9 @@ public class MoleculeStack {
                     new Identifier("molecularcraft", getRegistryName()),
                     new MoleculeStackItem(this));
         } else {
-            this.moleculeStackItem = (MoleculeStackItem) Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
+            this.moleculeStackItem = Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
         }
-        this.moleculeStackItem.setMoleculeStack(this);
+        if (this.moleculeStackItem instanceof  MoleculeStackItem) ((MoleculeStackItem) this.moleculeStackItem).setMoleculeStack(this);
     }
 
     public MoleculeStack(MoleculesAmountHelper.MoleculeAmountUnit amountUnit, Molecule... molecules) {
@@ -57,9 +58,9 @@ public class MoleculeStack {
                     new Identifier("molecularcraft", getRegistryName()),
                     new MoleculeStackItem(this));
         } else {
-            this.moleculeStackItem = (MoleculeStackItem) Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
+            this.moleculeStackItem = Registry.ITEM.get(new Identifier("molecularcraft", getRegistryName()));
         }
-        this.moleculeStackItem.setMoleculeStack(this);
+        if (this.moleculeStackItem instanceof  MoleculeStackItem) ((MoleculeStackItem) this.moleculeStackItem).setMoleculeStack(this);
         Molecules.identifiers.add(getRegistryName());
     }
 
@@ -87,7 +88,10 @@ public class MoleculeStack {
         StringBuilder string = new StringBuilder();
 
         for (Molecule molecule : getMolecules()) {
-            string.append(molecule.getAtom().getSymbol()).append(molecule.getAmount());
+            string.append(molecule.getAtom().getSymbol());
+            if (molecule.getAmount() > 1) {
+                string.append(molecule.getAmount());
+            }
         }
 
         return string.toString().toLowerCase();
@@ -97,7 +101,7 @@ public class MoleculeStack {
         this.moleculeStackItem = moleculeStackItem;
     }
 
-    public MoleculeStackItem getMoleculeStackItem() {
+    public Item getMoleculeStackItem() {
         return moleculeStackItem;
     }
 
@@ -109,7 +113,10 @@ public class MoleculeStack {
         StringBuilder string = new StringBuilder();
 
         for (Molecule molecule : getMolecules()) {
-            string.append(molecule.getAtom().getSymbol()).append(molecule.getAmount());
+            string.append(molecule.getAtom().getSymbol());
+            if (molecule.getAmount() > 1) {
+                string.append(molecule.getAmount());
+            }
         }
 
         return StringHelper.subscriptNumbers(string.toString());

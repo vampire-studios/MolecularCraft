@@ -72,7 +72,8 @@ public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
             ItemMolecules itemMolecule = ItemMolecules.registry.get(oneId);
             StringBuilder string = new StringBuilder();
             for (MoleculeStack moleculeStack : itemMolecule.getList()) {
-                string.append(moleculeStack.getAmount()).append(moleculeStack.getFormula()).append(" ");
+                if (moleculeStack.getAmount() > 1) string.append(moleculeStack.getAmount());
+                string.append(moleculeStack.getFormula()).append(" ");
             }
             dynamicText.setText(string.toString());
         } else {
