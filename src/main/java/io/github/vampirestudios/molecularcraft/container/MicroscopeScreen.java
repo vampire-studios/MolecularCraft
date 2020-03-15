@@ -1,7 +1,6 @@
 package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import io.github.vampirestudios.molecularcraft.items.RecipeItem;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
@@ -9,20 +8,16 @@ import io.github.vampirestudios.molecularcraft.recipes.AssemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import spinnery.common.BaseContainerScreen;
-import spinnery.registry.NetworkRegistry;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
-import team.reborn.energy.EnergySide;
 
 public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
     WStaticText errorText;

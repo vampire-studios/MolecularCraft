@@ -1,13 +1,13 @@
 package io.github.vampirestudios.molecularcraft.container;
 
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import spinnery.common.BaseContainer;
+import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WInterface;
 import spinnery.widget.WSlot;
-import spinnery.widget.WStaticText;
 
 public class MicroscopeContainer extends BaseContainer {
 
@@ -26,5 +26,21 @@ public class MicroscopeContainer extends BaseContainer {
         WSlot.addHeadlessArray(wInterface, 0, 1, 1, 1);
         WSlot.addHeadlessArray(wInterface, 1, 1, 1, 1);
         WSlot.addHeadlessArray(wInterface, 2, 1, 1, 1);
+
+        for (WAbstractWidget widget : wInterface.getWidgets()) {
+            if (widget instanceof WSlot) {
+                WSlot slot = (WSlot) widget;
+                if (slot.getInventoryNumber() == 1) {
+                    if (slot.getSlotNumber() == 1) {
+                        slot.accept(Items.PAPER);
+                        slot.setWhitelist();
+                    }
+                    if (slot.getSlotNumber() == 2) {
+                        slot.accept(Items.AIR);
+                        slot.setWhitelist();
+                    }
+                }
+            }
+        }
     }
 }

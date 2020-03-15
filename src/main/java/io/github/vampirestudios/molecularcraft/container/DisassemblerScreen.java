@@ -3,8 +3,8 @@ package io.github.vampirestudios.molecularcraft.container;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseContainer;
 import spinnery.common.BaseContainerScreen;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
@@ -12,7 +12,7 @@ import spinnery.widget.api.Size;
 import team.reborn.energy.EnergySide;
 
 public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContainer> {
-    WStaticText dynamicText;
+    WStaticText energyText;
     DisassemblerBlockEntity blockEntity;
 
     public DisassemblerScreen(DisassemblerContainer linkedContainer, PlayerEntity player, BlockPos pos) {
@@ -38,9 +38,9 @@ public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContaine
 
         WSlot.addArray(Position.of(panel, 4, 50, 1), Size.of(18, 18), mainInterface, 1, 1, 9, 2);
 
-
-//        dynamicText = new WStaticText(Position.of(panel, 4, 22, 0), Size.of(60, 18), mainInterface)
-//                .setLabel(new LiteralText("§oTest"));
+        energyText = panel.createChild(WStaticText.class, Position.of(panel, 4, 40, 1));
+        energyText.setText(" ");
+        panel.add(energyText);
 
         for (WAbstractWidget widget : mainInterface.getWidgets()) {
             if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
@@ -54,7 +54,8 @@ public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContaine
     public void tick() {
         double max = this.blockEntity.getMaxStoredPower();
         double energy = this.blockEntity.getStored(EnergySide.UNKNOWN);
-//        this.dynamicText.setText(new LiteralText("Energy: " + energy + "/" + max));
+        LiteralText energyT = new LiteralText("Energy: " + energy + "/" + max);
+        energyText.setText(energyT);
         super.tick();
     }
 }

@@ -1,11 +1,13 @@
 package io.github.vampirestudios.molecularcraft.recipes;
 
+import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
@@ -39,6 +41,8 @@ public class DisassemblerRecipeManager {
         if (ItemMolecules.registry.containsKey(id.toString())) {
             ItemMolecules itemMolecule = ItemMolecules.registry.get(id.toString());
             List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+
+            if ((moleculeStackList.size() * consumption) > handler.getEnergy()) return;
             boolean[] booleans = new boolean[moleculeStackList.size()];
             for (int x = 0; x < booleans.length; x++)
                 booleans[x] = false;
@@ -51,6 +55,11 @@ public class DisassemblerRecipeManager {
                         moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
                                 new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
                                 moleculeStackList.get(g).getAmount());
+                    }
+                    if (moleculeStackList.get(g).getMolecules().size() == 1) {
+                        Item item = Registry.ITEM.get(new Identifier(MolecularCraft.MODID,
+                                moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase()));
+                        moleculeStackItemStack = new ItemStack(item, moleculeStackList.get(g).getAmount());
                     }
                     if (itemStack.isEmpty()) {
                         disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
@@ -81,17 +90,20 @@ public class DisassemblerRecipeManager {
                 if (molboolean) break;
             }
             boolean molboolean = true;
+            int ff = 0;
             for (boolean boo : booleans) {
                 if (!boo) {
                     molboolean = false;
+                } else {
+                    ff++;
                 }
             }
             if (molboolean) {
                 firstSlotItemStack.decrement(1);
-//            handler.use(moleculeStackList.size() * consumption);
+                handler.use(moleculeStackList.size() * consumption);
             } else {
-//                handler.use(ff * consumption);
-//                loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
+                handler.use(ff * consumption);
+                loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
             }
         }
     }
@@ -147,9 +159,9 @@ public class DisassemblerRecipeManager {
         }
         if (molboolean) {
             firstSlotItemStack.decrement(1);
-//            handler.use(moleculeStackList.size() * consumption);
+            handler.use(moleculeStackList.size() * consumption);
         } else {
-//                handler.use(ff * consumption);
+            handler.use(ff * consumption);
 //            loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
         }
     }
@@ -158,6 +170,7 @@ public class DisassemblerRecipeManager {
         MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
         MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
         List<Molecule> moleculeList = moleculeStack.getMolecules();
+        if ((moleculeList.size() * consumption) > energyHandler.getEnergy()) return;
         boolean[] booleans = new boolean[moleculeList.size()];
         for (int x = 0; x < booleans.length; x++)
             booleans[x] = false;
