@@ -37,14 +37,6 @@ public class AssemblerContainer extends BaseContainer {
                     ((WSlot) widget).setOverrideMaximumCount(true);
                     ((WSlot) widget).setMaximumCount(1024);
                 }
-                if (((WSlot) widget).getSlotNumber() == 18) {
-                    ((WSlot) widget).accept(ModItems.RECIPE);
-                    ((WSlot) widget).setWhitelist();
-                }
-                if (((WSlot) widget).getSlotNumber() == 19) {
-                    ((WSlot) widget).accept(Items.AIR);
-                    ((WSlot) widget).setWhitelist();
-                }
             }
         }
     }

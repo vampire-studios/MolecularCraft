@@ -1,5 +1,6 @@
 package io.github.vampirestudios.molecularcraft.container;
 
+import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
@@ -54,9 +55,6 @@ public class AssemblerScreen extends BaseContainerScreen<AssemblerContainer> {
                     ((WSlot) widget).setOverrideMaximumCount(true);
                     ((WSlot) widget).setMaximumCount(1024);
                 }
-                if (((WSlot) widget).getSlotNumber() == 18) {
-                    ((WSlot) widget).setPreviewStack(new ItemStack(ModItems.RECIPE));
-                }
             }
         }
     }
@@ -70,26 +68,55 @@ public class AssemblerScreen extends BaseContainerScreen<AssemblerContainer> {
         ItemStack recipe = blockEntity.inventory.getInvStack(18);
         if (recipe.getItem() == ModItems.RECIPE) {
             CompoundTag tag = recipe.getTag();
+            String id = tag.getString("outputId");
+            Item item = Registry.ITEM.get(new Identifier(id));
             ListTag list = tag.getList("inputs", 10);
+            boolean[] booleans = new boolean[list.size()];
             for (int i = 0; i < list.size() ; i++) {
+                booleans[i] = false;
                 CompoundTag tag1 = list.getCompound(i);
                 int amount = tag1.getInt("count");
-                String id = tag1.getString("id");
-                Item item = Registry.ITEM.get(new Identifier(id));
-                ItemStack itemStack = new ItemStack(item, amount);
-                for (WAbstractWidget widget : getInterface().getWidgets()) {
-                    if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
-                        if (((WSlot) widget).getSlotNumber() == i) {
-                            ((WSlot) widget).setPreviewStack(itemStack);
-                        }
+                String id1 = tag1.getString("id");
+                Item item1 = Registry.ITEM.get(new Identifier(id1));
+                ItemStack itemStack = new ItemStack(item1, amount);
+                if (blockEntity.inventory.getInvStack(i).getItem() == Items.AIR) {
+                    continue;
+                } else {
+                    ItemStack inventoryStack = blockEntity.inventory.getInvStack(i);
+                    if (itemStack.getItem() == inventoryStack.getItem() && inventoryStack.getCount() >= itemStack.getCount()) {
+                        booleans[i] = true;
                     }
                 }
             }
-        } else {
-            for (WAbstractWidget widget : getInterface().getWidgets()) {
-                if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
-                    if (((WSlot) widget).getSlotNumber() < 18) {
-                        ((WSlot) widget).setPreviewStack(new ItemStack(Items.AIR));
+            boolean canSynthetise = true;
+            for (boolean bool : booleans) {
+                if (!bool) {
+                    canSynthetise = false;
+                    break;
+                }
+            }
+            if (canSynthetise) {
+                for (int i = 0; i < list.size(); i++) {
+                    CompoundTag tag1 = list.getCompound(i);
+                    int amount = tag1.getInt("count");
+                    String id1 = tag1.getString("id");
+                    Item item1 = Registry.ITEM.get(new Identifier(id1));
+                    ItemStack itemStack = new ItemStack(item1, amount);
+                    ItemStack invStack = blockEntity.inventory.getInvStack(i);
+                    if (blockEntity.inventory.getInvStack(19).getItem() == item || blockEntity.inventory.getInvStack(19).getItem() == Items.AIR) {
+                        MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, i, 1,
+                                new ItemStack(invStack.getItem(), invStack.getCount() - itemStack.getCount()));
+                    }
+                }
+
+                if (blockEntity.inventory.getInvStack(19).getItem() == item) {
+                    int amount = blockEntity.inventory.getInvStack(19).getCount() + 1;
+                    MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, 19, 1,
+                            new ItemStack(item, amount));
+                } else {
+                    if (blockEntity.inventory.getInvStack(19).getItem() == Items.AIR) {
+                        MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, 19, 1,
+                                new ItemStack(item, 1));
                     }
                 }
             }
