@@ -58,6 +58,14 @@ public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
 
         errorText = panel.createChild(WStaticText.class, Position.of(panel, 10, 70, 1));
         errorText.setText(" ");
+
+        for (WAbstractWidget widget : mainInterface.getWidgets()) {
+            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
+                if (((WSlot) widget).getSlotNumber() == 1) {
+                    ((WSlot) widget).setPreviewStack(new ItemStack(ModItems.RECIPE));
+                }
+            }
+        }
     }
 
     @Override

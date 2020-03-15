@@ -1,33 +1,31 @@
 package io.github.vampirestudios.molecularcraft.blocks;
 
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
+import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class MicroscopeBlock extends BlockWithEntity {
+public class AssemblerBlock extends BlockWithEntity {
 
-    public MicroscopeBlock() {
+    public AssemblerBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockView blockView) {
-        return new MicroscopeBlockEntity();
+        return new AssemblerBlockEntity();
     }
 
     @Override
@@ -35,8 +33,8 @@ public class MicroscopeBlock extends BlockWithEntity {
         if (world.isClient) return ActionResult.PASS;
 
         BlockEntity be = world.getBlockEntity(pos);
-        if (be instanceof MicroscopeBlockEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:microscope"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+        if (be instanceof AssemblerBlockEntity) {
+            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         }
 
 
@@ -56,7 +54,7 @@ public class MicroscopeBlock extends BlockWithEntity {
     @Override
     public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
-            MicroscopeBlockEntity blockEntity = (MicroscopeBlockEntity) world.getBlockEntity(pos);
+            AssemblerBlockEntity blockEntity = (AssemblerBlockEntity) world.getBlockEntity(pos);
 
             for (int i = 0; i < blockEntity.getInvSize(); ++i) {
                 ItemStack stackB = blockEntity.getInvStack(i).copy();

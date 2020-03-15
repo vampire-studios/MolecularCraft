@@ -25,11 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisassemblerBlock extends BlockWithEntity {
-    public static final DirectionProperty FACING;
 
     public DisassemblerBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.NORTH));
     }
 
     @Override
@@ -53,31 +51,6 @@ public class DisassemblerBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState)state.with(FACING, rotation.rotate((Direction)state.get(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.get(FACING)));
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING});
-    }
-
-    @Override
-    public boolean canPlaceAtSide(BlockState world, BlockView view, BlockPos pos, BlockPlacementEnvironment env) {
-        return false;
     }
 
     @Override
@@ -107,9 +80,5 @@ public class DisassemblerBlock extends BlockWithEntity {
 
             super.onBlockRemoved(state, world, pos, newState, moved);
         }
-    }
-
-    static {
-        FACING = HorizontalFacingBlock.FACING;
     }
 }
