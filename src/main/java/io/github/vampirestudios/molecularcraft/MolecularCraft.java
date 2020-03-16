@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
-import spinnery.common.BaseContainer;
+import spinnery.common.BaseScreenHandler;
 import spinnery.util.StackUtilities;
 import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WSlot;
@@ -38,8 +38,8 @@ public class MolecularCraft implements ModInitializer {
 			CompoundTag tag = packetByteBuffer.readCompoundTag();
 			ItemStack stack = StackUtilities.read(tag);
 			packetContext.getTaskQueue().execute(() -> {
-				if (packetContext.getPlayer().container instanceof BaseContainer && packetContext.getPlayer().container.syncId == syncId) {
-					BaseContainer container = (BaseContainer)packetContext.getPlayer().container;
+				if (packetContext.getPlayer().currentScreenHandler instanceof BaseScreenHandler && packetContext.getPlayer().currentScreenHandler.syncId == syncId) {
+					BaseScreenHandler container = (BaseScreenHandler)packetContext.getPlayer().currentScreenHandler;
 					container.getInventory(inventoryNumber).setInvStack(slotNumber, stack);
 					Iterator var6 = container.getInterface().getAllWidgets().iterator();
 

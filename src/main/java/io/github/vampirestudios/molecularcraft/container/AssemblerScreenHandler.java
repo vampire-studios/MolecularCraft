@@ -6,16 +6,16 @@ import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseContainer;
+import spinnery.common.BaseScreenHandler;
 import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WInterface;
 import spinnery.widget.WSlot;
 
-public class AssemblerContainer extends BaseContainer {
+public class AssemblerScreenHandler extends BaseScreenHandler {
 
     AssemblerBlockEntity blockEntity = null;
 
-    public AssemblerContainer(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
+    public AssemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
         super(synchronizationID, linkedPlayerInventory);
 
         blockEntity = (AssemblerBlockEntity) getWorld().getBlockEntity(pos);

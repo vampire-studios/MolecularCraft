@@ -14,18 +14,18 @@ import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import spinnery.common.BaseContainerScreen;
+import spinnery.common.BaseHandledScreen;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
 
-public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
+public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenHandler> {
     WStaticText errorText;
     WStaticText dynamicText;
     MicroscopeBlockEntity blockEntity;
     WButton button;
 
-    public MicroscopeScreen(MicroscopeContainer linkedContainer, PlayerEntity player, BlockPos pos) {
+    public MicroscopeHandledScreen(MicroscopeScreenHandler linkedContainer, PlayerEntity player, BlockPos pos) {
         super(new LiteralText(""), linkedContainer, player);
 
         blockEntity = (MicroscopeBlockEntity) player.world.getBlockEntity(pos);
@@ -103,8 +103,8 @@ public class MicroscopeScreen extends BaseContainerScreen<MicroscopeContainer> {
                         AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(oneId, ItemMolecules.registry.get(oneId));
                         ItemStack recipeItem = new ItemStack(ModItems.RECIPE);
                         RecipeItem.setRecipeComponent(recipeItem, recipe);
-                        MolecularCraft.sendSlotUpdatePacket(this.getContainer().syncId, 2, 1, recipeItem);
-                        MolecularCraft.sendSlotUpdatePacket(this.getContainer().syncId, 1, 1, new ItemStack(two.getItem(), two.getCount() - 1));
+                        MolecularCraft.sendSlotUpdatePacket(this.getHandler().syncId, 2, 1, recipeItem);
+                        MolecularCraft.sendSlotUpdatePacket(this.getHandler().syncId, 1, 1, new ItemStack(two.getItem(), two.getCount() - 1));
                     }
                 }
             }

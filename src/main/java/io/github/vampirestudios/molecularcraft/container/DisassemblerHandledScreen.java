@@ -3,19 +3,18 @@ package io.github.vampirestudios.molecularcraft.container;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Style;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseContainerScreen;
+import spinnery.common.BaseHandledScreen;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
 import team.reborn.energy.EnergySide;
 
-public class DisassemblerScreen extends BaseContainerScreen<DisassemblerContainer> {
+public class DisassemblerHandledScreen extends BaseHandledScreen<DisassemblerScreenHandler> {
     WStaticText energyText;
     DisassemblerBlockEntity blockEntity;
 
-    public DisassemblerScreen(DisassemblerContainer linkedContainer, PlayerEntity player, BlockPos pos) {
+    public DisassemblerHandledScreen(DisassemblerScreenHandler linkedContainer, PlayerEntity player, BlockPos pos) {
         super(new LiteralText(""), linkedContainer, player);
 
         blockEntity = (DisassemblerBlockEntity) player.world.getBlockEntity(pos);

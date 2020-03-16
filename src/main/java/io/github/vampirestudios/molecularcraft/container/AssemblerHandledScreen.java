@@ -2,7 +2,6 @@ package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,17 +13,16 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import spinnery.common.BaseContainerScreen;
+import spinnery.common.BaseHandledScreen;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
-import team.reborn.energy.EnergySide;
 
-public class AssemblerScreen extends BaseContainerScreen<AssemblerContainer> {
+public class AssemblerHandledScreen extends BaseHandledScreen<AssemblerScreenHandler> {
     WStaticText energyText;
     AssemblerBlockEntity blockEntity;
 
-    public AssemblerScreen(AssemblerContainer linkedContainer, PlayerEntity player, BlockPos pos) {
+    public AssemblerHandledScreen(AssemblerScreenHandler linkedContainer, PlayerEntity player, BlockPos pos) {
         super(new LiteralText(""), linkedContainer, player);
 
         blockEntity = (AssemblerBlockEntity) player.world.getBlockEntity(pos);
@@ -104,18 +102,18 @@ public class AssemblerScreen extends BaseContainerScreen<AssemblerContainer> {
                     ItemStack itemStack = new ItemStack(item1, amount);
                     ItemStack invStack = blockEntity.inventory.getInvStack(i);
                     if (blockEntity.inventory.getInvStack(19).getItem() == item || blockEntity.inventory.getInvStack(19).getItem() == Items.AIR) {
-                        MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, i, 1,
+                        MolecularCraft.sendSlotUpdatePacket(getHandler().syncId, i, 1,
                                 new ItemStack(invStack.getItem(), invStack.getCount() - itemStack.getCount()));
                     }
                 }
 
                 if (blockEntity.inventory.getInvStack(19).getItem() == item) {
                     int amount = blockEntity.inventory.getInvStack(19).getCount() + 1;
-                    MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, 19, 1,
+                    MolecularCraft.sendSlotUpdatePacket(getHandler().syncId, 19, 1,
                             new ItemStack(item, amount));
                 } else {
                     if (blockEntity.inventory.getInvStack(19).getItem() == Items.AIR) {
-                        MolecularCraft.sendSlotUpdatePacket(getLinkedContainer().syncId, 19, 1,
+                        MolecularCraft.sendSlotUpdatePacket(getHandler().syncId, 19, 1,
                                 new ItemStack(item, 1));
                     }
                 }

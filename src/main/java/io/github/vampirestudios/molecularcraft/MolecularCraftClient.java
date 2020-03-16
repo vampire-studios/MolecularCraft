@@ -17,17 +17,17 @@ public class MolecularCraftClient implements ClientModInitializer {
         ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:disassembler"),
                 (syncId, id, player, buf) -> {
                     BlockPos pos = buf.readBlockPos();
-                    return new DisassemblerScreen(new DisassemblerContainer(syncId, player.inventory, pos), player, pos);
+                    return new DisassemblerHandledScreen(new DisassemblerScreenHandler(syncId, player.inventory, pos), player, pos);
         });
         ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:microscope"),
                 (syncId, id, player, buf) -> {
                     BlockPos pos = buf.readBlockPos();
-                    return new MicroscopeScreen(new MicroscopeContainer(syncId, player.inventory, pos), player, pos);
+                    return new MicroscopeHandledScreen(new MicroscopeScreenHandler(syncId, player.inventory, pos), player, pos);
         });
         ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:assembler"),
                 (syncId, id, player, buf) -> {
                     BlockPos pos = buf.readBlockPos();
-                    return new AssemblerScreen(new AssemblerContainer(syncId, player.inventory, pos), player, pos);
+                    return new AssemblerHandledScreen(new AssemblerScreenHandler(syncId, player.inventory, pos), player, pos);
         });
 
         Artifice.registerAssets(id("assets").toString(), clientResourcePackBuilder -> {

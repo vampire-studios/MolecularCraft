@@ -5,14 +5,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseContainer;
+import spinnery.common.BaseScreenHandler;
 import spinnery.widget.*;
 
-public class DisassemblerContainer extends BaseContainer {
+public class DisassemblerScreenHandler extends BaseScreenHandler {
 
     DisassemblerBlockEntity blockEntity = null;
 
-    public DisassemblerContainer(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
+    public DisassemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
         super(synchronizationID, linkedPlayerInventory);
 
         blockEntity = (DisassemblerBlockEntity) getWorld().getBlockEntity(pos);

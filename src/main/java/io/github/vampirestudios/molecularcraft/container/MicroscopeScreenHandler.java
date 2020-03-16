@@ -4,16 +4,16 @@ import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEn
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseContainer;
+import spinnery.common.BaseScreenHandler;
 import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WInterface;
 import spinnery.widget.WSlot;
 
-public class MicroscopeContainer extends BaseContainer {
+public class MicroscopeScreenHandler extends BaseScreenHandler {
 
     MicroscopeBlockEntity blockEntity = null;
 
-    public MicroscopeContainer(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
+    public MicroscopeScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
         super(synchronizationID, linkedPlayerInventory);
         blockEntity = (MicroscopeBlockEntity) getWorld().getBlockEntity(pos);
 
