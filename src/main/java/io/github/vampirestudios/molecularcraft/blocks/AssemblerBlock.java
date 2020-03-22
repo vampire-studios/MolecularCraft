@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class AssemblerBlock extends BlockWithEntity {
+public class AssemblerBlock extends BaseMachineBlock {
 
     public AssemblerBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
@@ -39,11 +39,6 @@ public class AssemblerBlock extends BlockWithEntity {
 
 
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Override

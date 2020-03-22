@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "molecularcraft:block/base_machine_casing",
+    "front": "molecularcraft:block/assembler",
+    "side": "molecularcraft:block/base_machine_casing"
+  }
+}

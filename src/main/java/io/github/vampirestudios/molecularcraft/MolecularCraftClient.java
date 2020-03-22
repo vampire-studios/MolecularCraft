@@ -34,13 +34,13 @@ public class MolecularCraftClient implements ClientModInitializer {
             for (Atoms atom : Atoms.values()) {
                 clientResourcePackBuilder.addItemModel(id(atom.getSymbol().toLowerCase()), modelBuilder -> {
                     modelBuilder.parent(id("minecraft", "item/generated"));
-                    modelBuilder.texture("layer0", id("items/atom"));
+                    modelBuilder.texture("layer0", id("item/atom"));
                 });
             }
             for (String identifier : Molecules.identifiers) {
                 clientResourcePackBuilder.addItemModel(id(identifier), modelBuilder -> {
                     modelBuilder.parent(id("minecraft", "item/generated"));
-                    modelBuilder.texture("layer0", id("items/molecule"));
+                    modelBuilder.texture("layer0", id("item/molecule"));
                 });
             }
         });

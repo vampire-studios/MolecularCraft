@@ -1,10 +1,7 @@
 package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
-import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import spinnery.common.BaseScreenHandler;
 import spinnery.widget.WAbstractWidget;

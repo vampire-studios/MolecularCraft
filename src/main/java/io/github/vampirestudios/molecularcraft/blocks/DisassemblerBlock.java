@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisassemblerBlock extends BlockWithEntity {
+public class DisassemblerBlock extends BaseMachineBlock {
 
     public DisassemblerBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
@@ -46,11 +46,6 @@ public class DisassemblerBlock extends BlockWithEntity {
 
 
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Override

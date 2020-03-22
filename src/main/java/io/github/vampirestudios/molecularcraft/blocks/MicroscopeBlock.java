@@ -19,7 +19,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class MicroscopeBlock extends BlockWithEntity {
+public class MicroscopeBlock extends BaseMachineBlock {
 
     public MicroscopeBlock() {
         super(FabricBlockSettings.of(Material.METAL).build());
@@ -41,11 +41,6 @@ public class MicroscopeBlock extends BlockWithEntity {
 
 
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Override

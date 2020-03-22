@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "molecularcraft:block/disassembler",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "molecularcraft:block/disassembler"
+    },
+    "facing=south": {
+      "model": "molecularcraft:block/disassembler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "molecularcraft:block/disassembler",
+      "y": 270
+    }
+  }
+}
