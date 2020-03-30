@@ -11,6 +11,10 @@
   "block.molecularcraft.microscope": "Microscope",
 
   "molecule.molecularcraft.h2o": "Water",
+  "molecule.molecularcraft.c6h10o5": "Cellulose",
+  "molecule.molecularcraft.c31h34o11": "Lignin",
+  "molecule.molecularcraft.c6h22o31": "Xylan",
+  "molecule.molecularcraft.c24h42o21": "Glucomannan",
   "molecule.molecularcraft.be3al2si6o18": "Silicate of beryllium and aluminum",
 
   "atom.molecularcraft.hydrogen.name": "Hydrogen",

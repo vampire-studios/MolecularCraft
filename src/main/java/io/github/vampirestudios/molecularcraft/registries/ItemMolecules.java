@@ -72,14 +72,31 @@ public class ItemMolecules {
 
         register("diamond_horse_armor", diamondMolecule.setAmount(new MoleculeAmount(11, INGOT)));
 
-        tag("logs", celluloseMolecule.setAmount(WOOD));
-        tag("saplings", celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT)));
-        tag("leaves", celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET)));
+        tag("logs",
+                celluloseMolecule.setAmount(80),
+                xylan.setAmount(16),
+                glucomannan.setAmount(16),
+                lignin.setAmount(48)
+        );
+        tag("saplings",
+                celluloseMolecule.setAmount(5),
+                xylan.setAmount(1),
+                glucomannan.setAmount(1),
+                lignin.setAmount(3)
+        );
+        tag("leaves",
+                celluloseMolecule.setAmount(80)
+        );
 
-        register("obsidian", obsidianMolecule);
+        register("bamboo",
+                celluloseMolecule.setAmount(5),
+                xylan.setAmount(1),
+                glucomannan.setAmount(1),
+                lignin.setAmount(3));
 
-        register("paper",
-                celluloseMolecule.setAmount(new MoleculeAmount(3, INGOT)));
+        register("obsidian", siliconDioxide.setAmount(8));
+
+        register("paper", celluloseMolecule.setAmount(6));
 
         register("leather",
                 livingMolecules.setAmount(new MoleculeAmount(7, NUGGET)));
@@ -217,8 +234,6 @@ public class ItemMolecules {
 
         register("string",
                 serine, glycine, alinine);
-
-        register("bamboo", celluloseMolecule.setAmount(8));
 
 
 

@@ -16,9 +16,12 @@ public class Molecules {
     public static MoleculeStack water;
     public static Molecule ironMolecule;
     public static MoleculeStack celluloseMolecule;
+    public static MoleculeStack lignin;
+    public static MoleculeStack xylan;
+    public static MoleculeStack glucomannan;
+
     public static Molecule carbonMolecule;
     public static MoleculeStack lava;
-    public static MoleculeStack obsidianMolecule;
     public static MoleculeStack siliconDioxide;
     public static MoleculeStack woolMolecule;
     public static MoleculeStack concreteMolecule;
@@ -49,6 +52,10 @@ public class Molecules {
         water = new MoleculeStack(new Molecule(HYDROGEN, 2), new Molecule(OXYGEN));
         ironMolecule = new Molecule(IRON);
         celluloseMolecule = new MoleculeStack(new Molecule(CARBON, 6), new Molecule(HYDROGEN, 10), new Molecule(OXYGEN, 5));
+        lignin = new MoleculeStack(new Molecule(CARBON, 31), new Molecule(HYDROGEN, 34), new Molecule(OXYGEN, 11));
+        xylan = new MoleculeStack(new Molecule(CARBON, 6), new Molecule(HYDROGEN, 22), new Molecule(OXYGEN, 31));
+        glucomannan = new MoleculeStack(new Molecule(CARBON, 24), new Molecule(HYDROGEN, 42), new Molecule(OXYGEN, 21));
+
         carbonMolecule = new Molecule(CARBON);
         diamondMolecule = new MoleculeStack(new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64));
         lava = new MoleculeStack(new Molecule(CARBON, 5));
@@ -61,8 +68,6 @@ public class Molecules {
         clayMolecule = new MoleculeStack(new Molecule(HYDROGEN, 4), new Molecule(OXYGEN, 7), new Molecule(SILICON, 2), new Molecule(ALUMINIUM, 2));
         coalMolecule = new MoleculeStack(new Molecule(CARBON, 7), new Molecule(HYDROGEN, 1), new Molecule(OXYGEN, 1), new Molecule(SULFUR, 1));
         inkMolecule = new MoleculeStack(new Molecule(CARBON, 4), new Molecule(HYDROGEN, 7), new Molecule(OXYGEN, 2), new Molecule(CHLORINE, 1));
-        obsidianMolecule = water.setAmount(new MoleculesAmountHelper.MoleculeAmount(2, INGOT).getAmount());
-        obsidianMolecule = lava.setAmount(new MoleculesAmountHelper.MoleculeAmount(2, INGOT).getAmount());
         goldMolecule = new Molecule(GOLD);
         slimeMolecule = new MoleculeStack(new Molecule(SILICON, 2), new Molecule(HYDROGEN, 2), new Molecule(OXYGEN,1 ));
         nitrate = new MoleculeStack(new Molecule(NITROGEN), new Molecule(OXYGEN, 3));

@@ -47,6 +47,14 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 for (MoleculeStack stack : itemMolecule.getList()) {
                     itemMolecule1.addMoleculeStack(stack.setAmount(stack.getAmount()/output.getCount()));
                 }
+                for (MoleculeStack stack : itemMolecule1.getList()) {
+                    if (stack.getAmount() == 0) {
+                        System.out.println("---------");
+                        System.out.println("Recipe id : " + recipe.getId().toString());
+                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
+                        System.out.println("---------");
+                    }
+                }
                 if (!itemMolecule1.getList().isEmpty()) {
                     if (!ItemMolecules.registry.containsKey(Registry.ITEM.getId(output.getItem()).toString())) {
                         ItemMolecules.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
@@ -84,6 +92,14 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 ItemMolecules itemMolecule1 = new ItemMolecules();
                 for (MoleculeStack stack : itemMolecule.getList()) {
                     itemMolecule1.addMoleculeStack(stack.setAmount(stack.getAmount()/output.getCount()));
+                }
+                for (MoleculeStack stack : itemMolecule1.getList()) {
+                    if (stack.getAmount() == 0) {
+                        System.out.println("---------");
+                        System.out.println("Recipe id : " + recipe.getId().toString());
+                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
+                        System.out.println("---------");
+                    }
                 }
                 if (!itemMolecule1.getList().isEmpty()) {
                     toRemove.add(id);
