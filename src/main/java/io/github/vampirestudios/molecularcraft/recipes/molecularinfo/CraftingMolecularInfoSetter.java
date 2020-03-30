@@ -4,6 +4,7 @@ import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -17,7 +18,8 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
     }
 
     @Override
-    public void setMolecularInfo(RecipeManager recipeManager) {
+    public void setMolecularInfo(MinecraftServer minecraftServer) {
+        RecipeManager recipeManager = minecraftServer.getRecipeManager();
         List<String> list = new ArrayList<>();
         System.out.println("Parsing recipe to set molecular composition of outputs");
         for (Recipe recipe : recipeManager.values()) {

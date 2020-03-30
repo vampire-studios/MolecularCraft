@@ -60,7 +60,7 @@ public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenH
         errorText = panel.createChild(WStaticText::new, Position.of(panel, 10, 70, 1));
         errorText.setText(" ");
 
-        energyText = panel.createChild(WStaticText::new, Position.of(panel, 30, 22, 1));
+        energyText = panel.createChild(WStaticText::new, Position.of(panel, 30, 32, 1));
         energyText.setText(" ");
     }
 
