@@ -49,6 +49,11 @@ public class MoleculesAmountHelper {
             this.moleculeAmountUnit = moleculeAmountUnit;
         }
 
+        public MoleculeAmount(MoleculeAmountUnit moleculeAmountUnit) {
+            this.amount = 1;
+            this.moleculeAmountUnit = moleculeAmountUnit;
+        }
+
         public int getAmount() {
             return amount * moleculeAmountUnit.getAmount();
         }

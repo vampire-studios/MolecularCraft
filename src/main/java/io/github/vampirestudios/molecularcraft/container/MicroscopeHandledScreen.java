@@ -20,6 +20,7 @@ import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
 
 public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenHandler> {
+    WStaticText energyText;
     WStaticText errorText;
     WStaticText dynamicText;
     MicroscopeBlockEntity blockEntity;
@@ -32,7 +33,7 @@ public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenH
 
         WInterface mainInterface = getInterface();
 
-        WPanel panel = mainInterface.createChild(WPanel.class, Position.of(0, 0, 0), Size.of(170, 180)).setInterface(mainInterface);
+        WPanel panel = mainInterface.createChild(WPanel::new, Position.of(0, 0, 0), Size.of(170, 180)).setInterface(mainInterface);
 
         panel.setLabel(new LiteralText("Microscope"));
 
@@ -44,7 +45,7 @@ public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenH
 
         WSlot.addPlayerInventory(Position.of(panel, ((panel.getWidth()) / 2) - (int) (18 * 4.5f), 90, 1), Size.of(18, 18), mainInterface);
 
-        dynamicText = panel.createChild(WStaticText.class, Position.of(panel, 30, 22, 1));
+        dynamicText = panel.createChild(WStaticText::new, Position.of(panel, 30, 22, 1));
         dynamicText.setText(" ");
         panel.add(dynamicText);
 
@@ -54,22 +55,20 @@ public class MicroscopeHandledScreen extends BaseHandledScreen<MicroscopeScreenH
 
         WSlot.addArray(Position.of(panel, 125, 50, 1), Size.of(18, 18), mainInterface, 2, 1, 1, 1);
 
-        button = panel.createChild(WButton.class, Position.of(panel, 30, 50, 1), Size.of(90, 18)).setLabel("Create Recipe");
+        button = panel.createChild(WButton::new, Position.of(panel, 30, 50, 1), Size.of(90, 18)).setLabel("Create Recipe");
 
-        errorText = panel.createChild(WStaticText.class, Position.of(panel, 10, 70, 1));
+        errorText = panel.createChild(WStaticText::new, Position.of(panel, 10, 70, 1));
         errorText.setText(" ");
 
-        for (WAbstractWidget widget : mainInterface.getWidgets()) {
-            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
-                if (((WSlot) widget).getSlotNumber() == 1) {
-                    ((WSlot) widget).setPreviewStack(new ItemStack(ModItems.RECIPE));
-                }
-            }
-        }
+        energyText = panel.createChild(WStaticText::new, Position.of(panel, 30, 22, 1));
+        energyText.setText(" ");
     }
 
     @Override
     public void tick() {
+        double energy = blockEntity.getStored(null);
+        double maxE = blockEntity.getMaxStoredPower();
+        energyText.setText("Energy: " + energy + "/" + maxE);
         ItemStack one = blockEntity.getInvStack(0);
         String oneId = Registry.ITEM.getId(one.getItem()).toString();
         ItemStack two = blockEntity.getInvStack(1);

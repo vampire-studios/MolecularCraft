@@ -46,6 +46,8 @@ public class AssemblerHandledScreen extends BaseHandledScreen<AssemblerScreenHan
 
         WSlot.addArray(Position.of(panel, 4, 22, 1), Size.of(18, 18), mainInterface, 0, 1, 9, 2);
 
+        energyText = panel.createChild(WStaticText::new, Position.of(panel, 22, 65, 1));
+        energyText.setText(" ");
 
         for (WAbstractWidget widget : mainInterface.getWidgets()) {
             if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
@@ -59,10 +61,9 @@ public class AssemblerHandledScreen extends BaseHandledScreen<AssemblerScreenHan
 
     @Override
     public void tick() {
-//        double max = this.blockEntity.getMaxStoredPower();
-//        double energy = this.blockEntity.getStored(EnergySide.UNKNOWN);
-//        LiteralText energyT = new LiteralText("Energy: " + energy + "/" + max);
-//        energyText.setText(energyT);
+        double energy = blockEntity.getStored(null);
+        double maxE = blockEntity.getMaxStoredPower();
+        energyText.setText("Energy: " + energy + "/" + maxE);
         ItemStack recipe = blockEntity.inventory.getInvStack(18);
         if (recipe.getItem() == ModItems.RECIPE) {
             CompoundTag tag = recipe.getTag();
