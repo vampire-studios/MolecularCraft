@@ -68,13 +68,13 @@ public class ItemMolecules {
         register("iron_nugget", new MoleculeStack(NUGGET, ironMolecule));
         register("gold_nugget", new MoleculeStack(NUGGET, goldMolecule));
         register("diamond", diamondMolecule.setAmount(INGOT));
+        register("emerald", emerald.setAmount(INGOT));
 
         register("diamond_horse_armor", diamondMolecule.setAmount(new MoleculeAmount(11, INGOT)));
 
         tag("logs", celluloseMolecule.setAmount(WOOD));
         tag("saplings", celluloseMolecule.setAmount(new MoleculeAmount(4, INGOT)));
         tag("leaves", celluloseMolecule.setAmount(new MoleculeAmount(12, NUGGET)));
-
 
         register("obsidian", obsidianMolecule);
 
@@ -219,6 +219,16 @@ public class ItemMolecules {
                 serine, glycine, alinine);
 
         register("bamboo", celluloseMolecule.setAmount(8));
+
+
+
+        // CottonResources : https://github.com/CottonMC/CottonResources/tree/feature/1.16.x/src/main/resources/data/c/tags/items
+        tag("c:aluminum_nuggets", new MoleculeStack(NUGGET, aluminum));
+        tag("c:amethysts", siliconDioxide.setAmount(new MoleculeAmount(INGOT)));
+        tag("c:bronze_nuggets", bronzeMolecule.setAmount(NUGGET));
+        tag("c:cobalt_nuggets", new MoleculeStack(NUGGET, cobalt));
+        tag("c:copper_nuggets", new MoleculeStack(NUGGET, copper));
+        tag("c:electrum_nuggets", electrum.setAmount(NUGGET));
     }
 
     public static void register(String id, MoleculeStack... stack) {
