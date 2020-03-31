@@ -244,6 +244,23 @@ public class ItemMolecules {
         tag("c:cobalt_nuggets", new MoleculeStack(NUGGET, cobalt));
         tag("c:copper_nuggets", new MoleculeStack(NUGGET, copper));
         tag("c:electrum_nuggets", electrum.setAmount(NUGGET));
+        tag("c:iridium_nuggets", new MoleculeStack(NUGGET, iridium));
+        tag("c:lead_nuggets", new MoleculeStack(NUGGET, lead));
+        tag("c:osmium_nuggets", new MoleculeStack(NUGGET, osmium));
+        tag("c:palladium_nuggets", new MoleculeStack(NUGGET, palladium));
+        tag("c:peridots", peridot.setAmount(INGOT));
+        tag("c:platinum_nuggets", new MoleculeStack(NUGGET, platinum));
+        tag("c:plutonium_nuggets", new MoleculeStack(NUGGET, plutonium));
+        tag("c:rubies", ruby.setAmount(INGOT));
+        tag("c:sapphires", sapphire.setAmount(INGOT));
+        tag("c:silver_nuggets", new MoleculeStack(NUGGET, silver));
+        tag("c:thorium_nuggets", new MoleculeStack(NUGGET, thorium));
+        tag("c:tin_nuggets", new MoleculeStack(NUGGET, tin));
+        tag("c:titanium_nuggets", new MoleculeStack(NUGGET, titanium));
+        tag("c:topazes", topaz.setAmount(INGOT));
+        tag("c:tungsten_nuggets", new MoleculeStack(NUGGET, tungsten));
+        tag("c:uranium_nuggets", new MoleculeStack(NUGGET, uranium));
+        tag("c:zinc_nuggets", new MoleculeStack(NUGGET, zinc));
     }
 
     public static void register(String id, MoleculeStack... stack) {

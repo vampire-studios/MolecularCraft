@@ -47,6 +47,23 @@ public class Molecules {
     public static Molecule cobalt;
     public static Molecule copper;
     public static MoleculeStack electrum;
+    public static Molecule iridium;
+    public static Molecule lead;
+    public static Molecule osmium;
+    public static Molecule palladium;
+    public static MoleculeStack peridot;
+    public static Molecule platinum;
+    public static Molecule plutonium;
+    public static MoleculeStack ruby;
+    public static MoleculeStack sapphire;
+    public static Molecule silver;
+    public static Molecule thorium;
+    public static Molecule tin;
+    public static Molecule titanium;
+    public static MoleculeStack topaz;
+    public static Molecule tungsten;
+    public static Molecule uranium;
+    public static Molecule zinc;
 
     public static void init() {
         water = new MoleculeStack(new Molecule(HYDROGEN, 2), new Molecule(OXYGEN));
@@ -83,5 +100,22 @@ public class Molecules {
         cobalt = new Molecule(COBALT);
         copper = new Molecule(COPPER);
         electrum = new MoleculeStack(goldMolecule, new Molecule(SILVER));
+        iridium = new Molecule(IRIDIUM);
+        lead = new Molecule(LEAD);
+        osmium = new Molecule(OSMIUM);
+        palladium = new Molecule(PALLADIUM);
+        peridot = new MoleculeStack(new Molecule(MAGNESIUM, 2), new Molecule(SILICON), new Molecule(OXYGEN, 4));
+        platinum = new Molecule(PLATINUM);
+        plutonium = new Molecule(PLUTONIUM);
+        ruby = new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(OXYGEN, 3));
+        sapphire = new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(OXYGEN, 3));
+        silver = new Molecule(SILVER);
+        thorium = new Molecule(THORIUM);
+        tin = new Molecule(TIN);
+        titanium = new Molecule(TITANIUM);
+        topaz = new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(SILICON), new Molecule(FLUORINE, 2), new Molecule(OXYGEN, 2), new Molecule(HYDROGEN, 2));
+        tungsten = new Molecule(TUNGSTEN);
+        uranium = new Molecule(URANIUM);
+        zinc = new Molecule(ZINC);
     }
 }
