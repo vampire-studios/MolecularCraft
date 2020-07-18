@@ -3,15 +3,19 @@ package io.github.vampirestudios.molecularcraft.container;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
+import io.github.cottonmc.cotton.gui.widget.WLabel;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.registries.ModContainers;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 
 public class AssemblerScreenHandler extends SyncedGuiDescription {
 
-    AssemblerBlockEntity blockEntity = null;
+    AssemblerBlockEntity blockEntity;
+    WLabel textField;
 
     public AssemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos, ScreenHandlerContext context) {
         super(ModContainers.ASSEMBLER_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 20), getBlockPropertyDelegate(context));
@@ -20,12 +24,18 @@ public class AssemblerScreenHandler extends SyncedGuiDescription {
 
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
-        root.setSize(300, 200);
+        root.setSize(160, 200);
 
-        WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
-        root.add(itemSlot, 4, 1);
+        WItemSlot itemSlot = new WItemSlot(blockInventory, 0, 9,2, false);
+        root.add(itemSlot, 0, 1);
+        WItemSlot itemSlot1 = new WItemSlot(blockInventory, 18, 1,1, false);
+        root.add(itemSlot1, 0, 4);
+        WItemSlot itemSlot2 = new WItemSlot(blockInventory, 19, 1,1, false);
+        root.add(itemSlot2, 8, 4);
+        textField = new WLabel(new LiteralText("Test"));
+        root.add(textField, 0, 3);
 
-        root.add(this.createPlayerInventoryPanel(), 0, 3);
+        root.add(this.createPlayerInventoryPanel(), 0, 6);
 
         root.validate(this);
 

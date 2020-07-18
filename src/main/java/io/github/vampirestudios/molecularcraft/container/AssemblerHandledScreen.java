@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
+import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
@@ -19,11 +20,13 @@ import net.minecraft.util.registry.Registry;
 public class AssemblerHandledScreen extends CottonInventoryScreen<AssemblerScreenHandler> {
 //    WStaticText energyText;
     AssemblerBlockEntity blockEntity;
+    WLabel textField;
 
     public AssemblerHandledScreen(AssemblerScreenHandler linkedContainer, PlayerEntity player, Text title) {
         super(linkedContainer, player, title);
 
         this.blockEntity = linkedContainer.blockEntity;
+        this.textField = linkedContainer.textField;
 //
 //        WInterface mainInterface = getInterface();
 //
@@ -59,9 +62,9 @@ public class AssemblerHandledScreen extends CottonInventoryScreen<AssemblerScree
 
     @Override
     public void tick() {
-//        double energy = blockEntity.getStored(null);
-//        double maxE = blockEntity.getMaxStoredPower();
-//        energyText.setText("Energy: " + energy + "/" + maxE);
+        double energy = blockEntity.getStored(null);
+        double maxE = blockEntity.getMaxStoredPower();
+        textField.setText(new LiteralText("Energy: " + energy + "/" + maxE));
 //        ItemStack recipe = blockEntity.inventory.getInvStack(18);
 //        if (recipe.getItem() == ModItems.RECIPE) {
 //            CompoundTag tag = recipe.getTag();
