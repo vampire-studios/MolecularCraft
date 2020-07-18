@@ -37,7 +37,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
     @Override
     public CompoundTag toTag(CompoundTag tag) {
 //        InventoryUtilities.write(this.inventory, tag);
-        Inventories.toTag(tag, this.items);
+        tag = Inventories.toTag(tag, this.items);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
@@ -47,8 +47,8 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
         super.fromTag(state, tag);
 //        inventory = new BaseInventory(20);
 //        InventoryUtilities.read(inventory, tag);
+        if (this.world == null) this.setStored(tag.getDouble("energy"));
         Inventories.fromTag(tag, this.items);
-        this.setStored(tag.getDouble("energy"));
     }
 
     @Override
