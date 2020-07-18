@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.7-SNAPSHOT'
+	id 'fabric-loom' version '0.4-SNAPSHOT'
 	id 'maven-publish'
 	id "com.wynprice.cursemaven" version "2.1.0"
 }
@@ -43,18 +43,17 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-
-	// Spinnery
-	modCompile "com.github.vini2003:spinnery:${project.spinnery_version}"
-	include "com.github.vini2003:spinnery:${project.spinnery_version}"
+	//LibGui
+	modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
+	include "io.github.cottonmc:LibGui:${project.libgui_version}"
 
 	// Energy API
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
 
 	// Artifice
-	modImplementation "com.lettuce.fudge:artifice:0.6.0+20w06a"
-	include "com.lettuce.fudge:artifice:0.6.0+20w06a"
+	modImplementation "com.lettuce.fudge:artifice:0.8.0+1.16-rc1"
+	include "com.lettuce.fudge:artifice:0.8.0+1.16-rc1"
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"

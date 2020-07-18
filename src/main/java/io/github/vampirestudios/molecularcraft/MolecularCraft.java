@@ -4,12 +4,13 @@ import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.network.PacketByteBuf;
 import spinnery.common.BaseScreenHandler;
 import spinnery.util.StackUtilities;
 import spinnery.widget.WAbstractWidget;
@@ -52,6 +53,9 @@ public class MolecularCraft implements ModInitializer {
 				}
 
 			});
+		});
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((minecraftServer, serverResourceManager, success) -> {
+			MolecularInfoSetters.REGISTRY.forEach(abstractMolecularInfoSetter -> abstractMolecularInfoSetter.setMolecularInfo(minecraftServer));
 		});
 	}
 

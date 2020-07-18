@@ -5,7 +5,7 @@ import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 

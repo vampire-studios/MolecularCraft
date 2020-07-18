@@ -1,27 +1,17 @@
 package io.github.vampirestudios.molecularcraft.mixins;
 
-import io.github.vampirestudios.molecularcraft.enums.Atoms;
-import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
-import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
-import io.github.vampirestudios.molecularcraft.molecules.Molecule;
-import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
-import java.util.Map;
 
 @Mixin(ItemStack.class)
 public class MixinItemStack {
