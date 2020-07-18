@@ -2,6 +2,7 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 
 import io.github.vampirestudios.molecularcraft.container.AssemblerScreenHandler;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,9 +10,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Tickable;
@@ -21,7 +24,7 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, NamedScreenHandlerFactory, ImplementedInventory {
+public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory {
     private double energy;
 //    public BaseInventory inventory = new BaseInventory(20);
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(20, ItemStack.EMPTY);
@@ -117,5 +120,10 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
     @Override
     public DefaultedList<ItemStack> getItems() {
         return this.items;
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
     }
 }

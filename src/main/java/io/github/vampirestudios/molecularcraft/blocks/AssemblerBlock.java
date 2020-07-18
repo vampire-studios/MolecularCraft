@@ -4,11 +4,13 @@ import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEnt
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.impl.container.ContainerProviderImpl;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
@@ -33,11 +35,17 @@ public class AssemblerBlock extends BaseMachineBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof AssemblerBlockEntity) {
-            ContainerProviderImpl.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+//            ContainerProviderImpl.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         }
 
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return (ExtendedScreenHandlerFactory) world.getBlockEntity(pos);
     }
 
     @Override
