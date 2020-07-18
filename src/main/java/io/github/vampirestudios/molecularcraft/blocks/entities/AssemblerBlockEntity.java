@@ -1,22 +1,30 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
+import io.github.vampirestudios.molecularcraft.container.AssemblerScreenHandler;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import spinnery.common.BaseInventory;
-import spinnery.util.InventoryUtilities;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, BlockEntityClientSerializable {
+public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, NamedScreenHandlerFactory, ImplementedInventory {
     private double energy;
-    public BaseInventory inventory = new BaseInventory(20);
+//    public BaseInventory inventory = new BaseInventory(20);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(20, ItemStack.EMPTY);
 
     public AssemblerBlockEntity() {
         super(ModBlockEntities.assemblerBlockEntityBlockEntityType);
@@ -25,16 +33,18 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        InventoryUtilities.write(this.inventory, tag);
+//        InventoryUtilities.write(this.inventory, tag);
+        Inventories.toTag(tag, this.items);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
-        inventory = new BaseInventory(20);
-        InventoryUtilities.read(inventory, tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+//        inventory = new BaseInventory(20);
+//        InventoryUtilities.read(inventory, tag);
+        Inventories.fromTag(tag, this.items);
         this.setStored(tag.getDouble("energy"));
     }
 
@@ -78,33 +88,34 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
         return 0;
     }
 
+//    @Override
+//    public void fromClientTag(CompoundTag tag) {
+//        super.fromTag(tag);
+//        inventory = new BaseInventory(20);
+//        InventoryUtilities.read(inventory, tag);
+//        this.setStored(tag.getDouble("energy"));
+//
+//    }
+//
+//    @Override
+//    public CompoundTag toClientTag(CompoundTag tag) {
+//        InventoryUtilities.write(this.inventory, tag);
+//        tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
+//        return super.toTag(tag);
+//    }
+
     @Override
-    public void fromClientTag(CompoundTag tag) {
-        super.fromTag(tag);
-        inventory = new BaseInventory(20);
-        InventoryUtilities.read(inventory, tag);
-        this.setStored(tag.getDouble("energy"));
-
+    public Text getDisplayName() {
+        return new LiteralText("Assembler");
     }
 
     @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
-        InventoryUtilities.write(this.inventory, tag);
-        tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
-        return super.toTag(tag);
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new AssemblerScreenHandler(syncId, inv, this.pos, ScreenHandlerContext.create(this.world, this.pos));
     }
 
-    public int getInvSize() {
-        return this.inventory.getInvSize();
-    }
-
-
-    public ItemStack getInvStack(int k) {
-        return this.inventory.getInvStack(k);
-    }
-
-
-    public void setInvStack(int k, ItemStack itemStack) {
-        this.inventory.setInvStack(k, itemStack);
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return this.items;
     }
 }

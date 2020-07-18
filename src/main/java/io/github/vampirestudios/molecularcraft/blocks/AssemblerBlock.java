@@ -4,14 +4,13 @@ import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEnt
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Material;
+import net.fabricmc.fabric.impl.container.ContainerProviderImpl;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -20,7 +19,7 @@ import net.minecraft.world.World;
 public class AssemblerBlock extends BaseMachineBlock {
 
     public AssemblerBlock() {
-        super(FabricBlockSettings.of(Material.METAL).build());
+        super(AbstractBlock.Settings.of(Material.METAL));
     }
 
     @Override
@@ -34,7 +33,7 @@ public class AssemblerBlock extends BaseMachineBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof AssemblerBlockEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            ContainerProviderImpl.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         }
 
 
@@ -47,12 +46,12 @@ public class AssemblerBlock extends BaseMachineBlock {
     }
 
     @Override
-    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             AssemblerBlockEntity blockEntity = (AssemblerBlockEntity) world.getBlockEntity(pos);
 
-            for (int i = 0; i < blockEntity.getInvSize(); ++i) {
-                ItemStack stackB = blockEntity.getInvStack(i).copy();
+            for (int i = 0; i < blockEntity.size(); ++i) {
+                ItemStack stackB = blockEntity.getStack(i).copy();
 
                 do {
                     int intA = Math.min(stackB.getCount(), stackB.getMaxCount());
@@ -66,7 +65,7 @@ public class AssemblerBlock extends BaseMachineBlock {
                 } while (!stackB.isEmpty());
             }
 
-            super.onBlockRemoved(state, world, pos, newState, moved);
+            super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 }

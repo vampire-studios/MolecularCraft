@@ -1,40 +1,52 @@
 package io.github.vampirestudios.molecularcraft.container;
 
+import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
+import io.github.vampirestudios.molecularcraft.registries.ModContainers;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.math.BlockPos;
-import spinnery.common.BaseScreenHandler;
-import spinnery.widget.WAbstractWidget;
-import spinnery.widget.WInterface;
-import spinnery.widget.WSlot;
 
-public class AssemblerScreenHandler extends BaseScreenHandler {
+public class AssemblerScreenHandler extends SyncedGuiDescription {
 
     AssemblerBlockEntity blockEntity = null;
 
-    public AssemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos) {
-        super(synchronizationID, linkedPlayerInventory);
+    public AssemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos, ScreenHandlerContext context) {
+        super(ModContainers.ASSEMBLER_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 20), getBlockPropertyDelegate(context));
 
-        blockEntity = (AssemblerBlockEntity) getWorld().getBlockEntity(pos);
+        blockEntity = (AssemblerBlockEntity) this.world.getBlockEntity(pos);
 
-        WInterface wInterface = getInterface();
+        WGridPanel root = new WGridPanel();
+        setRootPanel(root);
+        root.setSize(300, 200);
 
-        getInventories().put(1, blockEntity.inventory);
+        WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
+        root.add(itemSlot, 4, 1);
 
-        WSlot.addHeadlessPlayerInventory(wInterface);
+        root.add(this.createPlayerInventoryPanel(), 0, 3);
 
-        WSlot.addHeadlessArray(wInterface, 18, 1, 1, 1);
-        WSlot.addHeadlessArray(wInterface, 19, 1, 1, 1);
+        root.validate(this);
 
-        WSlot.addHeadlessArray(wInterface, 0, 1, 9, 2);
-
-        for (WAbstractWidget widget : wInterface.getWidgets()) {
-            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
-                if (((WSlot) widget).getSlotNumber() < 18) {
-                    ((WSlot) widget).setOverrideMaximumCount(true);
-                    ((WSlot) widget).setMaximumCount(1024);
-                }
-            }
-        }
+//        WInterface wInterface = getInterface();
+//
+//        getInventories().put(1, blockEntity.inventory);
+//
+//        WSlot.addHeadlessPlayerInventory(wInterface);
+//
+//        WSlot.addHeadlessArray(wInterface, 18, 1, 1, 1);
+//        WSlot.addHeadlessArray(wInterface, 19, 1, 1, 1);
+//
+//        WSlot.addHeadlessArray(wInterface, 0, 1, 9, 2);
+//
+//        for (WAbstractWidget widget : wInterface.getWidgets()) {
+//            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
+//                if (((WSlot) widget).getSlotNumber() < 18) {
+//                    ((WSlot) widget).setOverrideMaximumCount(true);
+//                    ((WSlot) widget).setMaximumCount(1024);
+//                }
+//            }
+//        }
     }
 }

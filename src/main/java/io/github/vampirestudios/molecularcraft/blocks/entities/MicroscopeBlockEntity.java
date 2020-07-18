@@ -3,6 +3,7 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 import io.github.vampirestudios.molecularcraft.recipes.DisassemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
@@ -11,15 +12,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import spinnery.common.BaseInventory;
-import spinnery.util.InventoryUtilities;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage, BlockEntityClientSerializable {
+public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage {
     private double energy;
-    public BaseInventory inventory = new BaseInventory(3);
+//    public BaseInventory inventory = new BaseInventory(3);
 
     public MicroscopeBlockEntity() {
         super(ModBlockEntities.microscopeBlockEntityBlockEntityType);
@@ -28,16 +27,16 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        InventoryUtilities.write(this.inventory, tag);
+//        InventoryUtilities.write(this.inventory, tag);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
-        inventory = new BaseInventory(3);
-        InventoryUtilities.read(inventory, tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+//        inventory = new BaseInventory(3);
+//        InventoryUtilities.read(inventory, tag);
         this.setStored(tag.getDouble("energy"));
     }
 
@@ -81,28 +80,12 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
         return 0;
     }
 
-    @Override
-    public void fromClientTag(CompoundTag tag) {
-        super.fromTag(tag);
-        inventory = new BaseInventory(3);
-        InventoryUtilities.read(inventory, tag);
-        this.setStored(tag.getDouble("energy"));
-
-    }
-
-    @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
-        InventoryUtilities.write(this.inventory, tag);
-        tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
-        return super.toTag(tag);
-    }
-
-    public int getInvSize() {
-        return this.inventory.getInvSize();
-    }
-
-
-    public ItemStack getInvStack(int k) {
-        return this.inventory.getInvStack(k);
-    }
+//    public int getInvSize() {
+//        return this.inventory.getInvSize();
+//    }
+//
+//
+//    public ItemStack getInvStack(int k) {
+//        return this.inventory.getInvStack(k);
+//    }
 }

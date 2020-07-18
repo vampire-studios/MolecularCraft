@@ -24,219 +24,219 @@ public class DisassemblerRecipeManager {
 
 
     public static void tick(DisassemblerBlockEntity disassemblerBlockEntity) {
-        EnergyHandler handler = Energy.of(disassemblerBlockEntity);
-        if (handler.getEnergy() < consumption) return;
-        ItemStack firstSlotItemStack = disassemblerBlockEntity.getInvStack(0);
-        if (firstSlotItemStack.isEmpty()) return;
-
-        if (firstSlotItemStack.getItem() instanceof MoleculeStackItem) {
-            stackToMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
-        } else {
-            itemToStackAndMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
-        }
+//        EnergyHandler handler = Energy.of(disassemblerBlockEntity);
+//        if (handler.getEnergy() < consumption) return;
+//        ItemStack firstSlotItemStack = disassemblerBlockEntity.getInvStack(0);
+//        if (firstSlotItemStack.isEmpty()) return;
+//
+//        if (firstSlotItemStack.getItem() instanceof MoleculeStackItem) {
+//            stackToMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
+//        } else {
+//            itemToStackAndMolecule(disassemblerBlockEntity, firstSlotItemStack, handler);
+//        }
     }
 
     public static void itemToStackAndMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler) {
-        Identifier id = Registry.ITEM.getId(firstSlotItemStack.getItem());
-        if (ItemMolecules.registry.containsKey(id.toString())) {
-            ItemMolecules itemMolecule = ItemMolecules.registry.get(id.toString());
-            List<MoleculeStack> moleculeStackList = itemMolecule.getList();
-
-            if ((moleculeStackList.size() * consumption) > handler.getEnergy()) return;
-            boolean[] booleans = new boolean[moleculeStackList.size()];
-            for (int x = 0; x < booleans.length; x++)
-                booleans[x] = false;
-            for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
-                ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
-                for (int g = 0; g < moleculeStackList.size(); g++) {
-                    if (booleans[g]) continue;
-                    ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
-                    if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
-                        moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                                new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
-                                moleculeStackList.get(g).getAmount());
-                    }
-                    if (moleculeStackList.get(g).getMolecules().size() == 1) {
-                        Item item = Registry.ITEM.get(new Identifier(MolecularCraft.MODID,
-                                moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase()));
-                        moleculeStackItemStack = new ItemStack(item, moleculeStackList.get(g).getAmount());
-                    }
-                    if (itemStack.isEmpty()) {
-                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                        booleans[g] = true;
-                        break;
-                    } else {
-                        if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                            int amount = itemStack.getCount();
-                            int count = moleculeStackItemStack.getCount();
-                            int som = count + amount;
-                            if (som > 1024) continue;
-                            moleculeStackItemStack.setCount(som);
-                            disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                            booleans[g] = true;
-                            break;
-                        } else {
-                            booleans[g] = false;
-                        }
-                    }
-                }
-                boolean molboolean = true;
-                for (boolean boo : booleans) {
-                    if (!boo) {
-                        molboolean = false;
-                        break;
-                    }
-                }
-                if (molboolean) break;
-            }
-            boolean molboolean = true;
-            int ff = 0;
-            for (boolean boo : booleans) {
-                if (!boo) {
-                    molboolean = false;
-                } else {
-                    ff++;
-                }
-            }
-            if (molboolean) {
-                firstSlotItemStack.decrement(1);
-                handler.use(moleculeStackList.size() * consumption);
-            } else {
-                handler.use(ff * consumption);
-                loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
-            }
-        }
+//        Identifier id = Registry.ITEM.getId(firstSlotItemStack.getItem());
+//        if (ItemMolecules.registry.containsKey(id.toString())) {
+//            ItemMolecules itemMolecule = ItemMolecules.registry.get(id.toString());
+//            List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+//
+//            if ((moleculeStackList.size() * consumption) > handler.getEnergy()) return;
+//            boolean[] booleans = new boolean[moleculeStackList.size()];
+//            for (int x = 0; x < booleans.length; x++)
+//                booleans[x] = false;
+//            for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
+//                ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
+//                for (int g = 0; g < moleculeStackList.size(); g++) {
+//                    if (booleans[g]) continue;
+//                    ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
+//                    if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
+//                        moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+//                                new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
+//                                moleculeStackList.get(g).getAmount());
+//                    }
+//                    if (moleculeStackList.get(g).getMolecules().size() == 1) {
+//                        Item item = Registry.ITEM.get(new Identifier(MolecularCraft.MODID,
+//                                moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase()));
+//                        moleculeStackItemStack = new ItemStack(item, moleculeStackList.get(g).getAmount());
+//                    }
+//                    if (itemStack.isEmpty()) {
+//                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                        booleans[g] = true;
+//                        break;
+//                    } else {
+//                        if (itemStack.isItemEqual(moleculeStackItemStack)) {
+//                            int amount = itemStack.getCount();
+//                            int count = moleculeStackItemStack.getCount();
+//                            int som = count + amount;
+//                            if (som > 1024) continue;
+//                            moleculeStackItemStack.setCount(som);
+//                            disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                            booleans[g] = true;
+//                            break;
+//                        } else {
+//                            booleans[g] = false;
+//                        }
+//                    }
+//                }
+//                boolean molboolean = true;
+//                for (boolean boo : booleans) {
+//                    if (!boo) {
+//                        molboolean = false;
+//                        break;
+//                    }
+//                }
+//                if (molboolean) break;
+//            }
+//            boolean molboolean = true;
+//            int ff = 0;
+//            for (boolean boo : booleans) {
+//                if (!boo) {
+//                    molboolean = false;
+//                } else {
+//                    ff++;
+//                }
+//            }
+//            if (molboolean) {
+//                firstSlotItemStack.decrement(1);
+//                handler.use(moleculeStackList.size() * consumption);
+//            } else {
+//                handler.use(ff * consumption);
+//                loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
+//            }
+//        }
     }
 
     private static void loopItemStack(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler, ItemMolecules itemMolecule, boolean[] booleans) {
-        List<MoleculeStack> moleculeStackList = itemMolecule.getList();
-        for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
-            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
-            for (int g = 0; g < moleculeStackList.size(); g++) {
-                if (booleans[g]) continue;
-                ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
-                if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
-                    moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                            new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
-                            moleculeStackList.get(g).getAmount());
-                }
-                if (itemStack.isEmpty()) {
-                    disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                    booleans[g] = true;
-                    break;
-                } else {
-                    if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                        int amount = itemStack.getCount();
-                        int count = moleculeStackItemStack.getCount();
-                        int som = count + amount;
-                        if (som > 1024) continue;
-                        moleculeStackItemStack.setCount(som);
-                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                        booleans[g] = true;
-                        break;
-                    } else {
-                        booleans[g] = false;
-                    }
-                }
-            }
-            boolean molboolean = true;
-            for (boolean boo : booleans) {
-                if (!boo) {
-                    molboolean = false;
-                    break;
-                }
-            }
-            if (molboolean) break;
-        }
-        boolean molboolean = true;
-        int ff = 0;
-        for (boolean boo : booleans) {
-            if (!boo) {
-                molboolean = false;
-            } else {
-                ff++;
-            }
-        }
-        if (molboolean) {
-            firstSlotItemStack.decrement(1);
-            handler.use(moleculeStackList.size() * consumption);
-        } else {
-            handler.use(ff * consumption);
-//            loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
-        }
+//        List<MoleculeStack> moleculeStackList = itemMolecule.getList();
+//        for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
+//            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
+//            for (int g = 0; g < moleculeStackList.size(); g++) {
+//                if (booleans[g]) continue;
+//                ItemStack moleculeStackItemStack = moleculeStackList.get(g).getMoleculeStackItemStack();
+//                if (moleculeStackItemStack.isEmpty() || moleculeStackList.get(g).getMoleculeStackItem() == null || moleculeStackList.get(g).getMoleculeStackItem() == Items.AIR) {
+//                    moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+//                            new Identifier("molecularcraft", moleculeStackList.get(g).getMolecules().get(0).getAtom().getSymbol().toLowerCase())),
+//                            moleculeStackList.get(g).getAmount());
+//                }
+//                if (itemStack.isEmpty()) {
+//                    disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                    booleans[g] = true;
+//                    break;
+//                } else {
+//                    if (itemStack.isItemEqual(moleculeStackItemStack)) {
+//                        int amount = itemStack.getCount();
+//                        int count = moleculeStackItemStack.getCount();
+//                        int som = count + amount;
+//                        if (som > 1024) continue;
+//                        moleculeStackItemStack.setCount(som);
+//                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                        booleans[g] = true;
+//                        break;
+//                    } else {
+//                        booleans[g] = false;
+//                    }
+//                }
+//            }
+//            boolean molboolean = true;
+//            for (boolean boo : booleans) {
+//                if (!boo) {
+//                    molboolean = false;
+//                    break;
+//                }
+//            }
+//            if (molboolean) break;
+//        }
+//        boolean molboolean = true;
+//        int ff = 0;
+//        for (boolean boo : booleans) {
+//            if (!boo) {
+//                molboolean = false;
+//            } else {
+//                ff++;
+//            }
+//        }
+//        if (molboolean) {
+//            firstSlotItemStack.decrement(1);
+//            handler.use(moleculeStackList.size() * consumption);
+//        } else {
+//            handler.use(ff * consumption);
+////            loopItemStack(disassemblerBlockEntity, firstSlotItemStack, handler, itemMolecule, booleans);
+//        }
     }
 
     private static void stackToMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler energyHandler) {
-        MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
-        MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
-        List<Molecule> moleculeList = moleculeStack.getMolecules();
-        if ((moleculeList.size() * consumption) > energyHandler.getEnergy()) return;
-        boolean[] booleans = new boolean[moleculeList.size()];
-        for (int x = 0; x < booleans.length; x++)
-            booleans[x] = false;
-        for (int k = 0; k < disassemblerBlockEntity.getInvSize(); k++) {
-            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
-            for (int g = 0; g < moleculeList.size(); g++) {
-                if (booleans[g]) continue;
-
-                Molecule molecule = moleculeList.get(g);
-                Atoms atom = molecule.getAtom();
-                ItemStack moleculeStackItemStack = null;
-//                if (atom.getIsotopes() != null) {
+//        MoleculeStackItem moleculeStackItem = (MoleculeStackItem) firstSlotItemStack.getItem();
+//        MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
+//        List<Molecule> moleculeList = moleculeStack.getMolecules();
+//        if ((moleculeList.size() * consumption) > energyHandler.getEnergy()) return;
+//        boolean[] booleans = new boolean[moleculeList.size()];
+//        for (int x = 0; x < booleans.length; x++)
+//            booleans[x] = false;
+//        for (int k = 0; k < disassemblerBlockEntity.getInvSize(); k++) {
+//            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);
+//            for (int g = 0; g < moleculeList.size(); g++) {
+//                if (booleans[g]) continue;
 //
-//                    Isotope[] isotopes = atom.getIsotopes();
-//                    float rand = new Random().nextFloat() * 100F;
-//                    float abundance = 0.0F;
-//                    for (int a = 0; a < isotopes.length; a++) {
-//                        if (isotopes[a].getAbundance() == 0.00F || isotopes[a].getAbundance() == -1F) continue;
-//                        abundance = abundance + isotopes[a].getAbundance();
-//                        if (rand < abundance) {
-//                            moleculeStackItemStack = new ItemStack(
-//                                    Registry.ITEM.get(new Identifier("molecularcraft", "isotope_" + atom.getSymbol().toLowerCase() + "_" + a)),
-//                                    molecule.getAmount()
-//                            );
-//                            break;
-//                        }
+//                Molecule molecule = moleculeList.get(g);
+//                Atoms atom = molecule.getAtom();
+//                ItemStack moleculeStackItemStack = null;
+////                if (atom.getIsotopes() != null) {
+////
+////                    Isotope[] isotopes = atom.getIsotopes();
+////                    float rand = new Random().nextFloat() * 100F;
+////                    float abundance = 0.0F;
+////                    for (int a = 0; a < isotopes.length; a++) {
+////                        if (isotopes[a].getAbundance() == 0.00F || isotopes[a].getAbundance() == -1F) continue;
+////                        abundance = abundance + isotopes[a].getAbundance();
+////                        if (rand < abundance) {
+////                            moleculeStackItemStack = new ItemStack(
+////                                    Registry.ITEM.get(new Identifier("molecularcraft", "isotope_" + atom.getSymbol().toLowerCase() + "_" + a)),
+////                                    molecule.getAmount()
+////                            );
+////                            break;
+////                        }
+////
+////                    }
+////
+////                } else {
+//                    moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
+//                        new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
+//                        moleculeList.get(g).getAmount());
+////                }
 //
-//                    }
 //
+//                if (itemStack.isEmpty()) {
+//                    disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                    booleans[g] = true;
+//                    break;
 //                } else {
-                    moleculeStackItemStack = new ItemStack(Registry.ITEM.get(
-                        new Identifier("molecularcraft", moleculeList.get(g).getAtom().getSymbol().toLowerCase())),
-                        moleculeList.get(g).getAmount());
+//                    if (itemStack.isItemEqual(moleculeStackItemStack)) {
+//                        int amount = itemStack.getCount();
+//                        int count = moleculeStackItemStack.getCount();
+//                        int som = count + amount;
+//                        if (som > 1024) continue;
+//                        moleculeStackItemStack.setCount(som);
+//                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
+//                        booleans[g] = true;
+//                        break;
+//                    } else {
+//                        booleans[g] = false;
+//                    }
 //                }
-
-
-                if (itemStack.isEmpty()) {
-                    disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                    booleans[g] = true;
-                    break;
-                } else {
-                    if (itemStack.isItemEqual(moleculeStackItemStack)) {
-                        int amount = itemStack.getCount();
-                        int count = moleculeStackItemStack.getCount();
-                        int som = count + amount;
-                        if (som > 1024) continue;
-                        moleculeStackItemStack.setCount(som);
-                        disassemblerBlockEntity.setInvStack(k, moleculeStackItemStack);
-                        booleans[g] = true;
-                        break;
-                    } else {
-                        booleans[g] = false;
-                    }
-                }
-            }
-
-            boolean molboolean = true;
-            for (boolean boo : booleans) {
-                if (!boo) {
-                    molboolean = false;
-                    break;
-                }
-            }
-            if (molboolean) break;
-        }
-        firstSlotItemStack.decrement(1);
-        energyHandler.use(moleculeList.size() * consumption);
+//            }
+//
+//            boolean molboolean = true;
+//            for (boolean boo : booleans) {
+//                if (!boo) {
+//                    molboolean = false;
+//                    break;
+//                }
+//            }
+//            if (molboolean) break;
+//        }
+//        firstSlotItemStack.decrement(1);
+//        energyHandler.use(moleculeList.size() * consumption);
     }
 }

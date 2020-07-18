@@ -17,8 +17,8 @@ public class ModBlocks {
     public static Block ASSEMBLER;
 
     public static void init() {
-        DISASSEMBLER = register("disassembler", new DisassemblerBlock());
-        MICROSCOPE = register("microscope", new MicroscopeBlock());
+//        DISASSEMBLER = register("disassembler", new DisassemblerBlock());
+//        MICROSCOPE = register("microscope", new MicroscopeBlock());
         ASSEMBLER = register("assembler", new AssemblerBlock());
     }
 
