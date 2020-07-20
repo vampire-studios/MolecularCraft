@@ -2,6 +2,8 @@ package io.github.vampirestudios.molecularcraft.items;
 
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -36,11 +38,12 @@ public class MoleculeStackItem extends Item {
         return new TranslatableText("item.molecularcraft.molecule_mole");
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         tooltip.add(new LiteralText(
-                new TranslatableText("molecule.molecularcraft." + this.getMoleculeStack().getRegistryName()).asString()
+                new TranslatableText("molecule.molecularcraft." + this.getMoleculeStack().getRegistryName()).getString()
                         + " (" + this.getMoleculeStack().getFormula() + ")"));
     }
 

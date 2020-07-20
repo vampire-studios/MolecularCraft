@@ -110,27 +110,27 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 list.remove(id);
             if (toRemove.isEmpty()) break;
         }
-        System.out.println("Could not define molecular composition from those recipes:");
-        for (String id : list) {
-            Recipe recipe = recipeManager.get(new Identifier(id)).get();
-            ItemStack output = recipe.getOutput();
-            DefaultedList<Ingredient> inputs = recipe.getPreviewInputs();
-            StringBuilder inputbuilder = new StringBuilder();
-            for (Ingredient ingredient : inputs) {
-                for (ItemStack input : ingredient.getMatchingStacksClient()) {
-                    Identifier identifier = Registry.ITEM.getId(input.getItem());
-                    inputbuilder.append(identifier.toString()).append("\n");
-                    break;
-                }
-            }
-            String builder = "____________\n" +
-                    "Recipe ID: " + id + "\n" +
-                    "  \n" +
-                    "Output: " + Registry.ITEM.getId(output.getItem()).toString() + "\n" +
-                    "  \nInputs:\n" +
-                    inputbuilder.toString() +
-                    "\n___________";
-            System.out.println(builder);
-        }
+//        System.out.println("Could not define molecular composition from those recipes:");
+//        for (String id : list) {
+//            Recipe recipe = recipeManager.get(new Identifier(id)).get();
+//            ItemStack output = recipe.getOutput();
+//            DefaultedList<Ingredient> inputs = recipe.getPreviewInputs();
+//            StringBuilder inputbuilder = new StringBuilder();
+//            for (Ingredient ingredient : inputs) {
+//                for (ItemStack input : ingredient.getMatchingStacksClient()) {
+//                    Identifier identifier = Registry.ITEM.getId(input.getItem());
+//                    inputbuilder.append(identifier.toString()).append("\n");
+//                    break;
+//                }
+//            }
+//            String builder = "____________\n" +
+//                    "Recipe ID: " + id + "\n" +
+//                    "  \n" +
+//                    "Output: " + Registry.ITEM.getId(output.getItem()).toString() + "\n" +
+//                    "  \nInputs:\n" +
+//                    inputbuilder.toString() +
+//                    "\n___________";
+//            System.out.println(builder);
+//        }
     }
 }

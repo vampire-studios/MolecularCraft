@@ -73,10 +73,10 @@ public class ItemMolecules {
         register("diamond_horse_armor", diamondMolecule.setAmount(new MoleculeAmount(11, INGOT)));
 
         tag("logs",
-                celluloseMolecule.setAmount(80),
-                xylan.setAmount(16),
-                glucomannan.setAmount(16),
-                lignin.setAmount(48)
+                celluloseMolecule.setAmount(640),
+                xylan.setAmount(128),
+                glucomannan.setAmount(128),
+                lignin.setAmount(384)
         );
         tag("saplings",
                 celluloseMolecule.setAmount(5),

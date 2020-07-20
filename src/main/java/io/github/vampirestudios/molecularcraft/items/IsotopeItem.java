@@ -3,6 +3,8 @@ package io.github.vampirestudios.molecularcraft.items;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.impl.IsotopeItemStackImpl;
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -47,11 +49,12 @@ public class IsotopeItem extends Item {
         return new TranslatableText("item.molecularcraft.isotope_mole");
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         Atoms atom = Atoms.valueOf(this.isotope.getAtomName().toUpperCase());
-        String atomName = new TranslatableText(atom.getTranslatableName()).asString();
+        String atomName = new TranslatableText(atom.getTranslatableName()).getString();
         tooltip.add(new LiteralText(atomName + " " + (atom.getAtomicNumber() + this.isotope.getNeutronNumber())));
     }
 }

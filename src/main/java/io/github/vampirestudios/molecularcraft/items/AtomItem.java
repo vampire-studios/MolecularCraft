@@ -2,6 +2,8 @@ package io.github.vampirestudios.molecularcraft.items;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -31,9 +33,10 @@ public class AtomItem extends Item {
         return new TranslatableText("item.molecularcraft.atom_mole");
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        tooltip.add(new LiteralText(new TranslatableText(this.atom.getTranslatableName()).asString() + " (" + this.atom.getSymbol() + ")"));
+        tooltip.add(new LiteralText(new TranslatableText(this.atom.getTranslatableName()).getString() + " (" + this.atom.getSymbol() + ")"));
     }
 }
