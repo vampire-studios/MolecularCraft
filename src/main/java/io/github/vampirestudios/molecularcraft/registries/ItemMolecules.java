@@ -89,10 +89,10 @@ public class ItemMolecules {
         );
 
         register("bamboo",
-                celluloseMolecule.setAmount(5),
-                xylan.setAmount(1),
-                glucomannan.setAmount(1),
-                lignin.setAmount(3));
+                celluloseMolecule.setAmount(40),
+                xylan.setAmount(8),
+                glucomannan.setAmount(8),
+                lignin.setAmount(24));
 
         register("obsidian", siliconDioxide.setAmount(8));
 
@@ -233,7 +233,7 @@ public class ItemMolecules {
                 celluloseMolecule.setAmount(BLOCK));
 
         register("string",
-                serine, glycine, alinine);
+                serine.setAmount(6), glycine.setAmount(6), alinine.setAmount(6));
 
 
 

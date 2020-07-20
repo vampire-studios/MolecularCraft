@@ -2,6 +2,7 @@ package io.github.vampirestudios.molecularcraft.recipes.molecularinfo;
 
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.utils.IngredientAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.server.MinecraftServer;
@@ -29,7 +30,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 ItemMolecules itemMolecule = new ItemMolecules();
                 boolean incomplete = false;
                 for (Ingredient ingredient : inputs) {
-                    for (ItemStack input : ingredient.getMatchingStacksClient()) {
+                    for (ItemStack input : ((IngredientAccessor)(Object)ingredient).getMatchingStacks()) {
                         Identifier identifier = Registry.ITEM.getId(input.getItem());
                         if (ItemMolecules.registry.containsKey(identifier.toString())) {
                             ItemMolecules itemMolecules = ItemMolecules.registry.get(identifier.toString());
@@ -76,7 +77,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 ItemMolecules itemMolecule = new ItemMolecules();
                 boolean incomplete = false;
                 for (Ingredient ingredient : inputs) {
-                    for (ItemStack input : ingredient.getMatchingStacksClient()) {
+                    for (ItemStack input : ((IngredientAccessor)(Object)ingredient).getMatchingStacks()) {
                         Identifier identifier = Registry.ITEM.getId(input.getItem());
                         if (ItemMolecules.registry.containsKey(identifier.toString())) {
                             ItemMolecules itemMolecules = ItemMolecules.registry.get(identifier.toString());
@@ -110,27 +111,27 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 list.remove(id);
             if (toRemove.isEmpty()) break;
         }
-//        System.out.println("Could not define molecular composition from those recipes:");
-//        for (String id : list) {
-//            Recipe recipe = recipeManager.get(new Identifier(id)).get();
-//            ItemStack output = recipe.getOutput();
-//            DefaultedList<Ingredient> inputs = recipe.getPreviewInputs();
-//            StringBuilder inputbuilder = new StringBuilder();
-//            for (Ingredient ingredient : inputs) {
-//                for (ItemStack input : ingredient.getMatchingStacksClient()) {
-//                    Identifier identifier = Registry.ITEM.getId(input.getItem());
-//                    inputbuilder.append(identifier.toString()).append("\n");
-//                    break;
-//                }
-//            }
-//            String builder = "____________\n" +
-//                    "Recipe ID: " + id + "\n" +
-//                    "  \n" +
-//                    "Output: " + Registry.ITEM.getId(output.getItem()).toString() + "\n" +
-//                    "  \nInputs:\n" +
-//                    inputbuilder.toString() +
-//                    "\n___________";
-//            System.out.println(builder);
-//        }
+        System.out.println("Could not define molecular composition from those recipes:");
+        for (String id : list) {
+            Recipe recipe = recipeManager.get(new Identifier(id)).get();
+            ItemStack output = recipe.getOutput();
+            DefaultedList<Ingredient> inputs = recipe.getPreviewInputs();
+            StringBuilder inputbuilder = new StringBuilder();
+            for (Ingredient ingredient : inputs) {
+                for (ItemStack input : ((IngredientAccessor)(Object)ingredient).getMatchingStacks()) {
+                    Identifier identifier = Registry.ITEM.getId(input.getItem());
+                    inputbuilder.append(identifier.toString()).append("\n");
+                    break;
+                }
+            }
+            String builder = "____________\n" +
+                    "Recipe ID: " + id + "\n" +
+                    "  \n" +
+                    "Output: " + Registry.ITEM.getId(output.getItem()).toString() + "\n" +
+                    "  \nInputs:\n" +
+                    inputbuilder.toString() +
+                    "\n___________";
+            System.out.println(builder);
+        }
     }
 }
