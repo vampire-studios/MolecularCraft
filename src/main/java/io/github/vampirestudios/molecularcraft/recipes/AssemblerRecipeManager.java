@@ -1,8 +1,6 @@
 package io.github.vampirestudios.molecularcraft.recipes;
 
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
-import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
-import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
@@ -14,7 +12,6 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AssemblerRecipeManager {
 
@@ -22,7 +19,7 @@ public class AssemblerRecipeManager {
         Item output = Registry.ITEM.get(new Identifier(id));
         List<ItemStack> list = new ArrayList<>();
         for (MoleculeStack moleculeStack : itemMolecule.getList()) {
-            Item input = moleculeStack.getMoleculeStackItem();
+            Item input = moleculeStack.getItem();
             if (input == null || input == Items.AIR) {
                 input = Registry.ITEM.get(new Identifier(MolecularCraft.MODID, moleculeStack.getRegistryName()));
             }

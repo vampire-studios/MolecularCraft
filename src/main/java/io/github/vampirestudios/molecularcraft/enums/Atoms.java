@@ -1,6 +1,10 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
+import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
 
@@ -402,6 +406,10 @@ public enum Atoms {
 
     public String getSymbol() {
         return symbol;
+    }
+
+    public Item getItem() {
+        return Registry.ITEM.get(new Identifier(MolecularCraft.MODID, this.getSymbol().toLowerCase()));
     }
 
     private static long yearsToMillisecond(float year) {

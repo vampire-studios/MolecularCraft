@@ -1,8 +1,11 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
-public class Molecule {
+public class Molecule implements ItemMoleculeComponment {
     private Atoms atom = null;
     private int amount = 1;
 
@@ -21,5 +24,15 @@ public class Molecule {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public Item getItem() {
+        return this.getAtom().getItem();
+    }
+
+    @Override
+    public ItemStack getItemStack() {
+        return new ItemStack(this::getItem, this.getAmount());
     }
 }

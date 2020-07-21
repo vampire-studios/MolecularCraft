@@ -2,22 +2,9 @@ package io.github.vampirestudios.molecularcraft;
 
 import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
-import net.minecraft.network.PacketByteBuf;
-//import spinnery.common.BaseScreenHandler;
-//import spinnery.util.StackUtilities;
-//import spinnery.widget.WAbstractWidget;
-//import spinnery.widget.WSlot;
-
-import java.util.Iterator;
 
 public class MolecularCraft implements ModInitializer {
 	public static final String MODID = "molecularcraft";
@@ -28,11 +15,11 @@ public class MolecularCraft implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("Initializing MolecularCraft");
+		ModItems.init();
 		ModBlocks.init();
 		ModBlockEntities.init();
 		ModContainers.init();
 		Molecules.init();
-		ModItems.init();
 		ItemMolecules.init();
 		MolecularInfoSetters.init();
 //		ServerSidePacketRegistry.INSTANCE.register(SLOT_UPDATE_PACKET, (packetContext, packetByteBuffer) -> {
