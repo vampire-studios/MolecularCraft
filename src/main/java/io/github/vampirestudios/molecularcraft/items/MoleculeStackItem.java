@@ -21,7 +21,7 @@ public class MoleculeStackItem extends Item {
     public MoleculeStackItem(MoleculeStack moleculeStack) {
         super(new Item.Settings().group(ModItems.MOLECULES));
         this.moleculeStack = moleculeStack;
-        this.moleculeStack.setMoleculeStackItem(this);
+//        this.moleculeStack.setMoleculeStackItem(this);
     }
 
     public MoleculeStack getMoleculeStack() {

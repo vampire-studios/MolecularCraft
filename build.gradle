@@ -13,10 +13,6 @@ group = project.maven_group
 
 repositories {
 	maven {
-		name = "CottonMC"
-		url = "http://server.bbkr.space:8081/artifactory/libs-release"
-	}
-	maven {
 		name = "Modmuss50"
 		url = "https://maven.modmuss50.me/"
 	}
@@ -25,7 +21,7 @@ repositories {
 		url  "https://dl.bintray.com/spinnery/Spinnery"
 	}
 	maven {
-		name = "GitHub"
+		name = "Jitpack"
 		url "https://jitpack.io"
 	}
 	jcenter()
@@ -44,30 +40,32 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	//LibGui
-	modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
-	include "io.github.cottonmc:LibGui:${project.libgui_version}"
+	modImplementation ("com.github.CottonMC:LibGui:${project.libgui_version}") {
+		exclude group:"io.github.cottonmc"
+	}
+	include "com.github.CottonMC:LibGui:${project.libgui_version}"
 
 	// Energy API
 	compile 'teamreborn:energy:+'
 	include 'teamreborn:energy:+'
 
 	// Artifice
-	modImplementation "com.lettuce.fudge:artifice:0.8.0+1.16-rc1"
-	include "com.lettuce.fudge:artifice:0.8.0+1.16-rc1"
+	modImplementation "com.lettuce.fudge:artifice:0.13.1+1.16.2-rc1"
+	include "com.lettuce.fudge:artifice:0.13.1+1.16.2-rc1"
 
 
 	modCompile ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
-	include ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
+//	include ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
 
 	modCompile("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
 		exclude module: "fabric-api"
 	}
-	include("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
-		exclude module: "fabric-api"
-	}
+//	include("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
+//		exclude module: "fabric-api"
+//	}
 
-	modImplementation "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
-	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
+	modImplementation "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
+//	include "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"

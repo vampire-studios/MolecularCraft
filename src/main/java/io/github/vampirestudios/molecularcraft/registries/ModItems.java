@@ -27,9 +27,9 @@ public class ModItems {
     }).build();
 
     public static ItemGroup MOLECULES = FabricItemGroupBuilder.create(MolecularCraft.id("molecules")).icon(() -> {
-        int length = Molecules.identifiers.size();
+        int length = Molecules.MOLECULE_STACKS.getIds().size();
         int rand = new Random().nextInt(length);
-        String atom = Molecules.identifiers.get(rand);
+        String atom = Molecules.MOLECULE_STACKS.get(rand).getRegistryName();
         Item item = Registry.ITEM.get(MolecularCraft.id(atom));
         return new ItemStack(item);
     }).build();

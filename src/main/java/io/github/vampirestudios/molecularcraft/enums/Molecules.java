@@ -2,6 +2,7 @@ package io.github.vampirestudios.molecularcraft.enums;
 
 import com.mojang.serialization.Lifecycle;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
+import io.github.vampirestudios.molecularcraft.config.MoleculeDataConfig;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import net.minecraft.util.Identifier;
@@ -50,7 +51,13 @@ public class Molecules {
     public static MoleculeStack sapphire;
     public static MoleculeStack topaz;
 
-    public static void init() {
+    private static MoleculeDataConfig CONFIG;
 
+    public static void init() {
+        CONFIG = new MoleculeDataConfig();
+        if (!CONFIG.fileExist()) {
+            CONFIG.createFile();
+        }
+        CONFIG.load();
     }
 }

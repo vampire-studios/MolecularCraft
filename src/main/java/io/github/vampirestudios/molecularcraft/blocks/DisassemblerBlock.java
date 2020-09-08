@@ -49,7 +49,7 @@ public class DisassemblerBlock extends BaseMachineBlock {
     }
 
     @Override
-    public void onStacksDropped(BlockState state, World world, BlockPos pos, ItemStack stack) {
+    public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
         super.onStacksDropped(state, world, pos, stack);
     }
 
