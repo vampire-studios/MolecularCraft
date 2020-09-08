@@ -1,11 +1,12 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
-import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
+import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
 
 import java.util.*;
 
-public class ChanceItemMolecule extends ItemMolecules {
-    private List<List<MoleculeStack>> lists = new ArrayList<>();
+public class ChanceItemMolecule extends ItemMolecule {
+    private List<List<ItemMoleculeComponment>> lists = new ArrayList<>();
 
     public ChanceItemMolecule() {
         super();
@@ -19,47 +20,47 @@ public class ChanceItemMolecule extends ItemMolecules {
     }
 
     @Override
-    public List<MoleculeStack> getList() {
+    public List<ItemMoleculeComponment> getList() {
         return lists.get(new Random().nextInt(lists.size()));
     }
 
-    public List<List<MoleculeStack>> getLists() {
+    public List<List<ItemMoleculeComponment>> getLists() {
         return lists;
     }
 
-    public ChanceItemMolecule addMoleculeStackList(List<MoleculeStack> moleculeStackList) {
+    public ChanceItemMolecule addMoleculeStackList(List<ItemMoleculeComponment> moleculeStackList) {
         this.lists.add(moleculeStackList);
 
         return this;
     }
 
-    public ChanceItemMolecule addMoleculeStackList(Collection<List<MoleculeStack>> moleculeStackListList) {
+    public ChanceItemMolecule addMoleculeStackList(Collection<List<ItemMoleculeComponment>> moleculeStackListList) {
         moleculeStackListList.forEach(this::addMoleculeStackList);
         return this;
     }
 
-    @Override
-    public ChanceItemMolecule addMoleculeStack(MoleculeStack moleculeStack) {
-        for (List<MoleculeStack> moleculeStackList : this.lists) {
-            MoleculeStack moleculeStack1 = moleculeStack;
-            List<Molecule> moleculeList = moleculeStack1.getMolecules();
-
-            for (int k = 0; moleculeStackList.size() > k; k++) {
-                List<Molecule> moleculeList1 = moleculeStackList.get(k).getMolecules();
-                if (moleculeList.equals(moleculeList1)) {
-                    moleculeStack1 = moleculeStackList.get(k).setAmount(moleculeStackList.get(k).getAmount() + moleculeStack.getAmount());
-                    moleculeStackList.set(k, moleculeStack1);
-                    return this;
-                }
-            }
-
-            moleculeStackList.add(moleculeStack1);
-        }
-        return this;
-    }
-    @Override
-    public ChanceItemMolecule addMoleculeStacks(Collection<MoleculeStack> moleculeStack) {
-        moleculeStack.forEach(this::addMoleculeStack);
-        return this;
-    }
+//    @Override
+//    public ChanceItemMolecule addMoleculeStack(ItemMoleculeComponment moleculeStack) {
+//        for (List<ItemMoleculeComponment> moleculeStackList : this.lists) {
+//            MoleculeStack moleculeStack1 = moleculeStack;
+//            List<Molecule> moleculeList = moleculeStack1.getMolecules();
+//
+//            for (int k = 0; moleculeStackList.size() > k; k++) {
+//                List<Molecule> moleculeList1 = moleculeStackList.get(k).getMolecules();
+//                if (moleculeList.equals(moleculeList1)) {
+//                    moleculeStack1 = moleculeStackList.get(k).setAmount(moleculeStackList.get(k).getAmount() + moleculeStack.getAmount());
+//                    moleculeStackList.set(k, moleculeStack1);
+//                    return this;
+//                }
+//            }
+//
+//            moleculeStackList.add(moleculeStack1);
+//        }
+//        return this;
+//    }
+//    @Override
+//    public ChanceItemMolecule addMoleculeStacks(Collection<MoleculeStack> moleculeStack) {
+//        moleculeStack.forEach(this::addMoleculeStack);
+//        return this;
+//    }
 }

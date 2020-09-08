@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "type": "item",
+      "molecules": [
+        {
+          "amount": 16,
+          "formula": "h2o"
+        },
+        {
+          "amount": 9,
+          "formula": "fe"
+        }
+      ],
+      "items": [
+        "water_bucket"
+      ]
+    }
+  ]
+}

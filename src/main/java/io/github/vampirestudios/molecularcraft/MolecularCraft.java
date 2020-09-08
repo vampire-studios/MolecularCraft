@@ -20,7 +20,7 @@ public class MolecularCraft implements ModInitializer {
 		ModBlockEntities.init();
 		ModContainers.init();
 		Molecules.init();
-		ItemMolecules.init();
+		ItemMolecule.init();
 		MolecularInfoSetters.init();
 //		ServerSidePacketRegistry.INSTANCE.register(SLOT_UPDATE_PACKET, (packetContext, packetByteBuffer) -> {
 //			int syncId = packetByteBuffer.readInt();

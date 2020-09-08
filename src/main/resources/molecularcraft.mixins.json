@@ -3,7 +3,8 @@
   "package": "io.github.vampirestudios.molecularcraft.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinIngredient"
+    "MixinIngredient",
+    "MixinServerResourceManager"
   ],
   "client": [
     "MixinItemStack"

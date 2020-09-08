@@ -1,61 +1,69 @@
 package io.github.vampirestudios.molecularcraft.registries;
 
-import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper.MoleculeAmount;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
 
-import static io.github.vampirestudios.molecularcraft.enums.Molecules.*;
-import static io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper.MetalOres.*;
-import static io.github.vampirestudios.molecularcraft.enums.MoleculesAmountHelper.BaseMaterials.*;
+public class ItemMolecule {
 
-public class ItemMolecules {
+    private List<ItemMoleculeComponment> list;
 
-    public static Map<String, ItemMolecules> registry = new HashMap<>();
-
-    public static Map<String, ItemMolecules> tags = new HashMap<>();
-
-    private List<MoleculeStack> list;
-
-    public ItemMolecules(MoleculeStack... stack) {
+    public ItemMolecule(ItemMoleculeComponment... stack) {
         this(Arrays.asList(stack));
     }
 
-    public ItemMolecules(List<MoleculeStack> list) {
+    public ItemMolecule(List<ItemMoleculeComponment> list) {
         this.list = list;
     }
 
-    public ItemMolecules() {
-        this(new ArrayList<MoleculeStack>());
+    public ItemMolecule() {
+        this(new ArrayList<ItemMoleculeComponment>());
     }
 
-    public List<MoleculeStack> getList() {
+    public List<ItemMoleculeComponment> getList() {
         return list;
     }
 
-    public ItemMolecules addMoleculeStack(MoleculeStack moleculeStack) {
-        MoleculeStack moleculeStack1 = moleculeStack;
-        List<Molecule> moleculeList = moleculeStack1.getMolecules();
+    public ItemMolecule addMoleculeComponment(ItemMoleculeComponment moleculeStack) {
+        if (moleculeStack instanceof MoleculeStack) {
+            MoleculeStack moleculeStack1 = (MoleculeStack) moleculeStack;
+            List<Molecule> moleculeList = moleculeStack1.getMolecules();
 
-        for (int k = 0;this.list.size() > k; k++) {
-            List<Molecule> moleculeList1 = this.list.get(k).getMolecules();
-            if (moleculeList.equals(moleculeList1)) {
-                moleculeStack1 = this.list.get(k).setAmount(this.list.get(k).getAmount() + moleculeStack.getAmount());
-                this.list.set(k, moleculeStack1);
-                return this;
+            for (int k = 0; this.list.size() > k; k++) {
+                if (this.list.get(k) instanceof MoleculeStack) {
+                    MoleculeStack listStack = (MoleculeStack) this.list.get(k);
+                    List<Molecule> moleculeList1 = listStack.getMolecules();
+                    if (moleculeList.equals(moleculeList1)) {
+                        moleculeStack1 = listStack.setAmount(listStack.getAmount() + moleculeStack1.getAmount());
+                        this.list.set(k, moleculeStack1);
+                        return this;
+                    }
+                }
+            }
+
+            this.list.add(moleculeStack1);
+        } else {
+            Molecule molecule = (Molecule) moleculeStack;
+
+            for (int k = 0; this.list.size() > k; k++) {
+                if (this.list.get(k) instanceof Molecule) {
+                    Molecule listMolecule = (Molecule) this.list.get(k);
+                    if (molecule.getAtom() == listMolecule.getAtom()) {
+                        listMolecule = new Molecule(molecule.getAtom(), molecule.getAmount() + listMolecule.getAmount());
+                        this.list.set(k, listMolecule);
+                    }
+                }
             }
         }
-
-        this.list.add(moleculeStack1);
         return this;
     }
 
-    public ItemMolecules addMoleculeStacks(Collection<MoleculeStack> moleculeStack) {
-        moleculeStack.forEach(this::addMoleculeStack);
+    public ItemMolecule addMoleculeComponments(Collection<ItemMoleculeComponment> moleculeStack) {
+        moleculeStack.forEach(this::addMoleculeComponment);
         return this;
     }
 
@@ -264,27 +272,27 @@ public class ItemMolecules {
     }
 
     public static void register(String id, MoleculeStack... stack) {
-        registry.put(new Identifier(id).toString(), new ItemMolecules(stack));
+//        registry.put(new Identifier(id).toString(), new ItemMolecule(stack));
     }
 
-    public static void register(String id, MoleculeStack[]... stacks) {
-        registry.put(new Identifier(id).toString(), new ChanceItemMolecule(stacks));
-    }
+//    public static void register(String id, MoleculeStack[]... stacks) {
+////        registry.put(new Identifier(id).toString(), new ChanceItemMolecule(stacks));
+//    }
 
-    public static void register(String id, ItemMolecules itemMolecule) {
-        registry.put(id, itemMolecule);
+    public static void register(String id, ItemMolecule itemMolecule) {
+//        registry.put(id, itemMolecule);
     }
 
     public static void tag(String id, MoleculeStack... stack) {
-        tag(id, new ItemMolecules(stack));
+        tag(id, new ItemMolecule(stack));
     }
 
     public static void tag(String id, MoleculeStack[]... stacks) {
         tag(id, new ChanceItemMolecule(stacks));
     }
 
-    public static void tag(String id, ItemMolecules itemMolecule) {
-        tags.put(id, itemMolecule);
+    public static void tag(String id, ItemMolecule itemMolecule) {
+//        tags.put(id, itemMolecule);
     }
 
     public static void register(String namespace, String path, MoleculeStack... stack) {

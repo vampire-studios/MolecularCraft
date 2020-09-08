@@ -8,4 +8,6 @@ public interface ItemMoleculeComponment {
     public Item getItem();
 
     public ItemStack getItemStack();
+
+    public int getAmount();
 }

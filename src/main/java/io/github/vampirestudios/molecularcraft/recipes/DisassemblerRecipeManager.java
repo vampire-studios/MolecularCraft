@@ -1,22 +1,9 @@
 package io.github.vampirestudios.molecularcraft.recipes;
 
-import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
-import io.github.vampirestudios.molecularcraft.enums.Atoms;
-import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
-import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
-import io.github.vampirestudios.molecularcraft.molecules.Molecule;
-import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import net.minecraft.item.Item;
+import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHandler;
-
-import java.util.List;
-import java.util.Map;
 
 public class DisassemblerRecipeManager {
 
@@ -38,8 +25,8 @@ public class DisassemblerRecipeManager {
 
     public static void itemToStackAndMolecule(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler) {
 //        Identifier id = Registry.ITEM.getId(firstSlotItemStack.getItem());
-//        if (ItemMolecules.registry.containsKey(id.toString())) {
-//            ItemMolecules itemMolecule = ItemMolecules.registry.get(id.toString());
+//        if (ItemMolecule.registry.containsKey(id.toString())) {
+//            ItemMolecule itemMolecule = ItemMolecule.registry.get(id.toString());
 //            List<MoleculeStack> moleculeStackList = itemMolecule.getList();
 //
 //            if ((moleculeStackList.size() * consumption) > handler.getEnergy()) return;
@@ -108,7 +95,7 @@ public class DisassemblerRecipeManager {
 //        }
     }
 
-    private static void loopItemStack(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler, ItemMolecules itemMolecule, boolean[] booleans) {
+    private static void loopItemStack(DisassemblerBlockEntity disassemblerBlockEntity, ItemStack firstSlotItemStack, EnergyHandler handler, ItemMolecule itemMolecule, boolean[] booleans) {
 //        List<MoleculeStack> moleculeStackList = itemMolecule.getList();
 //        for (int k = 1; k < disassemblerBlockEntity.getInvSize(); k++) {
 //            ItemStack itemStack = disassemblerBlockEntity.getInvStack(k);

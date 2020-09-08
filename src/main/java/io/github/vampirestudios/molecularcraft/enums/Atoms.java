@@ -438,4 +438,11 @@ public enum Atoms {
         return (long)(1000L * second);
     }
 
+    public static Atoms fromSymbol(String symbol) {
+        for (Atoms atom : values()) {
+            if (atom.symbol.toLowerCase().equals(symbol.toLowerCase())) return atom;
+        }
+        return Atoms.HYDROGEN;
+    }
+
 }

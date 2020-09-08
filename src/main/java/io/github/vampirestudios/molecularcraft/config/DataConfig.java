@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft.config;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import net.fabricmc.loader.api.FabricLoader;
@@ -13,7 +14,7 @@ public abstract class DataConfig {
 
     private final File configFile;
 
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public DataConfig(String fileName) {
         configFile = new File(CONFIG_PATH, fileName + ".json");

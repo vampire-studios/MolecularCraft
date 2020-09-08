@@ -6,7 +6,7 @@
 //import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 //import io.github.vampirestudios.molecularcraft.recipes.AssemblerRecipeManager;
 //import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
-//import io.github.vampirestudios.molecularcraft.registries.ItemMolecules;
+//import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 //import io.github.vampirestudios.molecularcraft.registries.ModItems;
 //import net.minecraft.entity.player.PlayerEntity;
 //import net.minecraft.item.ItemStack;
@@ -75,8 +75,8 @@
 //        String twoId = Registry.ITEM.getId(two.getItem()).toString();
 //        ItemStack three = blockEntity.getInvStack(2);
 //        String threeId = Registry.ITEM.getId(three.getItem()).toString();
-//        if (ItemMolecules.registry.containsKey(oneId)) {
-//            ItemMolecules itemMolecule = ItemMolecules.registry.get(oneId);
+//        if (ItemMolecule.registry.containsKey(oneId)) {
+//            ItemMolecule itemMolecule = ItemMolecule.registry.get(oneId);
 //            StringBuilder string = new StringBuilder();
 //            for (MoleculeStack moleculeStack : itemMolecule.getList()) {
 //                if (moleculeStack.getAmount() > 1) string.append(moleculeStack.getAmount());
@@ -95,11 +95,11 @@
 //                    errorText.setText("You need paper to generate a recipe!");
 //                } else {
 //                    errorText.setText(" ");
-//                    if (!ItemMolecules.registry.containsKey(oneId)) {
+//                    if (!ItemMolecule.registry.containsKey(oneId)) {
 //                        errorText.setText("The Item you try to get the chemical recipe doesn't have a chemical formula!");
 //                    } else {
 //                        errorText.setText(" ");
-//                        AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(oneId, ItemMolecules.registry.get(oneId));
+//                        AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(oneId, ItemMolecule.registry.get(oneId));
 //                        ItemStack recipeItem = new ItemStack(ModItems.RECIPE);
 //                        RecipeItem.setRecipeComponent(recipeItem, recipe);
 //                        MolecularCraft.sendSlotUpdatePacket(this.getHandler().syncId, 2, 1, recipeItem);
