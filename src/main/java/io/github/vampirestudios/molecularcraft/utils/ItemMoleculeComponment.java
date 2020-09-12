@@ -10,4 +10,8 @@ public interface ItemMoleculeComponment {
     public ItemStack getItemStack();
 
     public int getAmount();
+
+    public ItemMoleculeComponment setAmount(int amount);
+
+    public String getFormula();
 }

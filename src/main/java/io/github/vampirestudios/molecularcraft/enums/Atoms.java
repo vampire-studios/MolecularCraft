@@ -440,7 +440,7 @@ public enum Atoms {
 
     public static Atoms fromSymbol(String symbol) {
         for (Atoms atom : values()) {
-            if (atom.symbol.toLowerCase().equals(symbol.toLowerCase())) return atom;
+            if (atom.symbol.equals(symbol)) return atom;
         }
         return Atoms.HYDROGEN;
     }

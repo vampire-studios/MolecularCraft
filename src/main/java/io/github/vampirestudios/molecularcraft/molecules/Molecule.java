@@ -2,6 +2,7 @@ package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -27,6 +28,12 @@ public class Molecule implements ItemMoleculeComponment {
     }
 
     @Override
+    public Molecule setAmount(int amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    @Override
     public Item getItem() {
         return this.getAtom().getItem();
     }
@@ -34,5 +41,16 @@ public class Molecule implements ItemMoleculeComponment {
     @Override
     public ItemStack getItemStack() {
         return new ItemStack(this::getItem, this.getAmount());
+    }
+
+    public String getFormula() {
+        StringBuilder string = new StringBuilder();
+
+        string.append(this.atom.getSymbol());
+        if (this.amount > 1) {
+            string.append(this.amount);
+        }
+
+        return StringHelper.subscriptNumbers(string.toString());
     }
 }

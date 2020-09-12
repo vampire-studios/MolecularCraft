@@ -86,21 +86,19 @@ public class MixinItemStack {
                         for (Molecule molecule : ((MoleculeStack) moleculeStack).getMolecules()) {
                             int moleculeAmount = molecule.getAmount();
                             Atoms atom = molecule.getAtom();
-                            builder.append(new TranslatableText(atom.getSymbol()).getString());
+                            builder.append(atom.getSymbol());
                             if (moleculeAmount > 1)
                                 builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
                         }
                     } else {
                         Atoms atom = ((Molecule) moleculeStack).getAtom();
-                        builder.append(new TranslatableText(atom.getSymbol()).getString());
-                        if (moleculeStackAmount > 1)
-                            builder.append(StringHelper.subscriptNumbers(Integer.toString(moleculeStackAmount)));
+                        builder.append(atom.getSymbol());
                     }
                     builder.append(" ");
                 }
             }
             String string = builder.toString();
-            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
+//            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
             tooltip.add(new LiteralText(string));
         }
 

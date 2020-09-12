@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
+import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
@@ -14,6 +15,7 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceReloadListener;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.profiler.Profiler;
 
 import java.io.BufferedReader;
@@ -67,21 +69,34 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                     JsonObject valueObject = (JsonObject) it.next();
                                     RegistryEntryType entryType = RegistryEntryType.valueOf(valueObject.get("type").getAsString().toLowerCase(Locale.ENGLISH));
                                     List<ItemMoleculeComponment> moleculeStacks = new ArrayList<>();
-                                    JsonArray molecules = jsonObject.getAsJsonArray("molecules");
+                                    JsonArray molecules = valueObject.getAsJsonArray("molecules");
                                     for (Iterator<JsonElement> iter = molecules.iterator(); iter.hasNext(); ) {
                                         JsonObject moleculeObject = (JsonObject) iter.next();
                                         int amount = moleculeObject.get("amount").getAsInt();
                                         String formula = moleculeObject.get("formula").getAsString();
-                                        MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
-                                        if (moleculeStack != null) moleculeStacks.add(moleculeStack.setAmount(amount));
-                                        else new Molecule(Atoms.fromSymbol(formula), amount);
+                                        try {
+                                            MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
+                                            if (moleculeStack != null)
+                                                moleculeStacks.add(moleculeStack.setAmount(amount));
+                                        } catch (InvalidIdentifierException e) {
+                                            moleculeStacks.add(new Molecule(Atoms.fromSymbol(formula), amount));
+                                        }
                                     }
                                     ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
-                                    JsonArray items = jsonObject.getAsJsonArray("items");
-                                    for (Iterator<JsonElement> iter = items.iterator(); iter.hasNext(); ) {
-                                        JsonElement jsonElement = iter.next();
-                                        String itemID = jsonElement.getAsString();
-                                        map.get(entryType).put(itemID, itemMolecule);
+                                    if (entryType == RegistryEntryType.item) {
+                                        JsonArray items = valueObject.getAsJsonArray("items");
+                                        for (Iterator<JsonElement> iter = items.iterator(); iter.hasNext(); ) {
+                                            JsonElement jsonElement = iter.next();
+                                            String itemID = new Identifier(jsonElement.getAsString()).toString();
+                                            map.get(entryType).put(itemID, itemMolecule);
+                                        }
+                                    } else {
+                                        JsonArray items = valueObject.getAsJsonArray("tags");
+                                        for (Iterator<JsonElement> iter = items.iterator(); iter.hasNext(); ) {
+                                            JsonElement jsonElement = iter.next();
+                                            String itemID = new Identifier(jsonElement.getAsString()).toString();
+                                            map.get(entryType).put(itemID, itemMolecule);
+                                        }
                                     }
                                 }
                             }
@@ -110,6 +125,38 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                 }
             }
         });
+    }
+
+    public static void register(String id, MoleculeStack... stack) {
+        REGISTRY.putIfAbsent(new Identifier(id).toString(), new ItemMolecule(stack));
+    }
+
+//    public static void register(String id, MoleculeStack[]... stacks) {
+////        registry.put(new Identifier(id).toString(), new ChanceItemMolecule(stacks));
+//    }
+
+    public static void register(String id, ItemMolecule itemMolecule) {
+        REGISTRY.putIfAbsent(id, itemMolecule);
+    }
+
+    public static void tag(String id, MoleculeStack... stack) {
+        tag(id, new ItemMolecule(stack));
+    }
+
+//    public static void tag(String id, MoleculeStack[]... stacks) {
+//        tag(id, new ChanceItemMolecule(stacks));
+//    }
+
+    public static void tag(String id, ItemMolecule itemMolecule) {
+        TAGS.putIfAbsent(id, itemMolecule);
+    }
+
+    public static void register(String namespace, String path, MoleculeStack... stack) {
+        register(namespace + ":" + path, stack);
+    }
+
+    public static void tag(String namespace, String path, MoleculeStack... stack) {
+        tag(namespace + ":" + path, stack);
     }
 
     public enum RegistryEntryType {

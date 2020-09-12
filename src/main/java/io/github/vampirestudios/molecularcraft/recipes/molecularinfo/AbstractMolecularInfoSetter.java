@@ -5,10 +5,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
 public abstract class AbstractMolecularInfoSetter {
-    private RecipeType recipeType;
-    private Identifier identifier;
+    private final RecipeType<?> recipeType;
+    private final Identifier identifier;
 
-    public AbstractMolecularInfoSetter(RecipeType recipeType, Identifier identifier) {
+    public AbstractMolecularInfoSetter(RecipeType<?> recipeType, Identifier identifier) {
         this.recipeType = recipeType;
         this.identifier = identifier;
     }
@@ -17,7 +17,7 @@ public abstract class AbstractMolecularInfoSetter {
         return identifier;
     }
 
-    public RecipeType getRecipeType() {
+    public RecipeType<?> getRecipeType() {
         return recipeType;
     }
 

@@ -2,6 +2,7 @@ package io.github.vampirestudios.molecularcraft.recipes.molecularinfo;
 
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.server.MinecraftServer;
@@ -17,11 +18,18 @@ public class TagsMolecularInfoSetter extends AbstractMolecularInfoSetter {
     @Override
     public void setMolecularInfo(MinecraftServer minecraftServer) {
         ItemMoleculesDataManager.TAGS.forEach((s, itemMolecules) -> {
-            Tag<Item> tag = minecraftServer.getTagManager().getItems().getTag(new Identifier(s));
-            if (tag != null) {
-                tag.values().forEach(item -> {
+            Tag<Item> itemTag = minecraftServer.getTagManager().getItems().getTag(new Identifier(s));
+            if (itemTag != null) {
+                itemTag.values().forEach(item -> {
                     Identifier identifier = Registry.ITEM.getId(item);
-                    ItemMolecule.register(identifier.toString(), itemMolecules);
+                    ItemMoleculesDataManager.register(identifier.toString(), itemMolecules);
+                });
+            }
+            Tag<Block> blockTag = minecraftServer.getTagManager().getBlocks().getTag(new Identifier(s));
+            if (blockTag != null) {
+                blockTag.values().forEach(block -> {
+                    Identifier identifier = Registry.BLOCK.getId(block);
+                    ItemMoleculesDataManager.register(identifier.toString(), itemMolecules);
                 });
             }
         });
