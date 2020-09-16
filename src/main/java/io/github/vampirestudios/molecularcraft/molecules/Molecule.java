@@ -23,14 +23,14 @@ public class Molecule implements ItemMoleculeComponment {
         return atom;
     }
 
+    @Override
     public int getAmount() {
         return amount;
     }
 
     @Override
-    public Molecule setAmount(int amount) {
-        this.amount = amount;
-        return this;
+    public ItemMoleculeComponment setAmount(int amount) {
+        return new Molecule(this.atom, this.amount);
     }
 
     @Override

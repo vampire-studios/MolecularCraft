@@ -28,6 +28,8 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
         for (Recipe<?> recipe : recipeManager.values()) {
             if (recipe.getType() == this.getRecipeType() && (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe)) {
                 ItemStack output = recipe.getOutput();
+                Identifier outputIdentifier = Registry.ITEM.getId(output.getItem());
+                if (ItemMoleculesDataManager.REGISTRY.containsKey(outputIdentifier.toString())) continue;
                 DefaultedList<Ingredient> inputs = recipe.getPreviewInputs();
                 ItemMolecule itemMolecule = new ItemMolecule();
                 boolean incomplete = false;
@@ -41,15 +43,16 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                             incomplete = true;
                             list.add(recipe.getId().toString());
                         }
-                        break;
+                        if (!incomplete) break;
                     }
                     if (incomplete) break;
                 }
                 if (incomplete) continue;
-                ItemMolecule itemMolecule1 = new ItemMolecule();
+                List<ItemMoleculeComponment> componments = new ArrayList<>();
                 for (ItemMoleculeComponment stack : itemMolecule.getList()) {
-                    itemMolecule1.addMoleculeComponment(stack.setAmount(stack.getAmount()/output.getCount()));
+                    componments.add(stack.setAmount((stack.getAmount()/output.getCount())));
                 }
+                ItemMolecule itemMolecule1 = new ItemMolecule(componments);
                 for (ItemMoleculeComponment stack : itemMolecule1.getList()) {
                     if (stack.getAmount() == 0) {
                         System.out.println("---------");
@@ -87,15 +90,16 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                         } else {
                             incomplete = true;
                         }
-                        break;
+                        if (!incomplete) break;
                     }
                     if (incomplete) break;
                 }
                 if (incomplete) continue;
-                ItemMolecule itemMolecule1 = new ItemMolecule();
+                List<ItemMoleculeComponment> componments = new ArrayList<>();
                 for (ItemMoleculeComponment stack : itemMolecule.getList()) {
-                    itemMolecule1.addMoleculeComponment(stack.setAmount(stack.getAmount()/output.getCount()));
+                    componments.add(stack.setAmount(stack.getAmount()/output.getCount()));
                 }
+                ItemMolecule itemMolecule1 = new ItemMolecule(componments);
                 for (ItemMoleculeComponment stack : itemMolecule1.getList()) {
                     if (stack.getAmount() == 0) {
                         System.out.println("---------");

@@ -128,7 +128,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
     }
 
     public static void register(String id, MoleculeStack... stack) {
-        REGISTRY.putIfAbsent(new Identifier(id).toString(), new ItemMolecule(stack));
+        register(new Identifier(id).toString(), new ItemMolecule(stack));
     }
 
 //    public static void register(String id, MoleculeStack[]... stacks) {
@@ -136,7 +136,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
 //    }
 
     public static void register(String id, ItemMolecule itemMolecule) {
-        REGISTRY.putIfAbsent(id, itemMolecule);
+        if (!REGISTRY.containsKey(id)) REGISTRY.put(id, itemMolecule);
     }
 
     public static void tag(String id, MoleculeStack... stack) {

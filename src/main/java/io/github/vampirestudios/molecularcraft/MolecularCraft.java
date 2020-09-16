@@ -48,6 +48,8 @@ public class MolecularCraft implements ModInitializer {
 			if (!parsedRecipes) {
 				MolecularInfoSetters.REGISTRY.forEach(abstractMolecularInfoSetter -> abstractMolecularInfoSetter.setMolecularInfo(minecraftServer));
 				parsedRecipes = true;
+			} else {
+				parsedRecipes = false;
 			}
 		});
 	}
