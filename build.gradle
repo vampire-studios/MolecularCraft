@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
 	id "com.wynprice.cursemaven" version "2.1.0"
 }
@@ -21,6 +21,10 @@ repositories {
 		url  "https://dl.bintray.com/spinnery/Spinnery"
 	}
 	maven {
+		name = "CottonMC"
+		url = "https://server.bbkr.space/artifactory/libs-release"
+	}
+	maven {
 		name = "Jitpack"
 		url "https://jitpack.io"
 	}
@@ -40,10 +44,10 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	//LibGui
-	modImplementation ("com.github.CottonMC:LibGui:${project.libgui_version}") {
+	modImplementation ("io.github.cottonmc:LibGui:${project.libgui_version}") {
 		exclude group:"io.github.cottonmc"
 	}
-	include "com.github.CottonMC:LibGui:${project.libgui_version}"
+	include "io.github.cottonmc:LibGui:${project.libgui_version}"
 
 	// Energy API
 	compile 'teamreborn:energy:+'
