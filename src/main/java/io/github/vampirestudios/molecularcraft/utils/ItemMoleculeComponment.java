@@ -5,13 +5,20 @@ import net.minecraft.item.ItemStack;
 
 public interface ItemMoleculeComponment {
 
-    public Item getItem();
+    Item getItem();
 
-    public ItemStack getItemStack();
+    ItemStack getItemStack();
 
-    public int getAmount();
+    int getAmount();
 
-    public ItemMoleculeComponment setAmount(int amount);
+    ItemMoleculeComponment setAmount(int amount);
 
-    public String getFormula();
+    String getFormula();
+
+    Type getType();
+
+    enum Type {
+        MOLECULE,
+        MOLECULE_STACK;
+    }
 }

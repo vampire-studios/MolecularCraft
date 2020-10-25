@@ -82,4 +82,9 @@ public class MoleculeStack implements ItemMoleculeComponment {
 
         return StringHelper.subscriptNumbers(string.toString());
     }
+
+    @Override
+    public Type getType() {
+        return Type.MOLECULE_STACK;
+    }
 }

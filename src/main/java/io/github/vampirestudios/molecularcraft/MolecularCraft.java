@@ -3,14 +3,13 @@ package io.github.vampirestudios.molecularcraft;
 import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.util.Identifier;
 
 public class MolecularCraft implements ModInitializer {
 	public static final String MODID = "molecularcraft";
 	public static final Identifier SLOT_UPDATE_PACKET = new Identifier(MODID, "slot_update");
+	public static final Identifier MOLECULAR_INFO_PACKET = new Identifier(MODID, "molecular_info");
 
-	public static boolean parsedRecipes = false;
 
 	@Override
 	public void onInitialize() {
@@ -43,15 +42,6 @@ public class MolecularCraft implements ModInitializer {
 //
 //			});
 //		});
-
-		ServerWorldEvents.LOAD.register((minecraftServer, world) -> {
-			if (!parsedRecipes) {
-				MolecularInfoSetters.REGISTRY.forEach(abstractMolecularInfoSetter -> abstractMolecularInfoSetter.setMolecularInfo(minecraftServer));
-				parsedRecipes = true;
-			} else {
-				parsedRecipes = false;
-			}
-		});
 	}
 
 //	public static void sendSlotUpdatePacket(int syncId, int slotNumber, int inventoryNumber, ItemStack stack) {

@@ -43,6 +43,7 @@ public class Molecule implements ItemMoleculeComponment {
         return new ItemStack(this::getItem, this.getAmount());
     }
 
+    @Override
     public String getFormula() {
         StringBuilder string = new StringBuilder();
 
@@ -52,5 +53,10 @@ public class Molecule implements ItemMoleculeComponment {
         }
 
         return StringHelper.subscriptNumbers(string.toString());
+    }
+
+    @Override
+    public Type getType() {
+        return Type.MOLECULE;
     }
 }

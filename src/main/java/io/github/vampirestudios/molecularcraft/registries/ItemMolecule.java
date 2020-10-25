@@ -1,10 +1,8 @@
 package io.github.vampirestudios.molecularcraft.registries;
 
-import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
-import net.minecraft.util.Identifier;
 
 import java.util.*;
 

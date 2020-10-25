@@ -5,13 +5,14 @@ import io.github.vampirestudios.molecularcraft.container.*;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.registries.ModContainers;
+import io.github.vampirestudios.molecularcraft.utils.PacketHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 
 import static io.github.vampirestudios.molecularcraft.MolecularCraft.MODID;
 
@@ -46,6 +47,17 @@ public class MolecularCraftClient implements ClientModInitializer {
                 });
             }
         });
+
+        ClientSidePacketRegistry.INSTANCE.register(MolecularCraft.MOLECULAR_INFO_PACKET,
+                (packetContext, attachedData) -> {
+                    // Get the BlockPos we put earlier, in the networking thread
+                    CompoundTag tag = attachedData.readCompoundTag();
+                    packetContext.getTaskQueue().execute(() -> {
+                        // Use the pos in the main thread
+                        assert tag != null;
+                        PacketHandler.readMolecularInfoPacket(tag);
+                    });
+                });
     }
 
     public static Identifier id(String path) {
