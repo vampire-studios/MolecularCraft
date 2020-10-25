@@ -68,12 +68,9 @@ public class PacketHandler {
         packetByteBuf.writeCompoundTag(compoundTag);
 
         ServerSidePacketRegistry.INSTANCE.sendToPlayer(playerEntity, MolecularCraft.MOLECULAR_INFO_PACKET, packetByteBuf);
-        System.out.println("Packet sent!");
     }
 
     public static void readMolecularInfoPacket(CompoundTag compoundTag) {
-        System.out.println("Packet received!");
-        System.out.println(ItemMoleculesDataManager.REGISTRY.size());
         ItemMoleculesDataManager.REGISTRY.clear();
 
         ListTag listTag = (ListTag) compoundTag.get("infos");
@@ -117,6 +114,5 @@ public class PacketHandler {
 
             ItemMoleculesDataManager.REGISTRY.put(id, new ItemMolecule(itemMoleculeComponmentList));
         }
-        System.out.println(ItemMoleculesDataManager.REGISTRY.size());
     }
 }

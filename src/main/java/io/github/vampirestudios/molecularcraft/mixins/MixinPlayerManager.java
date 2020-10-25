@@ -36,6 +36,5 @@ public class MixinPlayerManager {
         while (iterator.hasNext()) {
             PacketHandler.sendMolecularInfoPacket(iterator.next());
         }
-        System.out.println(ItemMoleculesDataManager.REGISTRY.size());
     }
 }

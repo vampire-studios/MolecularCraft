@@ -124,7 +124,6 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                         REGISTRY.putAll(entry.getValue());
                 }
             }
-            System.out.println("Reloading Finished: " + REGISTRY.size());
         });
     }
 
