@@ -54,8 +54,8 @@ dependencies {
 	include 'teamreborn:energy:+'
 
 	// Artifice
-	modImplementation "com.lettuce.fudge:artifice:0.13.1+1.16.2-rc1"
-	include "com.lettuce.fudge:artifice:0.13.1+1.16.2-rc1"
+	modImplementation "com.lettuce.fudge:artifice:0.14.4+1.16.3"
+	include "com.lettuce.fudge:artifice:0.14.4+1.16.3"
 
 
 	modCompile ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
@@ -73,7 +73,8 @@ dependencies {
 
 //	modCompile "curse.maven:techreborn:2865199"
 //	modCompile "curse.maven:reborncore:2865196"
-//	modCompile ("me.shedaniel:RoughlyEnoughItems:4.0.8-unstable")
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.8.1"
+	modRuntime "me.shedaniel:RoughlyEnoughItems:5.8.1"
 }
 
 processResources {

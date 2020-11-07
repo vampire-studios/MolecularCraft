@@ -1,0 +1,21 @@
+{
+  "molecules": [
+    {
+      "amount": 640,
+      "formula": "c6h10o5"
+    },
+    {
+      "amount": 128,
+      "formula": "c6h22o31"
+    },
+    {
+      "amount": 128,
+      "formula": "c24h42o21"
+    },
+    {
+      "amount": 384,
+      "formula": "c31h34o11"
+    }
+  ],
+  "replace": false
+}

@@ -51,52 +51,53 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
             Map<RegistryEntryType, Map<String, ItemMolecule>> map = new HashMap<>();
             map.put(RegistryEntryType.item, new HashMap<>());
             map.put(RegistryEntryType.tag, new HashMap<>());
-            for (Identifier identifier : manager.findResources("molecule_items", (stringx) -> {
+            for (Identifier resourceIdentifier : manager.findResources("molecules", (stringx) -> {
                 return stringx.endsWith(".json");
             })) {
-//                String string = identifier.getPath();
-//                Identifier identifier2 = new Identifier(identifier.getNamespace(), string.substring("molecule_items".length() + 1, string.length() - ".json".length()));
-
+                String string = resourceIdentifier.getPath().replace("molecules/", "").replace(".json", "");
+                RegistryEntryType type = RegistryEntryType.item;
+                Identifier identifier = new Identifier(resourceIdentifier.getNamespace(), string);
+                if (string.startsWith("tag/")) {
+                    type = RegistryEntryType.tag;
+                    identifier = new Identifier(resourceIdentifier.getNamespace(), string.replace("tag/", ""));
+                }
+                if (string.startsWith("item/")) {
+                    type = RegistryEntryType.item;
+                    identifier = new Identifier(resourceIdentifier.getNamespace(), string.replace("item/", ""));
+                }
                 try {
 
-                    for (Resource resource : manager.getAllResources(identifier)) {
+                    for (Resource resource : manager.getAllResources(resourceIdentifier)) {
                         try {
                             InputStream inputStream = resource.getInputStream();
                             try (BufferedReader read = new BufferedReader(new InputStreamReader(inputStream))) {
                                 JsonObject jsonObject = PARSER.parse(read).getAsJsonObject();
-                                JsonArray array = jsonObject.getAsJsonArray("values");
-                                for (Iterator<JsonElement> it = array.iterator(); it.hasNext(); ) {
-                                    JsonObject valueObject = (JsonObject) it.next();
-                                    RegistryEntryType entryType = RegistryEntryType.valueOf(valueObject.get("type").getAsString().toLowerCase(Locale.ENGLISH));
-                                    List<ItemMoleculeComponment> moleculeStacks = new ArrayList<>();
-                                    JsonArray molecules = valueObject.getAsJsonArray("molecules");
-                                    for (Iterator<JsonElement> iter = molecules.iterator(); iter.hasNext(); ) {
-                                        JsonObject moleculeObject = (JsonObject) iter.next();
-                                        int amount = moleculeObject.get("amount").getAsInt();
-                                        String formula = moleculeObject.get("formula").getAsString();
-                                        try {
-                                            MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
-                                            if (moleculeStack != null)
-                                                moleculeStacks.add(moleculeStack.setAmount(amount));
-                                        } catch (InvalidIdentifierException e) {
-                                            moleculeStacks.add(new Molecule(Atoms.fromSymbol(formula), amount));
-                                        }
+                                List<ItemMoleculeComponment> moleculeStacks = new ArrayList<>();
+                                JsonArray molecules = jsonObject.getAsJsonArray("molecules");
+                                for (Iterator<JsonElement> iter = molecules.iterator(); iter.hasNext(); ) {
+                                    JsonObject moleculeObject = (JsonObject) iter.next();
+                                    int amount = moleculeObject.get("amount").getAsInt();
+                                    String formula = moleculeObject.get("formula").getAsString();
+                                    try {
+                                        MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
+                                        if (moleculeStack != null)
+                                            moleculeStacks.add(moleculeStack.setAmount(amount));
+                                    } catch (InvalidIdentifierException e) {
+                                        moleculeStacks.add(new Molecule(Atoms.fromSymbol(formula), amount));
                                     }
-                                    ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
-                                    if (entryType == RegistryEntryType.item) {
-                                        JsonArray items = valueObject.getAsJsonArray("items");
-                                        for (Iterator<JsonElement> iter = items.iterator(); iter.hasNext(); ) {
-                                            JsonElement jsonElement = iter.next();
-                                            String itemID = new Identifier(jsonElement.getAsString()).toString();
-                                            map.get(entryType).put(itemID, itemMolecule);
-                                        }
+                                }
+                                ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
+                                boolean replace = jsonObject.get("replace").getAsBoolean();
+
+                                if (replace) {
+                                    map.get(type).put(identifier.toString(), itemMolecule);
+                                } else {
+                                    Map<String, ItemMolecule> typeMap = map.get(type);
+                                    if (typeMap.containsKey(identifier.toString())) {
+                                        ItemMolecule existingItemMolecule = typeMap.get(identifier.toString());
+                                        typeMap.put(identifier.toString(), existingItemMolecule.addMoleculeComponments(itemMolecule.getList()));
                                     } else {
-                                        JsonArray items = valueObject.getAsJsonArray("tags");
-                                        for (Iterator<JsonElement> iter = items.iterator(); iter.hasNext(); ) {
-                                            JsonElement jsonElement = iter.next();
-                                            String itemID = new Identifier(jsonElement.getAsString()).toString();
-                                            map.get(entryType).put(itemID, itemMolecule);
-                                        }
+                                        typeMap.put(identifier.toString(), itemMolecule);
                                     }
                                 }
                             }

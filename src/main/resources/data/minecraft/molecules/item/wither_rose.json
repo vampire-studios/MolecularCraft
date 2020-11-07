@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 54,
+      "formula": "chonsp"
+    },
+    {
+      "amount": 54,
+      "formula": "c6h10o5"
+    }
+  ],
+  "replace": false
+}

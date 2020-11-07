@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 16,
+      "formula": "h2o"
+    },
+    {
+      "amount": 9,
+      "formula": "Fe"
+    }
+  ],
+  "replace": false
+}
