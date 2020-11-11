@@ -13,8 +13,8 @@ jobs:
       CREDITENTIALS: ${{ secrets.CREDITENTIALS }}
       GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
       MOD_ID: ${{ secrets.MODID }}
-      SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-      SPREADSHEET_NAME: ${{ secrets.SPREADSHEET_NAME }}
+      SPREADSHEET_ID: ${{ secrets.S_ID }}
+      SPREADSHEET_NAME: ${{ secrets.S_NAME }}
     steps:
       - uses: actions/checkout@v2
         with:
