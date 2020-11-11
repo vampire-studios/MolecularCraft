@@ -46,7 +46,7 @@ async function main() {
     }
     if (sheet == null) {
         console.log("Error: sheet with name " + OPTIONS.S_NAME + " doesn't seems to exist!")
-        break
+        return
     }
     console.log("Sheet found! Loading Rows...")
     const rows = await sheet.getRows();
