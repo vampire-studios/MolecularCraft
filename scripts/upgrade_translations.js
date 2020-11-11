@@ -71,11 +71,12 @@ async function main() {
             lang_files[sheet.getCell(0, index2).value][sheet.getCell(row.rowIndex - 1, 0).value] = lang_value;
         }
     }
-    console.log(lang_files)
     for (const key in lang_files) {
         if (lang_files.hasOwnProperty(key) && key !== "null") {
+            console.log("Writing " + key + ".json")
             const content = lang_files[key];
-            fs.writeFileSync(LANG_PATH + key + ".json", JSON.stringify(content,null, 4))
+            await fs.writeFileSync(LANG_PATH + key + ".json", JSON.stringify(content,null, 4))
+            console.log("Done")
         }
     }
 }
