@@ -12,7 +12,7 @@ jobs:
     env:
       CREDITENTIALS: ${{ secrets.CREDITENTIALS }}
       GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-      MOD_ID: ${{ secrets.MODID }}
+      MOD_ID: ${{ secrets.MOD_ID }}
       SPREADSHEET_ID: ${{ secrets.S_ID }}
       SPREADSHEET_NAME: ${{ secrets.S_NAME }}
     steps:
