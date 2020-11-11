@@ -29,8 +29,8 @@ jobs:
       - run: |
           git config --local user.email "arthur.koalas@free.fr"
           git config --local user.name "CatCore"
-#          git add src/main/resources/assets
-          git commit -m "New Translations!" -a
+#      - run: git add src/main/resources/assets
+      - run: git commit -m "New Translations!" -a
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
