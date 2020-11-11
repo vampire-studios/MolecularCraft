@@ -24,12 +24,13 @@ if (DEV === "true") {
     OPTIONS.MOD_ID = process.env.MOD_ID;
 }
 
-LANG_PATH = "src/main/resources/assets/mod_id/lang/".replace("mod_id",OPTIONS.MOD_ID)
+LANG_PATH = "src/main/resources/assets/mod_id/lang".replace("mod_id",OPTIONS.MOD_ID)
 
 const {GoogleSpreadsheet} = require('google-spreadsheet');
 
 const doc = new GoogleSpreadsheet(OPTIONS.S_ID);
 const fs = require("fs")
+const path = require("path")
 
 async function main() {
     console.log("Login in...")
@@ -75,7 +76,7 @@ async function main() {
         if (lang_files.hasOwnProperty(key) && key !== "null") {
             console.log("Writing " + key + ".json")
             const content = lang_files[key];
-            await fs.writeFileSync(LANG_PATH + key + ".json", JSON.stringify(content,null, 4))
+            await fs.writeFileSync(path.join(LANG_PATH, key + ".json"), JSON.stringify(content,null, 4))
             console.log("Done")
         }
     }
