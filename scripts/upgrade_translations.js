@@ -32,8 +32,11 @@ const doc = new GoogleSpreadsheet(OPTIONS.S_ID);
 const fs = require("fs")
 
 async function main() {
+    console.log("Login in...")
     await doc.useServiceAccountAuth(OPTIONS.CREDITENTIALS);
+    console.log("Logged! Now loading doc data...")
     await doc.loadInfo();
+    console.log("Doc data loaded! Getting the right sheet...")
     let sheet = null
     for (let index = 0; index < doc.sheetsByIndex.length; index++) {
         if (doc.sheetsByIndex[index]["_rawProperties"]["title"] === OPTIONS.S_NAME) {
@@ -41,8 +44,15 @@ async function main() {
             break
         }
     }
+    if (sheet == null) {
+        console.log("Error: sheet with name " + OPTIONS.S_NAME + " doesn't seems to exist!")
+        break
+    }
+    console.log("Sheet found! Loading Rows...")
     const rows = await sheet.getRows();
+    console.log("Rows loaded! Loading Cells...")
     await sheet.loadCells();
+    console.log("Cells loaded!")
     const columnCount = sheet.columnCount;
 
     const lang_files = {
