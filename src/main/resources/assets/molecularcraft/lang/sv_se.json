@@ -1,6 +1,6 @@
 {
-    "itemGroup.molecularcraft.atoms": "Atoms",
-    "itemGroup.molecularcraft.molecules": "Molecules",
+    "itemGroup.molecularcraft.atoms": "Atomer",
+    "itemGroup.molecularcraft.molecules": "Molekyler",
     "item.molecularcraft.atom_mole": "Mole of Atom",
     "item.molecularcraft.molecule_mole": "Mole of Molecule",
     "item.molecularcraft.isotope_mole": "Mole of Isotope",
