@@ -1,10 +1,8 @@
 name: Check for New Translations
 
 on:
-  push:
-    branches: [ master, master-translations ]
-#  schedule:
-#    - cron: '0 * * * *'
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   check_for_new_translations:
@@ -12,7 +10,7 @@ jobs:
     env:
       CREDITENTIALS: ${{ secrets.CREDITENTIALS }}
       GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-      MOD_ID: ${{ secrets.MODID }}
+      MOD_ID: ${{ secrets.MOD_ID }}
       SPREADSHEET_ID: ${{ secrets.S_ID }}
       SPREADSHEET_NAME: ${{ secrets.S_NAME }}
     steps:
@@ -29,7 +27,7 @@ jobs:
       - run: |
           git config --local user.email "arthur.koalas@free.fr"
           git config --local user.name "CatCore"
-#      - run: git add src/main/resources/assets
+      - run: git add src/main/resources/assets
       - run: git commit -m "New Translations!" -a
       - uses: ad-m/github-push-action@master
         with:
