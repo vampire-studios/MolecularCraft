@@ -9,191 +9,28 @@ import net.minecraft.util.registry.Registry;
 import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
 
 public enum Atoms {
-    HYDROGEN("H", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F, new Isotope[]{
-            new Isotope("hydrogen", 0, 99.98F, Isotope.DecayMod.STABLE),
-            new Isotope("hydrogen", 1, 0.02F, Isotope.DecayMod.STABLE),
-            new Isotope("hydrogen", 2, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE))
-    }),
-    HELIUM("He", AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F, new Isotope[]{
-            new Isotope("helium", 1, 0.0002F, Isotope.DecayMod.STABLE),
-            new Isotope("helium", 2, 99.9998F, Isotope.DecayMod.STABLE)
-    }),
-    LITHIUM("Li", AtomFamilies.ALKALI_METAL,3, 6.94F, new Isotope[]{
-            new Isotope("lithium", 3, 7.59F, Isotope.DecayMod.STABLE),
-            new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)
-    }),
-    BERYLLIUM("Be", AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F, new Isotope[]{
-            new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("lithium", 4, 92.41F, Isotope.DecayMod.STABLE)),
-            new Isotope("beryllium", 3, (long)(1000L * SECONDS_IN_A_DAY * 53.12F), Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("beryllium", 5, 100F, Isotope.DecayMod.STABLE),
-            new Isotope("beryllium", 6, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE))
-    }),
-    BORON("B", AtomFamilies.METALLOID,5, 10.81F, new Isotope[]{
-            new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE),
-            new Isotope("boron", 6, 80F, Isotope.DecayMod.STABLE)
-    }),
-    CARBON("C", AtomFamilies.REACTIVE_NONMETAL,6, 12.011F, new Isotope[]{
-            new Isotope("carbon", 5, -1, (long)(1000L * SECONDS_IN_A_MINUTE * 20), Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("boron", 5, 20F, Isotope.DecayMod.STABLE)),
-            new Isotope("carbon", 6, 98.9F, Isotope.DecayMod.STABLE),
-            new Isotope("carbon", 7, 1.1F, Isotope.DecayMod.STABLE),
-            new Isotope("carbon", 8, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE))
-    }),
-    NITROGEN("N", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F, new Isotope[]{
-            new Isotope("nitrogen", 6, -1F, (long)(1000L * SECONDS_IN_A_MINUTE * 9.965F), Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("carbon", 7, 1.1F, Isotope.DecayMod.STABLE)),
-            new Isotope("nitrogen", 7, 99.6F, Isotope.DecayMod.STABLE),
-            new Isotope("nitrogen", 8, 0.4F, Isotope.DecayMod.STABLE)
-    }),
-    OXYGEN("O", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,8,15.999F, new Isotope[]{
-            new Isotope("oxygen", 8, 99.76F, Isotope.DecayMod.STABLE),
-            new Isotope("oxygen", 9, 0.04F, Isotope.DecayMod.STABLE),
-            new Isotope("oxygen", 10, 0.20F, Isotope.DecayMod.STABLE)
-    }),
-    FLUORINE("F", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,9,18.998F, new Isotope[]{
-            new Isotope("fluorine", 9, (long)(1000L * SECONDS_IN_A_MINUTE * 109.8F), Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("oxygen", 10, 0.20F, Isotope.DecayMod.STABLE)),
-            new Isotope("fluorine", 9, (long)(1000L * SECONDS_IN_A_MINUTE * 109.8F), Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("oxygen", 10, 0.20F, Isotope.DecayMod.STABLE)),
-            new Isotope("fluorine", 10, 100.00F, Isotope.DecayMod.STABLE)
-    }),
-    NEON("Ne", AtomFamilies.NOBLE_GAS,AtomType.GAS,10,20.180F, new Isotope[]{
-            new Isotope("neon", 10, 90.48F, Isotope.DecayMod.STABLE),
-            new Isotope("neon", 11, 0.27F, Isotope.DecayMod.STABLE),
-            new Isotope("neon", 12, 9.25F, Isotope.DecayMod.STABLE)
-    }),
-    SODIUM("Na", AtomFamilies.ALKALI_METAL,11,22.990F, new Isotope[]{
-            new Isotope("sodium", 11, Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("neon", 12, 9.25F, Isotope.DecayMod.STABLE)),
-            new Isotope("sodium", 12, 100.00F, Isotope.DecayMod.STABLE),
-            new Isotope("sodium", 13, (long)(1000L * SECONDS_IN_AN_HOUR * 14.96F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("magnesium", 12, 79.00F, Isotope.DecayMod.STABLE))
-    }),
-    MAGNESIUM("Mg", AtomFamilies.ALKALIN_EARTH_METAL,12,24.305F, new Isotope[]{
-            new Isotope("magnesium", 12, 79.00F, Isotope.DecayMod.STABLE),
-            new Isotope("magnesium", 13, 10.00F, Isotope.DecayMod.STABLE),
-            new Isotope("magnesium", 14, 11.00F, Isotope.DecayMod.STABLE)
-    }),
-    ALUMINIUM("Al", AtomFamilies.POST_TRANSITION_METAL,13,26.982F, new Isotope[]{
-            new Isotope("aluminium", 13, Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("magnesium", 14, 11.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("aluminium", 13, Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("magnesium", 14, 11.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("aluminium", 13, Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("aluminium", 14, 100.00F, Isotope.DecayMod.STABLE)
-    }),
-    SILICON("Si", AtomFamilies.METALLOID,14,28.085F, new Isotope[]{
-            new Isotope("silicon", 14, 92.20F, Isotope.DecayMod.STABLE),
-            new Isotope("silicon", 15, 4.70F, Isotope.DecayMod.STABLE),
-            new Isotope("silicon", 16, 3.10F, Isotope.DecayMod.STABLE),
-            new Isotope("silicon", 17, hoursToMillisecond(2.62F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("phosphorus", 16, 100.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("silicon", 18, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("phosphorus", 17, daysToMillisecond(14.28F), Isotope.DecayMod.BETA_MINUS,
-                            new Isotope("sulfur", 16, 94.99F, Isotope.DecayMod.STABLE)))
-    }),
-    PHOSPHORUS("P", AtomFamilies.REACTIVE_NONMETAL,15,30.974F, new Isotope[]{
-            new Isotope("phosphorus", 16, 100.00F, Isotope.DecayMod.STABLE),
-            new Isotope("phosphorus", 17, daysToMillisecond(14.28F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("sulfur", 16, 94.99F, Isotope.DecayMod.STABLE)),
-            new Isotope("phosphorus", 18, daysToMillisecond(25.3F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("sulfur", 17, 0.75F, Isotope.DecayMod.STABLE))
-    }),
-    SULFUR("S", AtomFamilies.REACTIVE_NONMETAL,16,32.06F, new Isotope[]{
-            new Isotope("sulfur", 16, 94.99F, Isotope.DecayMod.STABLE),
-            new Isotope("sulfur", 17, 0.75F, Isotope.DecayMod.STABLE),
-            new Isotope("sulfur", 18, 4.25F, Isotope.DecayMod.STABLE),
-            new Isotope("sulfur", 19, daysToMillisecond(87.37F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("chlorine", 18, 76.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("sulfur", 20, 0.01F, Isotope.DecayMod.STABLE),
-    }),
-    CHLORINE("Cl", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,17,35.45F, new Isotope[]{
-            new Isotope("chlorine", 18, 76.00F, Isotope.DecayMod.STABLE),
-            new Isotope("chlorine", 19, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("argon", 18, 0.334F, Isotope.DecayMod.STABLE)),
-            new Isotope("chlorine", 19, Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("sulfur", 20, 0.01F, Isotope.DecayMod.STABLE)),
-            new Isotope("chlorine", 20, 24.00F, Isotope.DecayMod.STABLE)
-    }),
-    ARGON("Ar", AtomFamilies.NOBLE_GAS, AtomType.GAS,18,39.88F, new Isotope[]{
-            new Isotope("argon", 18, 0.334F, Isotope.DecayMod.STABLE),
-            new Isotope("argon", 19, -1, daysToMillisecond(35F), Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("chlorine", 20, 24.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("argon", 20, 0.063F, Isotope.DecayMod.STABLE),
-            new Isotope("argon", 21, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("potassium", 20, 93.258F, Isotope.DecayMod.STABLE)),
-            new Isotope("argon", 22, 99.604F, Isotope.DecayMod.STABLE),
-
-            new Isotope("argon", 23, minutesToMillisecond(109.34F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("potassium", 22, 6.730F, Isotope.DecayMod.STABLE)),
-
-            new Isotope("argon", 24, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("potassium", 23, hoursToMillisecond(12.3557F), Isotope.DecayMod.BETA_MINUS,
-                            new Isotope("calcium", 22, 0.647F, Isotope.DecayMod.STABLE)))
-    }),
-    POTASSIUM("K", AtomFamilies.ALKALI_METAL, 19, 39.098F, new Isotope[]{
-            new Isotope("potassium", 20, 93.258F, Isotope.DecayMod.STABLE),
-            new Isotope("potassium", 21, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("calcium", 20, 96.941F, Isotope.DecayMod.STABLE)),
-            new Isotope("potassium", 21, Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("argon", 22, 99.604F, Isotope.DecayMod.STABLE)),
-            new Isotope("potassium", 21, Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("argon", 22, 99.604F, Isotope.DecayMod.STABLE)),
-            new Isotope("potassium", 22, 6.730F, Isotope.DecayMod.STABLE)
-    }),
-    CALCIUM("Ca", AtomFamilies.ALKALIN_EARTH_METAL, 20, 40.078F, new Isotope[]{
-            new Isotope("calcium", 20, 96.941F, Isotope.DecayMod.STABLE),
-            new Isotope("calcium", 21, Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("potassium", 22, 6.730F, Isotope.DecayMod.STABLE)),
-            new Isotope("calcium", 22, 0.647F, Isotope.DecayMod.STABLE),
-            new Isotope("calcium", 23, 0.135F, Isotope.DecayMod.STABLE),
-            new Isotope("calcium", 24, 2.086F, Isotope.DecayMod.STABLE),
-            new Isotope("calcium", 25, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("scandium", 24, 100.00F, Isotope.DecayMod.STABLE)),
-            new Isotope("calcium", 26, 0.004F, Isotope.DecayMod.STABLE),
-
-            new Isotope("calcium", 27, -1, daysToMillisecond(4.5F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("scandium", 26, Isotope.DecayMod.BETA_MINUS,
-                            new Isotope("titanium", 25, 7.44F, Isotope.DecayMod.STABLE))),
-            new Isotope("calcium", 27, -1, daysToMillisecond(4.5F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("scandium", 26, Isotope.DecayMod.GAMMA_RAY)),
-
-            new Isotope("calcium", 27, -1, daysToMillisecond(4.5F), Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("calcium", 28, Isotope.DecayMod.DOUBLE_BETA_MINUS,
-                    new Isotope("titanium", 26, 73.72F, Isotope.DecayMod.STABLE))
-    }),
-    SCANDIUM("Sc", AtomFamilies.TRANSITION_METAL, 21, 44.956F, new Isotope[]{
-            new Isotope("scandium", 23, hoursToMillisecond(3.97F), Isotope.DecayMod.BETA_PLUS,
-                    new Isotope("calcium", 24, 2.086F, Isotope.DecayMod.STABLE)),
-            new Isotope("scandium", 23, -1, hoursToMillisecond(58.61F), Isotope.DecayMod.INTERNAL_CONVERSION,
-                    new Isotope("scandium", 23, hoursToMillisecond(3.97F), Isotope.DecayMod.BETA_PLUS,
-                            new Isotope("calcium", 24, 2.086F, Isotope.DecayMod.STABLE))),
-            new Isotope("scandium", 24, 100.00F, Isotope.DecayMod.STABLE),
-            new Isotope("scandium", 25, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("titanium", 24, 8.25F, Isotope.DecayMod.STABLE)),
-            new Isotope("scandium", 25, Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("scandium", 26, Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("titanium", 25, 7.44F, Isotope.DecayMod.STABLE)),
-            new Isotope("scandium", 26, Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("scandium", 27, -1, hoursToMillisecond(43.67F), Isotope.DecayMod.BETA_MINUS,
-                    new Isotope("titanium", 26, 73.72F, Isotope.DecayMod.STABLE)),
-            new Isotope("scandium", 27, -1, hoursToMillisecond(43.67F), Isotope.DecayMod.GAMMA_RAY)
-    }),
-    TITANIUM("Ti", AtomFamilies.TRANSITION_METAL, 22, 47.867F, new Isotope[]{
-            new Isotope("titanium", 22, Isotope.DecayMod.ELECTRON_CAPTURE,
-                    new Isotope("scandium", 23, hoursToMillisecond(3.97F), Isotope.DecayMod.BETA_PLUS,
-                            new Isotope("calcium", 24, 2.086F, Isotope.DecayMod.STABLE))),
-            new Isotope("titanium", 22, Isotope.DecayMod.GAMMA_RAY),
-            new Isotope("titanium", 24, 8.25F, Isotope.DecayMod.STABLE),
-            new Isotope("titanium", 25, 7.44F, Isotope.DecayMod.STABLE),
-            new Isotope("titanium", 26, 73.72F, Isotope.DecayMod.STABLE),
-            new Isotope("titanium", 27, 5.41F, Isotope.DecayMod.STABLE),
-            new Isotope("titanium", 28, 5.18F, Isotope.DecayMod.STABLE)
-    }),
+    HYDROGEN("H", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS, 1, 1.008F),
+    HELIUM("He", AtomFamilies.NOBLE_GAS, AtomType.GAS,2, 4.0026F),
+    LITHIUM("Li", AtomFamilies.ALKALI_METAL,3, 6.94F),
+    BERYLLIUM("Be", AtomFamilies.ALKALIN_EARTH_METAL,4, 9.0122F),
+    BORON("B", AtomFamilies.METALLOID,5, 10.81F),
+    CARBON("C", AtomFamilies.REACTIVE_NONMETAL,6, 12.011F),
+    NITROGEN("N", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,7, 14.007F),
+    OXYGEN("O", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,8,15.999F),
+    FLUORINE("F", AtomFamilies.REACTIVE_NONMETAL,AtomType.GAS,9,18.998F),
+    NEON("Ne", AtomFamilies.NOBLE_GAS,AtomType.GAS,10,20.180F),
+    SODIUM("Na", AtomFamilies.ALKALI_METAL,11,22.990F),
+    MAGNESIUM("Mg", AtomFamilies.ALKALIN_EARTH_METAL,12,24.305F),
+    ALUMINIUM("Al", AtomFamilies.POST_TRANSITION_METAL,13,26.982F),
+    SILICON("Si", AtomFamilies.METALLOID,14,28.085F),
+    PHOSPHORUS("P", AtomFamilies.REACTIVE_NONMETAL,15,30.974F),
+    SULFUR("S", AtomFamilies.REACTIVE_NONMETAL,16,32.06F),
+    CHLORINE("Cl", AtomFamilies.REACTIVE_NONMETAL, AtomType.GAS,17,35.45F),
+    ARGON("Ar", AtomFamilies.NOBLE_GAS, AtomType.GAS,18,39.88F),
+    POTASSIUM("K", AtomFamilies.ALKALI_METAL, 19, 39.098F),
+    CALCIUM("Ca", AtomFamilies.ALKALIN_EARTH_METAL, 20, 40.078F),
+    SCANDIUM("Sc", AtomFamilies.TRANSITION_METAL, 21, 44.956F),
+    TITANIUM("Ti", AtomFamilies.TRANSITION_METAL, 22, 47.867F),
     VANADIUM("V", AtomFamilies.TRANSITION_METAL, 23, 50.942F),
     CHROMIUM("Cr", AtomFamilies.TRANSITION_METAL, 24,51.996F),
     MANGANESE("Mn", AtomFamilies.TRANSITION_METAL, 25, 54.938F),
@@ -292,53 +129,12 @@ public enum Atoms {
     OGANESSON("Og", AtomFamilies.UNKNOW, AtomType.UNKNOW, 118, 294, AtomOccurence.SYNTHETIC);
     // Source : https://en.wikipedia.org/wiki/Periodic_table.
 
-    private String symbol;
-    private AtomFamilies atomFamily;
-    private AtomType atomType;
-    private int atomicNumber;
-    private float atomicMass;
-    private AtomOccurence atomOccurence;
-    private Isotope[] isotopes;
-
-    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, Isotope[] isotopes) {
-        this.symbol = symbol;
-        this.atomFamily = atomFamily;
-        this.atomType = atomType;
-        this.atomicNumber = atomicNumber;
-        this.atomicMass = atomicMass;
-        this.atomOccurence = AtomOccurence.PRIMORDIAL;
-        this.isotopes = isotopes;
-    }
-
-    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass, Isotope[] isotopes) {
-        this.symbol = symbol;
-        this.atomFamily = atomFamily;
-        this.atomType = AtomType.SOLID;
-        this.atomicNumber = atomicNumber;
-        this.atomicMass = atomicMass;
-        this.atomOccurence = AtomOccurence.PRIMORDIAL;
-        this.isotopes = isotopes;
-    }
-
-    Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
-        this.symbol = symbol;
-        this.atomFamily = atomFamily;
-        this.atomType = atomType;
-        this.atomicNumber = atomicNumber;
-        this.atomicMass = atomicMass;
-        this.atomOccurence = atomOccurence;
-        this.isotopes = isotopes;
-    }
-
-    Atoms(String symbol, AtomFamilies atomFamily, int atomicNumber, float atomicMass, AtomOccurence atomOccurence, Isotope[] isotopes) {
-        this.symbol = symbol;
-        this.atomFamily = atomFamily;
-        this.atomType = AtomType.SOLID;
-        this.atomicNumber = atomicNumber;
-        this.atomicMass = atomicMass;
-        this.atomOccurence = atomOccurence;
-        this.isotopes = isotopes;
-    }
+    private final String symbol;
+    private final AtomFamilies atomFamily;
+    private final AtomType atomType;
+    private final int atomicNumber;
+    private final float atomicMass;
+    private final AtomOccurence atomOccurence;
 
     Atoms(String symbol, AtomFamilies atomFamily, AtomType atomType, int atomicNumber, float atomicMass) {
         this.symbol = symbol;
@@ -376,10 +172,6 @@ public enum Atoms {
         this.atomOccurence = atomOccurence;
     }
 
-    public Isotope[] getIsotopes() {
-        return isotopes;
-    }
-
     public AtomOccurence getAtomOccurence() {
         return atomOccurence;
     }
@@ -410,32 +202,6 @@ public enum Atoms {
 
     public Item getItem() {
         return Registry.ITEM.get(new Identifier(MolecularCraft.MODID, this.getSymbol().toLowerCase()));
-    }
-
-    private static long yearsToMillisecond(float year) {
-        return (long)(1000L * SECONDS_IN_A_YEAR * year);
-    }
-
-    private static long yearsToMillisecond(float year, int tenPower) {
-        float years = year;
-        for (int g = 0; g < tenPower; g++) years = years * 10;
-        return (long)(1000L * SECONDS_IN_A_YEAR * years);
-    }
-
-    private static long daysToMillisecond(float day) {
-        return (long)(1000L * SECONDS_IN_A_DAY * day);
-    }
-
-    private static long hoursToMillisecond(float hour) {
-        return (long)(1000L * SECONDS_IN_AN_HOUR * hour);
-    }
-
-    private static long minutesToMillisecond(float minute) {
-        return (long)(1000L * SECONDS_IN_A_MINUTE * minute);
-    }
-
-    private static long secondsToMillisecond(float second) {
-        return (long)(1000L * second);
     }
 
     public static Atoms fromSymbol(String symbol) {
