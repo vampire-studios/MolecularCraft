@@ -169,7 +169,7 @@ public class Isotopes {
     }
 
     private static void register(Atoms atom, int nucleonNumber, float abundancePercent) {
-        register(atom, nucleonNumber, Isotope.Abundance.AMOUNT, abundancePercent, false, -1);
+        register(atom, nucleonNumber, Isotope.Abundance.AMOUNT, abundancePercent, false, new TimeAmount(TimeAmount.Unit.MILLISECOND, -1));
     }
 
     private static void register(Atoms atom, int nucleonNumber, Isotope.Abundance abundance, TimeAmount halfLife, Isotope.Decay[] decays) {

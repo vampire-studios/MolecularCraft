@@ -28,11 +28,11 @@ public class IsotopeItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
-        if (this.isotope.getDecayMod() != Isotope.DecayMod.STABLE) {
-            long life = ((IsotopeItemStackImpl)(Object)stack).getLife();
-            ((IsotopeItemStackImpl)(Object)stack).setLife(life - 1);
-            System.out.println(life);
-        }
+//        if (this.isotope.getDecayMod() != Isotope.DecayMod.STABLE) {
+//            long life = ((IsotopeItemStackImpl)(Object)stack).getLife();
+//            ((IsotopeItemStackImpl)(Object)stack).setLife(life - 1);
+//            System.out.println(life);
+//        }
     }
 
     public Isotope getIsotope() {
@@ -53,8 +53,8 @@ public class IsotopeItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        Atoms atom = Atoms.valueOf(this.isotope.getAtomName().toUpperCase());
+        Atoms atom = this.isotope.getAtom();
         String atomName = new TranslatableText(atom.getTranslatableName()).getString();
-        tooltip.add(new LiteralText(atomName + " " + (atom.getAtomicNumber() + this.isotope.getNeutronNumber())));
+        tooltip.add(new LiteralText(atomName + " " + this.isotope.getNucleonNumber()));
     }
 }

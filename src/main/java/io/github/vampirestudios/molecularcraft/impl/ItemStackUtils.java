@@ -10,10 +10,10 @@ public class ItemStackUtils {
     public static void copy(ItemStack from, ItemStack to) {
         if (from.getItem() instanceof IsotopeItem) {
             IsotopeItem isotopeItem = (IsotopeItem) from.getItem();
-            if (isotopeItem.getIsotope().getDecayMod() != Isotope.DecayMod.STABLE) {
-                long theLife = ((IsotopeItemStackImpl)(Object)from).getLife();
-                ((IsotopeItemStackImpl)(Object)to).setLife(theLife);
-            }
+//            if (isotopeItem.getIsotope().getDecayMod() != Isotope.DecayMod.STABLE) {
+//                long theLife = ((IsotopeItemStackImpl)(Object)from).getLife();
+//                ((IsotopeItemStackImpl)(Object)to).setLife(theLife);
+//            }
         }
     }
 }
