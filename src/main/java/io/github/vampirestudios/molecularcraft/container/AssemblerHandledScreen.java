@@ -18,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 public class AssemblerHandledScreen extends CottonInventoryScreen<AssemblerScreenHandler> {
-//    WStaticText energyText;
     AssemblerBlockEntity blockEntity;
     WLabel textField;
 
@@ -27,37 +26,6 @@ public class AssemblerHandledScreen extends CottonInventoryScreen<AssemblerScree
 
         this.blockEntity = linkedContainer.blockEntity;
         this.textField = linkedContainer.textField;
-//
-//        WInterface mainInterface = getInterface();
-//
-//        WPanel panel = mainInterface.createChild(WPanel.class, Position.of(0, 0, 0), Size.of(170, 180)).setInterface(mainInterface);
-//
-//        panel.setLabel(new LiteralText("Assembler"));
-//
-//        panel.setOnAlign(WAbstractWidget::center);
-//
-//        panel.center();
-//
-//        mainInterface.add(panel);
-//
-//        WSlot.addPlayerInventory(Position.of(panel, ((panel.getWidth()) / 2) - (int) (18 * 4.5f), 90, 1), Size.of(18, 18), mainInterface);
-//
-//        WSlot.addArray(Position.of(panel,4, 65, 1), Size.of(18, 18), mainInterface, 18, 1, 1, 1);
-//        WSlot.addArray(Position.of(panel,148, 65, 1), Size.of(18, 18), mainInterface, 19, 1, 1, 1);
-//
-//        WSlot.addArray(Position.of(panel, 4, 22, 1), Size.of(18, 18), mainInterface, 0, 1, 9, 2);
-//
-//        energyText = panel.createChild(WStaticText::new, Position.of(panel, 22, 65, 1));
-//        energyText.setText(" ");
-//
-//        for (WAbstractWidget widget : mainInterface.getWidgets()) {
-//            if (widget instanceof WSlot && ((WSlot) widget).getInventoryNumber() == 1) {
-//                if (((WSlot) widget).getSlotNumber() < 18) {
-//                    ((WSlot) widget).setOverrideMaximumCount(true);
-//                    ((WSlot) widget).setMaximumCount(1024);
-//                }
-//            }
-//        }
     }
 
     @Override

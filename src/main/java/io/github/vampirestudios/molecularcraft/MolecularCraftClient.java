@@ -25,15 +25,10 @@ public class MolecularCraftClient implements ClientModInitializer {
 //                    BlockPos pos = buf.readBlockPos();
 //                    return new DisassemblerHandledScreen(new DisassemblerScreenHandler(syncId, player.inventory, pos), player, pos);
 //        });
-//        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("molecularcraft:microscope"),
-//                (syncId, id, player, buf) -> {
-//                    BlockPos pos = buf.readBlockPos();
-//                    return new MicroscopeHandledScreen(new MicroscopeScreenHandler(syncId, player.inventory, pos), player, pos);
-//        });
-
+        ScreenRegistry.<MicroscopeScreenHandler, MicroscopeHandledScreen>register(ModContainers.MICROSCOPE_SCREEN_HANDLER, (gui, inventory, title) -> new MicroscopeHandledScreen(gui, inventory.player, title));
         ScreenRegistry.<AssemblerScreenHandler, AssemblerHandledScreen>register(ModContainers.ASSEMBLER_SCREEN_HANDLER, (gui, inventory, title) -> new AssemblerHandledScreen(gui, inventory.player, title));
 
-        Artifice.registerAssets(id("assets").toString(), clientResourcePackBuilder -> {
+        Artifice.registerAssetPack(id("assets").toString(), clientResourcePackBuilder -> {
             for (Atoms atom : Atoms.values()) {
                 clientResourcePackBuilder.addItemModel(id(atom.getSymbol().toLowerCase()), modelBuilder -> {
                     modelBuilder.parent(id("minecraft", "item/generated"));
@@ -50,10 +45,8 @@ public class MolecularCraftClient implements ClientModInitializer {
 
         ClientSidePacketRegistry.INSTANCE.register(MolecularCraft.MOLECULAR_INFO_PACKET,
                 (packetContext, attachedData) -> {
-                    // Get the BlockPos we put earlier, in the networking thread
                     CompoundTag tag = attachedData.readCompoundTag();
                     packetContext.getTaskQueue().execute(() -> {
-                        // Use the pos in the main thread
                         assert tag != null;
                         PacketHandler.readMolecularInfoPacket(tag);
                     });

@@ -37,7 +37,6 @@ public class AssemblerBlock extends BaseMachineBlock {
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof AssemblerBlockEntity) {
             player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-//            ContainerProviderImpl.INSTANCE.openContainer(new Identifier("molecularcraft:assembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         }
 
 

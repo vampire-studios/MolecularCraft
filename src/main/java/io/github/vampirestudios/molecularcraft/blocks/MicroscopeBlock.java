@@ -1,22 +1,16 @@
 package io.github.vampirestudios.molecularcraft.blocks;
 
-import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
@@ -37,7 +31,7 @@ public class MicroscopeBlock extends BaseMachineBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof MicroscopeBlockEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:microscope"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         }
 
 

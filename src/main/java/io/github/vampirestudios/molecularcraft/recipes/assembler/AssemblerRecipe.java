@@ -5,8 +5,8 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 public class AssemblerRecipe {
-    private List<ItemStack> inputs;
-    private ItemStack output;
+    private final List<ItemStack> inputs;
+    private final ItemStack output;
 
     public AssemblerRecipe(List<ItemStack> inputs, ItemStack output) {
         this.inputs = inputs;

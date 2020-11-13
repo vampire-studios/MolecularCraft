@@ -1,24 +1,32 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
-import io.github.vampirestudios.molecularcraft.recipes.DisassemblerRecipeManager;
+import io.github.vampirestudios.molecularcraft.container.MicroscopeScreenHandler;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SidedInventory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage {
+public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory {
     private double energy;
-//    public BaseInventory inventory = new BaseInventory(3);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     public MicroscopeBlockEntity() {
         super(ModBlockEntities.microscopeBlockEntityBlockEntityType);
@@ -27,7 +35,7 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-//        InventoryUtilities.write(this.inventory, tag);
+        tag = Inventories.toTag(tag, this.items);
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
@@ -35,9 +43,8 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
-//        inventory = new BaseInventory(3);
-//        InventoryUtilities.read(inventory, tag);
         this.setStored(tag.getDouble("energy"));
+        Inventories.fromTag(tag, this.items);
     }
 
     @Override
@@ -80,12 +87,23 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
         return 0;
     }
 
-//    public int getInvSize() {
-//        return this.inventory.getInvSize();
-//    }
-//
-//
-//    public ItemStack getInvStack(int k) {
-//        return this.inventory.getInvStack(k);
-//    }
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return this.items;
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return new LiteralText("Microscope");
+    }
+
+    @Override
+    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new MicroscopeScreenHandler(syncId, inv, this.pos, ScreenHandlerContext.create(this.world, this.pos));
+    }
 }
