@@ -22,6 +22,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
@@ -175,7 +176,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
 
     @Override
     public Text getDisplayName() {
-        return new LiteralText("Assembler");
+        return new TranslatableText("block.molecularcraft.assembler");
     }
 
     @Override

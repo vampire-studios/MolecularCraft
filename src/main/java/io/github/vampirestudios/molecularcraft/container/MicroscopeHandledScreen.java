@@ -5,6 +5,7 @@ import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WText;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
@@ -50,6 +51,10 @@ public class MicroscopeHandledScreen extends CottonInventoryScreen<MicroscopeScr
                 string.append(" ");
             }
             dynamicText.setText(new LiteralText(string.toString()));
+        } else if (one.getItem() instanceof MoleculeStackItem) {
+            MoleculeStackItem moleculeStackItem = (MoleculeStackItem) one.getItem();
+            MoleculeStack moleculeStack = moleculeStackItem.getMoleculeStack();
+            dynamicText.setText(new LiteralText(moleculeStack.getFormula()));
         } else {
             dynamicText.setText(new LiteralText(""));
         }
