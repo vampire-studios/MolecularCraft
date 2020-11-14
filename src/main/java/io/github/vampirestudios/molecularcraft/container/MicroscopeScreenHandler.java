@@ -1,28 +1,37 @@
 package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
-import io.github.cottonmc.cotton.gui.widget.WButton;
-import io.github.cottonmc.cotton.gui.widget.WGridPanel;
-import io.github.cottonmc.cotton.gui.widget.WItemSlot;
-import io.github.cottonmc.cotton.gui.widget.WLabel;
+import io.github.cottonmc.cotton.gui.widget.*;
+import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
+import io.github.cottonmc.cotton.gui.widget.data.VerticalAlignment;
+import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
+import io.github.vampirestudios.molecularcraft.container.widget.WEnergyBar;
+import io.github.vampirestudios.molecularcraft.container.widget.WTextPanel;
+import io.github.vampirestudios.molecularcraft.items.RecipeItem;
+import io.github.vampirestudios.molecularcraft.recipes.AssemblerRecipeManager;
+import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
+import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
 import io.github.vampirestudios.molecularcraft.registries.ModContainers;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 public class MicroscopeScreenHandler extends SyncedGuiDescription {
 
-    WLabel dynamicText;
+    WText dynamicText;
     MicroscopeBlockEntity blockEntity;
-    WLabel energyText;
     WButton wButton;
+    WText errorText;
 
     public MicroscopeScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos, ScreenHandlerContext context) {
-        super(ModContainers.MICROSCOPE_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 3), getBlockPropertyDelegate(context));
+        super(ModContainers.MICROSCOPE_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 3), getBlockPropertyDelegate(context, 2));
         blockEntity = (MicroscopeBlockEntity) this.world.getBlockEntity(pos);
 
         WGridPanel root = new WGridPanel();
@@ -34,23 +43,63 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
 
         WItemSlot paperSlot = new WItemSlot(blockInventory, 1, 1, 1, false)
                 .setFilter((itemStack) -> itemStack.getItem() == Items.PAPER);
-        root.add(paperSlot, 0, 4);
+        root.add(paperSlot, 0, 3);
 
         WItemSlot resultSlot = new WItemSlot(blockInventory, 2, 1, 1, false)
                 .setFilter((itemStack -> itemStack.getItem() == ModItems.RECIPE))
-                .setInsertingAllowed(true);
-        root.add(resultSlot, 8, 4);
+                .setInsertingAllowed(false);
+        resultSlot.addChangeListener((slot, inventory, var3, stack) -> this.sendContentUpdates());
+        root.add(resultSlot, 2, 2);
 
-        energyText = new WLabel(new LiteralText("Test"));
-        root.add(energyText, 0, 3);
-        dynamicText = new WLabel(new LiteralText("Test"));
-        root.add(dynamicText, 7, 2);
+        WBar energyBar = new WEnergyBar(0, 1);
+        root.add(energyBar, 0, 4, 4, 1);
 
-        wButton = new WButton(new LiteralText("Create Recipe"));
-        root.add(wButton, 4, 12);
+        WGridPanel textPanel = new WTextPanel();
+        root.add(textPanel, 4, 1, 5, 3);
+        dynamicText = new WText(new LiteralText(""))
+                .setHorizontalAlignment(HorizontalAlignment.CENTER)
+                .setVerticalAlignment(VerticalAlignment.CENTER);
+        textPanel.add(dynamicText, 0, 0, 5, 3);
 
-        root.add(this.createPlayerInventoryPanel(), 0, 6);
+        wButton = new WButton(new TranslatableText("text.molecularcraft.gui.create_recipe")).setOnClick(this::createRecipe);
+        root.add(wButton, 4, 4, 4, 1);
+
+        errorText = new WText(new LiteralText(""))
+                .setColor(0xf54242).setDarkmodeColor(0xf54242)
+                .setVerticalAlignment(VerticalAlignment.CENTER);
+        root.add(errorText, 0, 5, 9, 2);
+
+        root.add(this.createPlayerInventoryPanel(), 0, 7);
 
         root.validate(this);
+    }
+
+    private void createRecipe() {
+        ItemStack inputStack = this.getStacks().get(0);
+        String inputId = Registry.ITEM.getId(inputStack.getItem()).toString();
+        ItemStack paperStack = this.getStacks().get(1);
+        ItemStack resultStack = this.getStacks().get(2);
+        if (resultStack.getItem() != Items.AIR) {
+                errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.full"));
+        } else {
+            errorText.setText(new LiteralText(""));
+            if (paperStack.getItem() == Items.AIR) {
+                errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.paper"));
+            } else {
+                errorText.setText(new LiteralText(""));
+                if (!ItemMoleculesDataManager.REGISTRY.containsKey(inputId)) {
+                    errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.no_formula"));
+                } else {
+                    errorText.setText(new LiteralText(""));
+                    AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(inputId, ItemMoleculesDataManager.REGISTRY.get(inputId));
+                    ItemStack recipeItem = new ItemStack(ModItems.RECIPE);
+                    RecipeItem.setRecipeComponent(recipeItem, recipe);
+                    MolecularCraft.sendSlotUpdatePacket(this.syncId, 2, recipeItem);
+                    paperStack.decrement(1);
+                    MolecularCraft.sendSlotUpdatePacket(this.syncId, 1, paperStack);
+                }
+            }
+        }
+
     }
 }

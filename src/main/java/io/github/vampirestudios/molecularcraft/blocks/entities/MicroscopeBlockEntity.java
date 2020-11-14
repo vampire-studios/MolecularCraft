@@ -1,5 +1,6 @@
 package io.github.vampirestudios.molecularcraft.blocks.entities;
 
+import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import io.github.vampirestudios.molecularcraft.container.MicroscopeScreenHandler;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -11,11 +12,12 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -24,7 +26,7 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory {
+public class MicroscopeBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory, PropertyDelegateHolder {
     private double energy;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
@@ -74,7 +76,7 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
 
     @Override
     public EnergyTier getTier() {
-        return EnergyTier.HIGH;
+        return EnergyTier.LOW;
     }
 
     @Override
@@ -99,11 +101,33 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
 
     @Override
     public Text getDisplayName() {
-        return new LiteralText("Microscope");
+        return new TranslatableText("block.molecularcraft.microscope");
     }
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
         return new MicroscopeScreenHandler(syncId, inv, this.pos, ScreenHandlerContext.create(this.world, this.pos));
+    }
+
+    @Override
+    public PropertyDelegate getPropertyDelegate() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                if (index == 0) return (int) energy;
+                if (index == 1) return (int) getMaxStoredPower();
+                return -1;
+            }
+
+            @Override
+            public void set(int index, int value) {
+                if (index == 0) energy = value;
+            }
+
+            @Override
+            public int size() {
+                return 2;
+            }
+        };
     }
 }

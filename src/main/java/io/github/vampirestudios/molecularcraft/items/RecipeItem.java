@@ -17,12 +17,11 @@ public class RecipeItem extends Item {
         CompoundTag tag = recipeItem.getOrCreateTag();
         tag.putInt("outputCount", recipe.getOutput().getCount());
         tag.putString("outputId", Registry.ITEM.getId(recipe.getOutput().getItem()).toString());
-        ListTag listTag = tag.getList("inputs", 10);
+        ListTag listTag = new ListTag();
         for (ItemStack itemStack : recipe.getInputs()) {
             CompoundTag tag1 = new CompoundTag();
             tag1.putString("id", Registry.ITEM.getId(itemStack.getItem()).toString());
             tag1.putInt("count", itemStack.getCount());
-            System.out.println(tag1.getType());
             listTag.add(tag1);
         }
         tag.put("inputs", listTag);

@@ -1,8 +1,15 @@
 package io.github.vampirestudios.molecularcraft;
 
+import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
 public class MolecularCraft implements ModInitializer {
@@ -20,38 +27,27 @@ public class MolecularCraft implements ModInitializer {
 		ModContainers.init();
 		Molecules.init();
 		MolecularInfoSetters.init();
-//		ServerSidePacketRegistry.INSTANCE.register(SLOT_UPDATE_PACKET, (packetContext, packetByteBuffer) -> {
-//			int syncId = packetByteBuffer.readInt();
-//			int slotNumber = packetByteBuffer.readInt();
-//			int inventoryNumber = packetByteBuffer.readInt();
-//			CompoundTag tag = packetByteBuffer.readCompoundTag();
-//			ItemStack stack = StackUtilities.read(tag);
-//			packetContext.getTaskQueue().execute(() -> {
-//				if (packetContext.getPlayer().currentScreenHandler instanceof BaseScreenHandler && packetContext.getPlayer().currentScreenHandler.syncId == syncId) {
-//					BaseScreenHandler container = (BaseScreenHandler)packetContext.getPlayer().currentScreenHandler;
-//					container.getInventory(inventoryNumber).setInvStack(slotNumber, stack);
-//					Iterator var6 = container.getInterface().getAllWidgets().iterator();
-//
-//					while(var6.hasNext()) {
-//						WAbstractWidget widget = (WAbstractWidget)var6.next();
-//						if (widget instanceof WSlot && ((WSlot)widget).getInventoryNumber() == inventoryNumber && ((WSlot)widget).getSlotNumber() == slotNumber) {
-//							((WSlot)widget).setStack(container.getInventory(inventoryNumber).getInvStack(slotNumber));
-//						}
-//					}
-//				}
-//
-//			});
-//		});
+		ServerSidePacketRegistry.INSTANCE.register(SLOT_UPDATE_PACKET, (packetContext, packetByteBuffer) -> {
+			int syncId = packetByteBuffer.readInt();
+			int slotNumber = packetByteBuffer.readInt();
+			ItemStack stack = packetByteBuffer.readItemStack();
+			packetContext.getTaskQueue().execute(() -> {
+				if (packetContext.getPlayer().currentScreenHandler instanceof SyncedGuiDescription && packetContext.getPlayer().currentScreenHandler.syncId == syncId) {
+					SyncedGuiDescription container = (SyncedGuiDescription)packetContext.getPlayer().currentScreenHandler;
+					container.setStackInSlot(slotNumber, stack);
+				}
+
+			});
+		});
 	}
 
-//	public static void sendSlotUpdatePacket(int syncId, int slotNumber, int inventoryNumber, ItemStack stack) {
-//		PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
-//		buffer.writeInt(syncId);
-//		buffer.writeInt(slotNumber);
-//		buffer.writeInt(inventoryNumber);
-//		buffer.writeCompoundTag(StackUtilities.write(stack));
-//		ClientSidePacketRegistry.INSTANCE.sendToServer(SLOT_UPDATE_PACKET, buffer);
-//	}
+	public static void sendSlotUpdatePacket(int syncId, int slotNumber, ItemStack stack) {
+		PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
+		buffer.writeInt(syncId);
+		buffer.writeInt(slotNumber);
+		buffer.writeItemStack(stack);
+		ClientSidePacketRegistry.INSTANCE.sendToServer(SLOT_UPDATE_PACKET, buffer);
+	}
 
 	public static Identifier id(String path) {
 		return new Identifier(MODID, path);
