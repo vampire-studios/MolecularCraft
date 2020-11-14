@@ -21,7 +21,6 @@ public class MoleculeStackItem extends Item {
     public MoleculeStackItem(MoleculeStack moleculeStack) {
         super(new Item.Settings().group(ModItems.MOLECULES));
         this.moleculeStack = moleculeStack;
-//        this.moleculeStack.setMoleculeStackItem(this);
     }
 
     public MoleculeStack getMoleculeStack() {
@@ -42,9 +41,13 @@ public class MoleculeStackItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        tooltip.add(new LiteralText(
-                new TranslatableText("molecule.molecularcraft." + this.getMoleculeStack().getRegistryName()).getString()
-                        + " (" + this.getMoleculeStack().getFormula() + ")"));
+        String translationKey = "molecule.molecularcraft." + this.getMoleculeStack().getRegistryName();
+        String translated = new TranslatableText(translationKey).getString();
+        String text = translated + " (" + this.getMoleculeStack().getFormula() + ")";
+        if (translationKey.equals(translated)) {
+            text = this.getMoleculeStack().getFormula();
+        }
+        tooltip.add(new LiteralText(text));
     }
 
     public void setMoleculeStack(MoleculeStack moleculeStack) {
