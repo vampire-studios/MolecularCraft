@@ -161,6 +161,20 @@ public class Isotopes {
         register(CALCIUM, 48, 0.187F, y(6.4F, 19), new Isotope.Decay[]{
                 new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, TITANIUM, 48)
         });
+
+        register(SCANDIUM, 44, Isotope.Abundance.SYNTHETIC, h(3.97F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, CALCIUM, 44)
+        });
+        register(SCANDIUM, 45, 100F);
+        register(SCANDIUM, 46, Isotope.Abundance.SYNTHETIC, d(83.79F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TITANIUM, 46)
+        });
+        register(SCANDIUM, 47, Isotope.Abundance.SYNTHETIC, h(80.38F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TITANIUM, 47)
+        });
+        register(SCANDIUM, 48, Isotope.Abundance.SYNTHETIC, h(43.67F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TITANIUM, 48)
+        });
     }
 
     private static void register(Atoms atom, int nucleonNumber, Isotope.Abundance abundance, float abundancePercent, boolean decay, TimeAmount halfLife, Isotope.Decay... decays) {
