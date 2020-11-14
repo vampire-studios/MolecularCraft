@@ -1,7 +1,6 @@
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
-	id "com.wynprice.cursemaven" version "2.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -23,6 +22,9 @@ repositories {
 	maven {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
+	}
+	maven {
+		url = "https://www.cursemaven.com"
 	}
 	maven {
 		name = "Jitpack"
@@ -50,8 +52,8 @@ dependencies {
 	include "io.github.cottonmc:LibGui:${project.libgui_version}"
 
 	// Energy API
-	compile 'teamreborn:energy:+'
-	include 'teamreborn:energy:+'
+	modApi 'teamreborn:energy:0.1.0'
+	include 'teamreborn:energy:0.1.0'
 
 	// Artifice
 	modImplementation "com.lettuce.fudge:artifice:0.14.4+1.16.3"
@@ -71,8 +73,12 @@ dependencies {
 	modImplementation "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
 //	include "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
 
-//	modCompile "curse.maven:techreborn:2865199"
-//	modCompile "curse.maven:reborncore:2865196"
+	modRuntime ("curse.maven:techreborn:3093570") {
+		exclude group: "teamreborn", module: "energy"
+	}
+	modRuntime ("curse.maven:reborncore:3094255") {
+		exclude group: "teamreborn", module: "energy"
+	}
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.8.1"
 	modRuntime "me.shedaniel:RoughlyEnoughItems:5.8.1"
 }
