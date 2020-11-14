@@ -62,7 +62,7 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
         textPanel.add(dynamicText, 0, 0, 5, 3);
 
         wButton = new WButton(new TranslatableText("text.molecularcraft.gui.create_recipe")).setOnClick(this::createRecipe);
-        root.add(wButton, 4, 4, 4, 1);
+        root.add(wButton, 4, 4, 5, 1);
 
         errorText = new WText(new LiteralText(""))
                 .setColor(0xf54242).setDarkmodeColor(0xf54242)

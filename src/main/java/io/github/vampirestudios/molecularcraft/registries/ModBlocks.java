@@ -23,7 +23,7 @@ public class ModBlocks {
     }
 
     private static Block register(String name, Block block) {
-        Registry.register(Registry.ITEM, new Identifier("molecularcraft", name), new BlockItem(block, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.ITEM, new Identifier("molecularcraft", name), new BlockItem(block, new Item.Settings().group(ModItems.MACHINES)));
         return Registry.register(Registry.BLOCK, new Identifier("molecularcraft", name), block);
     }
 }

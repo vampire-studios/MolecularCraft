@@ -4,9 +4,13 @@ import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WText;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
+import io.github.vampirestudios.molecularcraft.enums.Atoms;
+import io.github.vampirestudios.molecularcraft.molecules.Molecule;
+import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
@@ -29,8 +33,21 @@ public class MicroscopeHandledScreen extends CottonInventoryScreen<MicroscopeScr
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(oneId);
             StringBuilder string = new StringBuilder();
             for (ItemMoleculeComponment moleculeStack : itemMolecule.getList()) {
-                if (moleculeStack.getAmount() > 1) string.append(moleculeStack.getAmount());
-                string.append(moleculeStack.getFormula()).append(" ");
+                int moleculeStackAmount = moleculeStack.getAmount();
+                string.append(moleculeStackAmount);
+                if (moleculeStack instanceof MoleculeStack) {
+                    for (Molecule molecule : ((MoleculeStack) moleculeStack).getMolecules()) {
+                        int moleculeAmount = molecule.getAmount();
+                        Atoms atom = molecule.getAtom();
+                        string.append(atom.getSymbol());
+                        if (moleculeAmount > 1)
+                            string.append(StringHelper.subscriptNumbers(Integer.toString(moleculeAmount)));
+                    }
+                } else {
+                    Atoms atom = ((Molecule) moleculeStack).getAtom();
+                    string.append(atom.getSymbol());
+                }
+                string.append(" ");
             }
             dynamicText.setText(new LiteralText(string.toString()));
         } else {

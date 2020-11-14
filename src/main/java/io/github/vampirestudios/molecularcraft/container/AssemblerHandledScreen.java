@@ -18,21 +18,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 public class AssemblerHandledScreen extends CottonInventoryScreen<AssemblerScreenHandler> {
-    AssemblerBlockEntity blockEntity;
-    WLabel textField;
 
     public AssemblerHandledScreen(AssemblerScreenHandler linkedContainer, PlayerEntity player, Text title) {
         super(linkedContainer, player, title);
-
-        this.blockEntity = linkedContainer.blockEntity;
-        this.textField = linkedContainer.textField;
     }
 
     @Override
     public void tick() {
-        double energy = blockEntity.getStored(null);
-        double maxE = blockEntity.getMaxStoredPower();
-        textField.setText(new LiteralText("Energy: " + energy + "/" + maxE));
 //        ItemStack recipe = blockEntity.inventory.getInvStack(18);
 //        if (recipe.getItem() == ModItems.RECIPE) {
 //            CompoundTag tag = recipe.getTag();
