@@ -8,7 +8,9 @@ import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import io.github.vampirestudios.molecularcraft.container.widget.WEnergyBar;
 import io.github.vampirestudios.molecularcraft.container.widget.WTextPanel;
+import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.items.RecipeItem;
+import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.recipes.AssemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
@@ -87,11 +89,17 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
                 errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.paper"));
             } else {
                 errorText.setText(new LiteralText(""));
-                if (!ItemMoleculesDataManager.REGISTRY.containsKey(inputId)) {
+                if (!ItemMoleculesDataManager.REGISTRY.containsKey(inputId) && !(inputStack.getItem() instanceof MoleculeStackItem)) {
                     errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.no_formula"));
                 } else {
                     errorText.setText(new LiteralText(""));
-                    AssemblerRecipe recipe = AssemblerRecipeManager.createRecipe(inputId, ItemMoleculesDataManager.REGISTRY.get(inputId));
+                    AssemblerRecipe recipe;
+                    if (inputStack.getItem() instanceof MoleculeStackItem) {
+                        MoleculeStack moleculeStack = ((MoleculeStackItem)inputStack.getItem()).getMoleculeStack();
+                        recipe = AssemblerRecipeManager.createRecipe(inputStack.getItem(), moleculeStack.getMolecules());
+                    } else {
+                        recipe = AssemblerRecipeManager.createRecipe(inputStack.getItem(), ItemMoleculesDataManager.REGISTRY.get(inputId));
+                    }
                     ItemStack recipeItem = new ItemStack(ModItems.RECIPE);
                     RecipeItem.setRecipeComponent(recipeItem, recipe);
                     MolecularCraft.sendSlotUpdatePacket(this.syncId, 2, recipeItem);
