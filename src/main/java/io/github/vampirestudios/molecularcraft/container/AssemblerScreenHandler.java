@@ -15,12 +15,8 @@ import net.minecraft.util.math.BlockPos;
 
 public class AssemblerScreenHandler extends SyncedGuiDescription {
 
-    AssemblerBlockEntity blockEntity;
-
     public AssemblerScreenHandler(int synchronizationID, PlayerInventory linkedPlayerInventory, BlockPos pos, ScreenHandlerContext context) {
         super(ModContainers.ASSEMBLER_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 20), getBlockPropertyDelegate(context, 2));
-
-        blockEntity = (AssemblerBlockEntity) this.world.getBlockEntity(pos);
 
         WGridPanel root = new WGridPanel();
         setRootPanel(root);

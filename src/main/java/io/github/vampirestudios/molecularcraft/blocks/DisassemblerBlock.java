@@ -1,33 +1,21 @@
 package io.github.vampirestudios.molecularcraft.blocks;
 
 import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlockEntity;
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DisassemblerBlock extends BaseMachineBlock {
 
     public DisassemblerBlock() {
-        super(FabricBlockSettings.of(Material.METAL).build());
+        super(AbstractBlock.Settings.of(Material.METAL));
     }
 
     @Override
@@ -41,7 +29,7 @@ public class DisassemblerBlock extends BaseMachineBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof DisassemblerBlockEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("molecularcraft:disassembler"), player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         }
 
 

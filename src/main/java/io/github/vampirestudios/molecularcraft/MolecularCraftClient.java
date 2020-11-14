@@ -27,6 +27,7 @@ public class MolecularCraftClient implements ClientModInitializer {
 //        });
         ScreenRegistry.<MicroscopeScreenHandler, MicroscopeHandledScreen>register(ModContainers.MICROSCOPE_SCREEN_HANDLER, (gui, inventory, title) -> new MicroscopeHandledScreen(gui, inventory.player, title));
         ScreenRegistry.<AssemblerScreenHandler, AssemblerHandledScreen>register(ModContainers.ASSEMBLER_SCREEN_HANDLER, (gui, inventory, title) -> new AssemblerHandledScreen(gui, inventory.player, title));
+        ScreenRegistry.<DisassemblerScreenHandler, DisassemblerHandledScreen>register(ModContainers.DISASSEMBLER_SCREEN_HANDLER, (gui, inventory, title) -> new DisassemblerHandledScreen(gui, inventory.player, title));
 
         Artifice.registerAssetPack(id("assets").toString(), clientResourcePackBuilder -> {
             for (Atoms atom : Atoms.values()) {
