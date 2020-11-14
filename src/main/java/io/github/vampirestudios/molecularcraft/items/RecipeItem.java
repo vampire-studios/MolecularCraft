@@ -15,7 +15,6 @@ public class RecipeItem extends Item {
 
     public static void setRecipeComponent(ItemStack recipeItem, AssemblerRecipe recipe) {
         CompoundTag tag = recipeItem.getOrCreateTag();
-        tag.putInt("outputCount", recipe.getOutput().getCount());
         tag.putString("outputId", Registry.ITEM.getId(recipe.getOutput().getItem()).toString());
         ListTag listTag = new ListTag();
         for (ItemStack itemStack : recipe.getInputs()) {
