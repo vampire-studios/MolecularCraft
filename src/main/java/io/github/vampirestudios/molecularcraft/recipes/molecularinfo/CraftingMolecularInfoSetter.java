@@ -1,6 +1,5 @@
 package io.github.vampirestudios.molecularcraft.recipes.molecularinfo;
 
-import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
 import io.github.vampirestudios.molecularcraft.utils.IngredientAccessor;
