@@ -130,5 +130,11 @@
     "atom.molecularcraft.moscovium.name": "Moscovium",
     "atom.molecularcraft.livermorium.name": "Livermorium",
     "atom.molecularcraft.tennessine.name": "Tenness",
-    "atom.molecularcraft.oganesson.name": "Oganesson"
+    "atom.molecularcraft.oganesson.name": "Oganesson",
+    "text.molecularcraft.gui.energy": "Energy: %s/%s",
+    "text.molecularcraft.gui.create_recipe": "Create Recipe",
+    "text.molecularcraft.gui.microscope.error.full": "Recipe Item Slot is already occupied!",
+    "text.molecularcraft.gui.microscope.error.paper": "You need paper to generate a recipe!",
+    "text.molecularcraft.gui.microscope.error.no_formula": "The Item you try to get the chemical recipe doesn't have a chemical formula!",
+    "item.molecularcraft.recipe": "Recipe"
 }
