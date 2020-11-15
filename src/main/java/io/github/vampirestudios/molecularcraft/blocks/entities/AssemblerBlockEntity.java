@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory, PropertyDelegateHolder {
     private double energy;
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(20, ItemStack.EMPTY);
+    private final AssemblerInventory inventory = new AssemblerInventory(19);
 
     public AssemblerBlockEntity() {
         super(ModBlockEntities.assemblerBlockEntityBlockEntityType);
@@ -48,7 +49,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag = Inventories.toTag(tag, this.items);
+        tag = Inventories.toTag(tag, inventory.clearToList());
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
