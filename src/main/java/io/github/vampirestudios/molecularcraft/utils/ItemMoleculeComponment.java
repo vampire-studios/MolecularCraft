@@ -9,6 +9,10 @@ public interface ItemMoleculeComponment {
 
     ItemStack getItemStack();
 
+    Item getStackedItem(int power);
+
+    ItemStack getStackedItemStack(int power);
+
     int getAmount();
 
     ItemMoleculeComponment setAmount(int amount);
@@ -16,6 +20,8 @@ public interface ItemMoleculeComponment {
     String getFormula();
 
     Type getType();
+
+    ItemMoleculeComponment copy();
 
     enum Type {
         MOLECULE,

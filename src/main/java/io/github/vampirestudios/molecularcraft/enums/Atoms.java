@@ -200,8 +200,16 @@ public enum Atoms {
         return symbol;
     }
 
+    public String getStackedSymbol(int power) {
+        return (int) Math.pow(64, power) + getSymbol();
+    }
+
     public Item getItem() {
         return Registry.ITEM.get(new Identifier(MolecularCraft.MODID, this.getSymbol().toLowerCase()));
+    }
+
+    public Item getStackedItem(int power) {
+        return Registry.ITEM.get(MolecularCraft.id(this.getSymbol().toLowerCase() + "_" + (int)Math.pow(64, power)));
     }
 
     public static Atoms fromSymbol(String symbol) {

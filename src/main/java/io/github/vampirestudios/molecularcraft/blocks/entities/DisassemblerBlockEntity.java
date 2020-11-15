@@ -2,7 +2,10 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import io.github.vampirestudios.molecularcraft.container.DisassemblerScreenHandler;
+import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
+import io.github.vampirestudios.molecularcraft.items.StackedAtomItem;
+import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
@@ -35,10 +38,7 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DisassemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory, PropertyDelegateHolder {
     private double energy;
@@ -70,7 +70,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
         if (ItemMoleculesDataManager.REGISTRY.containsKey(inputId)) {
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(inputId);
             List<ItemStack> outputs = new ArrayList<>();
-            for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getList()) {
+            for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
                 ItemStack stack = itemMoleculeComponment.getItemStack();
                 while (stack.getCount() > 64) {
                     stack.decrement(64);
@@ -78,12 +78,28 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
                 }
                 outputs.add(stack);
             }
-            if (outputs.size() < 18) {
+            if (outputs.size() < 10) {
                 if (this.canDisassemble(outputs)) {
                     this.disassemble(outputs);
                 }
             } else {
-                System.out.println("Number of Stacks: " + outputs.size());
+                outputs.clear();
+                for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
+                    int count = itemMoleculeComponment.getAmount();
+                    if (count > 63) {
+                        ItemStack itemStack = itemMoleculeComponment.getStackedItemStack(1);
+                        while (itemStack.getCount() > 64) {
+                            inputStack.decrement(64);
+                            outputs.add(new ItemStack(itemStack.getItem(), 64));
+                        }
+                        outputs.add(itemStack);
+                    }
+                    outputs.add(itemMoleculeComponment.getItemStack());
+                }
+
+                if (this.canDisassemble(outputs)) {
+                    this.disassemble(outputs);
+                }
             }
         } else if (inputStack.getItem() instanceof MoleculeStackItem) {
             MoleculeStackItem moleculeStackItem = (MoleculeStackItem) inputStack.getItem();
@@ -96,6 +112,18 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
             if (canDisassemble(outputs)) {
                 disassemble(outputs);
             }
+        } else if (inputStack.getItem() instanceof StackedMoleculeStackItem) {
+            StackedMoleculeStackItem stackedMoleculeStackItem = (StackedMoleculeStackItem) inputStack.getItem();
+            MoleculeStack moleculeStack = stackedMoleculeStackItem.getMoleculeStack();
+            List<ItemStack> ouputs = new ArrayList<>(Collections.singleton(new ItemStack(moleculeStack.getItem(), 64)));
+
+            if (canDisassemble(ouputs)) disassemble(ouputs);
+        } else if (inputStack.getItem() instanceof StackedAtomItem) {
+            StackedAtomItem stackedAtomItem = (StackedAtomItem) inputStack.getItem();
+            Atoms atom = stackedAtomItem.getAtom();
+            List<ItemStack> outputs = new ArrayList<>(Collections.singleton(new ItemStack(atom.getItem(), 64)));
+
+            if (canDisassemble(outputs)) disassemble(outputs);
         }
     }
 

@@ -2,15 +2,15 @@ package io.github.vampirestudios.molecularcraft.container;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
-import io.github.vampirestudios.molecularcraft.blocks.entities.AssemblerBlockEntity;
 import io.github.vampirestudios.molecularcraft.container.widget.WEnergyBar;
 import io.github.vampirestudios.molecularcraft.items.AtomItem;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
+import io.github.vampirestudios.molecularcraft.items.StackedAtomItem;
+import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.registries.ModContainers;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 
 public class AssemblerScreenHandler extends SyncedGuiDescription {
@@ -23,7 +23,10 @@ public class AssemblerScreenHandler extends SyncedGuiDescription {
         root.setSize(160, 200);
 
         WItemSlot itemSlot = new WItemSlot(blockInventory, 0, 9,2, false)
-                .setFilter(itemStack -> itemStack.getItem() instanceof AtomItem || itemStack.getItem() instanceof MoleculeStackItem);
+                .setFilter(itemStack -> itemStack.getItem() instanceof AtomItem
+                        || itemStack.getItem() instanceof MoleculeStackItem
+                        || itemStack.getItem() instanceof StackedAtomItem
+                        || itemStack.getItem() instanceof StackedMoleculeStackItem);
         root.add(itemSlot, 0, 1);
         WItemSlot itemSlot1 = new WItemSlot(blockInventory, 18, 1,1, false)
                 .setFilter(itemStack -> itemStack.getCount() < 2 && itemStack.getItem() == ModItems.RECIPE);

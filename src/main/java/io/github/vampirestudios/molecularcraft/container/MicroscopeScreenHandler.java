@@ -8,8 +8,11 @@ import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.blocks.entities.MicroscopeBlockEntity;
 import io.github.vampirestudios.molecularcraft.container.widget.WEnergyBar;
 import io.github.vampirestudios.molecularcraft.container.widget.WTextPanel;
+import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.items.RecipeItem;
+import io.github.vampirestudios.molecularcraft.items.StackedAtomItem;
+import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.recipes.AssemblerRecipeManager;
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
@@ -89,7 +92,10 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
                 errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.paper"));
             } else {
                 errorText.setText(new LiteralText(""));
-                if (!ItemMoleculesDataManager.REGISTRY.containsKey(inputId) && !(inputStack.getItem() instanceof MoleculeStackItem)) {
+                if (!ItemMoleculesDataManager.REGISTRY.containsKey(inputId)
+                        && !(inputStack.getItem() instanceof MoleculeStackItem)
+                        && !(inputStack.getItem() instanceof StackedAtomItem)
+                        && !(inputStack.getItem() instanceof StackedMoleculeStackItem)) {
                     errorText.setText(new TranslatableText("text.molecularcraft.gui.microscope.error.no_formula"));
                 } else {
                     errorText.setText(new LiteralText(""));
@@ -97,6 +103,14 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
                     if (inputStack.getItem() instanceof MoleculeStackItem) {
                         MoleculeStack moleculeStack = ((MoleculeStackItem)inputStack.getItem()).getMoleculeStack();
                         recipe = AssemblerRecipeManager.createRecipe(inputStack.getItem(), moleculeStack.getMolecules());
+                    } else if (inputStack.getItem() instanceof StackedAtomItem) {
+                        StackedAtomItem stackedAtomItem = (StackedAtomItem) inputStack.getItem();
+                        Atoms atom = stackedAtomItem.getAtom();
+                        recipe = AssemblerRecipeManager.createRecipe(stackedAtomItem, new ItemStack(atom.getItem(), 64));
+                    } else if (inputStack.getItem() instanceof StackedMoleculeStackItem) {
+                        StackedMoleculeStackItem stackedMoleculeStackItem = (StackedMoleculeStackItem) inputStack.getItem();
+                        MoleculeStack moleculeStack = stackedMoleculeStackItem.getMoleculeStack();
+                        recipe = AssemblerRecipeManager.createRecipe(stackedMoleculeStackItem, new ItemStack(moleculeStack.getItem(), 64));
                     } else {
                         recipe = AssemblerRecipeManager.createRecipe(inputStack.getItem(), ItemMoleculesDataManager.REGISTRY.get(inputId));
                     }

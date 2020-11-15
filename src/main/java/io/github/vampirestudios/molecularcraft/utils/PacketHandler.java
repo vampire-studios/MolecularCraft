@@ -9,107 +9,80 @@ import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManag
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class PacketHandler {
 
     public static void sendMolecularInfoPacket(PlayerEntity playerEntity) {
-        CompoundTag compoundTag = new CompoundTag();
-        ListTag molecularInfoList = new ListTag();
+        PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
+        packetByteBuf.writeInt(ItemMoleculesDataManager.REGISTRY.size());
         for (Map.Entry<String, ItemMolecule> entry : ItemMoleculesDataManager.REGISTRY.entrySet()) {
-            CompoundTag molecularInfo = new CompoundTag();
-            molecularInfo.putString("id",entry.getKey());
+            packetByteBuf.writeString(entry.getKey());
             ItemMolecule itemMolecule = entry.getValue();
+            List<ItemMoleculeComponment> itemMoleculeComponmentList = itemMolecule.getListCopy();
+            packetByteBuf.writeInt(itemMoleculeComponmentList.size());
 
-            ListTag itemMoleculeList = new ListTag();
-
-            for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getList()) {
-                CompoundTag itemMoleculeTag = new CompoundTag();
+            for (ItemMoleculeComponment itemMoleculeComponment : itemMoleculeComponmentList) {
                 ItemMoleculeComponment.Type type = itemMoleculeComponment.getType();
-                itemMoleculeTag.putString("type", type.name());
-                itemMoleculeTag.putInt("amount", itemMoleculeComponment.getAmount());
+                packetByteBuf.writeEnumConstant(type);
+                packetByteBuf.writeInt(itemMoleculeComponment.getAmount());
                 switch (type) {
                     case MOLECULE:
                         Molecule molecule = (Molecule) itemMoleculeComponment;
-                        itemMoleculeTag.putString("atom", molecule.getAtom().name());
+                        packetByteBuf.writeEnumConstant(molecule.getAtom());
                         break;
                     case MOLECULE_STACK:
                         MoleculeStack moleculeStack = (MoleculeStack) itemMoleculeComponment;
-                        ListTag moleculeList = new ListTag();
+                        packetByteBuf.writeInt(moleculeStack.getMolecules().size());
                         for (Molecule molecule1 : moleculeStack.getMolecules()) {
-                            CompoundTag moleculeTag = new CompoundTag();
-                            moleculeTag.putString("atom", molecule1.getAtom().name());
-                            moleculeTag.putInt("amount", molecule1.getAmount());
-                            moleculeList.add(moleculeTag);
+                            packetByteBuf.writeEnumConstant(molecule1.getAtom());
+                            packetByteBuf.writeInt(molecule1.getAmount());
                         }
-                        itemMoleculeTag.put("molecules", moleculeList);
                         break;
                     default:
                         break;
                 }
-                itemMoleculeList.add(itemMoleculeTag);
             }
-            molecularInfo.put("itemMolecules", itemMoleculeList);
-            molecularInfoList.add(molecularInfo);
         }
-
-        compoundTag.put("infos", molecularInfoList);
-
-        PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
-
-        packetByteBuf.writeCompoundTag(compoundTag);
 
         ServerSidePacketRegistry.INSTANCE.sendToPlayer(playerEntity, MolecularCraft.MOLECULAR_INFO_PACKET, packetByteBuf);
     }
 
-    public static void readMolecularInfoPacket(CompoundTag compoundTag) {
+    public static void readMolecularInfoPacket(PacketByteBuf packetByteBuf) {
         ItemMoleculesDataManager.REGISTRY.clear();
+        int size = packetByteBuf.readInt();
 
-        ListTag listTag = (ListTag) compoundTag.get("infos");
-
-        for (Iterator<Tag> it = listTag.iterator(); it.hasNext(); ) {
-            CompoundTag molecularInfo = (CompoundTag) it.next();
-            String id = molecularInfo.getString("id");
-
-            ListTag itemMoleculeList = (ListTag) molecularInfo.get("itemMolecules");
-
+        for (int i = 0; i < size; i++) {
+            String id = packetByteBuf.readString();
             List<ItemMoleculeComponment> itemMoleculeComponmentList = new ArrayList<>();
+            int iMCLSize = packetByteBuf.readInt();
 
-            for (Iterator<Tag> iter = itemMoleculeList.iterator(); iter.hasNext(); ) {
-                CompoundTag itemMoleculeTag = (CompoundTag) iter.next();
-                int amount = itemMoleculeTag.getInt("amount");
-
-                switch (ItemMoleculeComponment.Type.valueOf(itemMoleculeTag.getString("type"))) {
+            for (int j = 0; j < iMCLSize; j++) {
+                ItemMoleculeComponment.Type type = packetByteBuf.readEnumConstant(ItemMoleculeComponment.Type.class);
+                int amount = packetByteBuf.readInt();
+                switch (type) {
                     case MOLECULE:
-                        Atoms atom = Atoms.valueOf(itemMoleculeTag.getString("atom"));
+                        Atoms atom = packetByteBuf.readEnumConstant(Atoms.class);
                         itemMoleculeComponmentList.add(new Molecule(atom, amount));
                         break;
                     case MOLECULE_STACK:
-                        ListTag moleculeTags = (ListTag) itemMoleculeTag.get("molecules");
+                        int moleculeSize = packetByteBuf.readInt();
                         List<Molecule> moleculeList = new ArrayList<>();
-
-                        for (Iterator<Tag> iterator = moleculeTags.iterator(); iterator.hasNext(); ) {
-                            CompoundTag moleculeTag = (CompoundTag) iterator.next();
-                            Atoms moleculeAtom = Atoms.valueOf(moleculeTag.getString("atom"));
-                            int moleculeAmount = moleculeTag.getInt("amount");
-
-                            moleculeList.add(new Molecule(moleculeAtom, moleculeAmount));
+                        for (int k = 0; k < moleculeSize; k++) {
+                            Atoms atoms = packetByteBuf.readEnumConstant(Atoms.class);
+                            int moleculeAmount = packetByteBuf.readInt();
+                            moleculeList.add(new Molecule(atoms, moleculeAmount));
                         }
-
                         itemMoleculeComponmentList.add(new MoleculeStack(amount, moleculeList));
                         break;
                     default:
                         break;
                 }
-
             }
 
             ItemMoleculesDataManager.REGISTRY.put(id, new ItemMolecule(itemMoleculeComponmentList));

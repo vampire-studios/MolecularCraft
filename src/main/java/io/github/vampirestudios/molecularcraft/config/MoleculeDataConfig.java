@@ -7,6 +7,7 @@ import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.items.MoleculeStackItem;
+import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import net.minecraft.util.Identifier;
@@ -40,6 +41,7 @@ public class MoleculeDataConfig extends DataConfig {
             }
             MoleculeStack moleculeStack = new MoleculeStack(molecules.toArray(new Molecule[molecules.size()]));
             Registry.register(Registry.ITEM, id, new MoleculeStackItem(moleculeStack));
+            Registry.register(Registry.ITEM, MolecularCraft.id(id.getPath() + "_64"), new StackedMoleculeStackItem(moleculeStack));
             Registry.register(Molecules.MOLECULE_STACKS, id, moleculeStack);
         }
     }

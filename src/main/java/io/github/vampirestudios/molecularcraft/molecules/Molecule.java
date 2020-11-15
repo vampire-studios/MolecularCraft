@@ -44,6 +44,21 @@ public class Molecule implements ItemMoleculeComponment {
     }
 
     @Override
+    public Item getStackedItem(int power) {
+        return this.getAtom().getStackedItem(power);
+    }
+
+    @Override
+    public ItemStack getStackedItemStack(int power) {
+        int stackNumber = 0;
+        while (amount > Math.pow(64, power) - 1) {
+            stackNumber++;
+            this.amount = (int) (amount - Math.pow(64, power));
+        }
+        return new ItemStack(this.getStackedItem(power), stackNumber);
+    }
+
+    @Override
     public String getFormula() {
         StringBuilder string = new StringBuilder();
 
@@ -58,5 +73,10 @@ public class Molecule implements ItemMoleculeComponment {
     @Override
     public Type getType() {
         return Type.MOLECULE;
+    }
+
+    @Override
+    public ItemMoleculeComponment copy() {
+        return new Molecule(this.atom, this.amount);
     }
 }

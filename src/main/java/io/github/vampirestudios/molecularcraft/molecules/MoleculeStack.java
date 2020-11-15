@@ -70,6 +70,21 @@ public class MoleculeStack implements ItemMoleculeComponment {
         return new ItemStack(this::getItem, getAmount());
     }
 
+    @Override
+    public Item getStackedItem(int power) {
+        return Registry.ITEM.get(MolecularCraft.id(this.getRegistryName() + "_" + (int)Math.pow(64,power)));
+    }
+
+    @Override
+    public ItemStack getStackedItemStack(int power) {
+        int stackNumber = 0;
+        while (amount > Math.pow(64, power) - 1) {
+            stackNumber++;
+            this.amount = (int) (amount - Math.pow(64, power));
+        }
+        return new ItemStack(this.getStackedItem(power), stackNumber);
+    }
+
     public String getFormula() {
         StringBuilder string = new StringBuilder();
 
@@ -86,5 +101,15 @@ public class MoleculeStack implements ItemMoleculeComponment {
     @Override
     public Type getType() {
         return Type.MOLECULE_STACK;
+    }
+
+    @Override
+    public ItemMoleculeComponment copy() {
+        List<Molecule> newList = new ArrayList<>();
+        for (Molecule molecule : this.molecules) {
+            newList.add((Molecule) molecule.copy());
+        }
+
+        return new MoleculeStack(this.amount, newList);
     }
 }

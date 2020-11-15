@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
@@ -79,7 +78,7 @@ public class MixinItemStack {
 //                    builder.append("/ ");
 //                }
             } else {
-                for (ItemMoleculeComponment moleculeStack : itemMolecule.getList()) {
+                for (ItemMoleculeComponment moleculeStack : itemMolecule.getListCopy()) {
                     int moleculeStackAmount = moleculeStack.getAmount();
                     builder.append(moleculeStackAmount);
                     if (moleculeStack instanceof MoleculeStack) {

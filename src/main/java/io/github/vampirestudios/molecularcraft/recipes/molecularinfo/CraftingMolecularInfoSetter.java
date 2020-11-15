@@ -23,7 +23,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
     public void setMolecularInfo(MinecraftServer minecraftServer) {
         RecipeManager recipeManager = minecraftServer.getRecipeManager();
         List<String> list = new ArrayList<>();
-        System.out.println("Parsing recipe to set molecular composition of outputs");
+//        System.out.println("Parsing recipe to set molecular composition of outputs");
         for (Recipe<?> recipe : recipeManager.values()) {
             if (recipe.getType() == this.getRecipeType() && (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe)) {
                 ItemStack output = recipe.getOutput();
@@ -37,7 +37,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                         Identifier identifier = Registry.ITEM.getId(input.getItem());
                         if (ItemMoleculesDataManager.REGISTRY.containsKey(identifier.toString())) {
                             ItemMolecule itemMolecules = ItemMoleculesDataManager.REGISTRY.get(identifier.toString());
-                            itemMolecule.addMoleculeComponments(itemMolecules.getList());
+                            itemMolecule.addMoleculeComponments(itemMolecules.getListCopy());
                         } else {
                             incomplete = true;
                             list.add(recipe.getId().toString());
@@ -48,19 +48,19 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 }
                 if (incomplete) continue;
                 List<ItemMoleculeComponment> componments = new ArrayList<>();
-                for (ItemMoleculeComponment stack : itemMolecule.getList()) {
+                for (ItemMoleculeComponment stack : itemMolecule.getListCopy()) {
                     componments.add(stack.setAmount((stack.getAmount()/output.getCount())));
                 }
                 ItemMolecule itemMolecule1 = new ItemMolecule(componments);
-                for (ItemMoleculeComponment stack : itemMolecule1.getList()) {
+                for (ItemMoleculeComponment stack : itemMolecule1.getListCopy()) {
                     if (stack.getAmount() == 0) {
-                        System.out.println("---------");
-                        System.out.println("Recipe id : " + recipe.getId().toString());
-                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
-                        System.out.println("---------");
+//                        System.out.println("---------");
+//                        System.out.println("Recipe id : " + recipe.getId().toString());
+//                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
+//                        System.out.println("---------");
                     }
                 }
-                if (!itemMolecule1.getList().isEmpty()) {
+                if (!itemMolecule1.getListCopy().isEmpty()) {
                     if (!ItemMoleculesDataManager.REGISTRY.containsKey(Registry.ITEM.getId(output.getItem()).toString())) {
                         ItemMoleculesDataManager.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
                     }
@@ -71,7 +71,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 }
             }
         }
-        System.out.println("Parsing remaining recipes");
+//        System.out.println("Parsing remaining recipes");
         while (!list.isEmpty()) {
             List<String> toRemove = new ArrayList<>();
             for (String id : list) {
@@ -85,7 +85,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                         Identifier identifier = Registry.ITEM.getId(input.getItem());
                         if (ItemMoleculesDataManager.REGISTRY.containsKey(identifier.toString())) {
                             ItemMolecule itemMolecules = ItemMoleculesDataManager.REGISTRY.get(identifier.toString());
-                            itemMolecule.addMoleculeComponments(itemMolecules.getList());
+                            itemMolecule.addMoleculeComponments(itemMolecules.getListCopy());
                         } else {
                             incomplete = true;
                         }
@@ -95,19 +95,19 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 }
                 if (incomplete) continue;
                 List<ItemMoleculeComponment> componments = new ArrayList<>();
-                for (ItemMoleculeComponment stack : itemMolecule.getList()) {
+                for (ItemMoleculeComponment stack : itemMolecule.getListCopy()) {
                     componments.add(stack.setAmount(stack.getAmount()/output.getCount()));
                 }
                 ItemMolecule itemMolecule1 = new ItemMolecule(componments);
-                for (ItemMoleculeComponment stack : itemMolecule1.getList()) {
+                for (ItemMoleculeComponment stack : itemMolecule1.getListCopy()) {
                     if (stack.getAmount() == 0) {
-                        System.out.println("---------");
-                        System.out.println("Recipe id : " + recipe.getId().toString());
-                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
-                        System.out.println("---------");
+//                        System.out.println("---------");
+//                        System.out.println("Recipe id : " + recipe.getId().toString());
+//                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
+//                        System.out.println("---------");
                     }
                 }
-                if (!itemMolecule1.getList().isEmpty()) {
+                if (!itemMolecule1.getListCopy().isEmpty()) {
                     toRemove.add(id);
                     ItemMoleculesDataManager.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
                 }
@@ -117,7 +117,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
             }
             if (toRemove.isEmpty()) break;
         }
-        System.out.println("Could not define molecular composition from those recipes:");
+//        System.out.println("Could not define molecular composition from those recipes:");
         for (String id : list) {
             Recipe<?> recipe = recipeManager.get(new Identifier(id)).get();
             ItemStack output = recipe.getOutput();
@@ -137,7 +137,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                     "  \nInputs:\n" +
                     inputbuilder.toString() +
                     "\n___________";
-            System.out.println(builder);
+//            System.out.println(builder);
         }
     }
 }

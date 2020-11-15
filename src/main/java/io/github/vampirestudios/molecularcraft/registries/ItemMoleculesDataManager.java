@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
-import io.github.vampirestudios.molecularcraft.molecules.ChanceItemMolecule;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
@@ -68,6 +67,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                 try {
 
                     for (Resource resource : manager.getAllResources(resourceIdentifier)) {
+                        if (resource.getResourcePackName().equals("Default")) continue;
                         try {
                             InputStream inputStream = resource.getInputStream();
                             try (BufferedReader read = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -80,8 +80,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                     String formula = moleculeObject.get("formula").getAsString();
                                     try {
                                         MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
-                                        if (moleculeStack != null)
-                                            moleculeStacks.add(moleculeStack.setAmount(amount));
+                                        if (moleculeStack != null) moleculeStacks.add(moleculeStack.setAmount(amount));
                                     } catch (InvalidIdentifierException e) {
                                         moleculeStacks.add(new Molecule(Atoms.fromSymbol(formula), amount));
                                     }

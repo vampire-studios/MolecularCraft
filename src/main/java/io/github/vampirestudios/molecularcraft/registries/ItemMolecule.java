@@ -22,6 +22,14 @@ public class ItemMolecule {
         this(new ArrayList<ItemMoleculeComponment>());
     }
 
+    public List<ItemMoleculeComponment> getListCopy() {
+        List<ItemMoleculeComponment> newList = new ArrayList<>();
+        for (ItemMoleculeComponment itemMoleculeComponment : this.list) {
+            newList.add(itemMoleculeComponment.copy());
+        }
+        return newList;
+    }
+
     public List<ItemMoleculeComponment> getList() {
         return list;
     }

@@ -6,17 +6,16 @@ import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AssemblerRecipeManager {
 
     public static AssemblerRecipe createRecipe(Item output, ItemMolecule itemMolecule) {
         List<ItemStack> list = new ArrayList<>();
-        for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getList()) {
+        for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
             Item input = itemMoleculeComponment.getItem();
             list.add(new ItemStack(input, itemMoleculeComponment.getAmount()));
         }
@@ -28,6 +27,11 @@ public class AssemblerRecipeManager {
         for (Molecule molecule : molecules) {
             list.add(molecule.getItemStack());
         }
+        return new AssemblerRecipe(list, new ItemStack(output));
+    }
+
+    public static  AssemblerRecipe createRecipe(Item output, ItemStack ingredient) {
+        List<ItemStack> list = new ArrayList<ItemStack>(Collections.singleton(ingredient));
         return new AssemblerRecipe(list, new ItemStack(output));
     }
 

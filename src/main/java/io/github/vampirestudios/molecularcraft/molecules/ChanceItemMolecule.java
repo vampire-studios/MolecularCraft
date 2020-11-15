@@ -20,7 +20,7 @@ public class ChanceItemMolecule extends ItemMolecule {
     }
 
     @Override
-    public List<ItemMoleculeComponment> getList() {
+    public List<ItemMoleculeComponment> getListCopy() {
         return lists.get(new Random().nextInt(lists.size()));
     }
 

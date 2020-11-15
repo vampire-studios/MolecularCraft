@@ -103,6 +103,6 @@ public interface ImplementedInventory extends Inventory {
 
     @Override
     default int getMaxCountPerStack() {
-        return 65;
+        return 64;
     }
 }
