@@ -136,5 +136,7 @@
     "text.molecularcraft.gui.microscope.error.full": "Recipe Item Slot is already occupied!",
     "text.molecularcraft.gui.microscope.error.paper": "You need paper to generate a recipe!",
     "text.molecularcraft.gui.microscope.error.no_formula": "The Item you try to get the chemical recipe doesn't have a chemical formula!",
-    "item.molecularcraft.recipe": "Recipe"
+    "item.molecularcraft.recipe": "Recipe",
+    "item.molecularcraft.molecule_mole_stack": "Stacked Mole of Molecule",
+    "item.molecularcraft.atom_mole_stack": "Stacked Mole of Atom"
 }
