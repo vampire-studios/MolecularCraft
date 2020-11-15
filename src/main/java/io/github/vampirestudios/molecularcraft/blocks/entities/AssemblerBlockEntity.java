@@ -2,6 +2,8 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import io.github.vampirestudios.molecularcraft.container.AssemblerScreenHandler;
+import io.github.vampirestudios.molecularcraft.items.StackedAtomItem;
+import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -92,6 +94,18 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
         for (ItemStack stack : this.getItems()) {
             Item item = stack.getItem();
             int count = stack.getCount();
+            if (item instanceof StackedMoleculeStackItem || item instanceof StackedAtomItem) {
+                if (item instanceof  StackedMoleculeStackItem) {
+                    StackedMoleculeStackItem stackedMoleculeStackItem = (StackedMoleculeStackItem) item;
+                    item = stackedMoleculeStackItem.getMoleculeStack().getItem();
+                    count *= 64;
+                } else {
+                    StackedAtomItem stackedAtomItem = (StackedAtomItem) item;
+                    item = stackedAtomItem.getAtom().getItem();
+                    count *= 64;
+                }
+            }
+
             if (inInventory.containsKey(item)) {
                 inInventory.replace(item, inInventory.get(item) + count);
             } else {
@@ -115,7 +129,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
         for (ItemStack ingredient : ingredients) {
             Item ingredientItem = ingredient.getItem();
             int ingredientCount = ingredient.getCount();
-            for (int i = 0; i < this.getItems().size(); i++) {
+            for (int i = 0; i < this.getItems().size() - 2; i++) {
                 if (ingredientCount == 0) break;
                 ItemStack slotStack = this.getStack(i);
                 if (slotStack.getItem() == ingredientItem) {
@@ -126,6 +140,30 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                         this.setStack(i, slotStack);
                         ingredientCount--;
                     }
+                }
+            }
+
+            if (ingredientCount > 0) {
+                for (int i = 0; i < this.getItems().size() - 2; i++) {
+                    if (ingredientCount == 0) break;
+                    ItemStack slotStack = this.getStack(i);
+                    if (slotStack.getItem() instanceof StackedAtomItem) {
+                        StackedAtomItem stackedAtomItem = (StackedAtomItem) slotStack.getItem();
+                        Item atomItem = stackedAtomItem.getAtom().getItem();
+                        if (ingredientItem == atomItem) {
+                            int slotCount = 64;
+
+                        }
+                    }
+//                    if (slotStack.getItem() == ingredientItem) {
+//                        while (slotStack.getCount() != 0) {
+//                            if (ingredientCount == 0) break;
+//
+//                            slotStack.decrement(1);
+//                            this.setStack(i, slotStack);
+//                            ingredientCount--;
+//                        }
+//                    }
                 }
             }
         }
