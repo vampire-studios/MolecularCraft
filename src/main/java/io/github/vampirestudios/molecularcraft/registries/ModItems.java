@@ -35,7 +35,7 @@ public class ModItems {
         return new ItemStack(item);
     }).build();
 
-    public static ItemGroup MACHINES = FabricItemGroupBuilder.create(MolecularCraft.id("machines"))
+    public static ItemGroup OTHER = FabricItemGroupBuilder.create(MolecularCraft.id("other"))
             .icon(() -> new ItemStack(ModBlocks.MICROSCOPE)).build();
 
     public static Item RECIPE;

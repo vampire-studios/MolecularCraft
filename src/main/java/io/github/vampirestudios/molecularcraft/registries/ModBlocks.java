@@ -6,7 +6,6 @@ import io.github.vampirestudios.molecularcraft.blocks.MicroscopeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -23,7 +22,7 @@ public class ModBlocks {
     }
 
     private static Block register(String name, Block block) {
-        Registry.register(Registry.ITEM, new Identifier("molecularcraft", name), new BlockItem(block, new Item.Settings().group(ModItems.MACHINES)));
+        Registry.register(Registry.ITEM, new Identifier("molecularcraft", name), new BlockItem(block, new Item.Settings().group(ModItems.OTHER)));
         return Registry.register(Registry.BLOCK, new Identifier("molecularcraft", name), block);
     }
 }

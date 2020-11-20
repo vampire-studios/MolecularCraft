@@ -1,8 +1,8 @@
 package io.github.vampirestudios.molecularcraft.items;
 
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
+import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 
 public class RecipeItem extends Item {
     public RecipeItem() {
-        super(new Settings().group(ItemGroup.MISC));
+        super(new Settings().group(ModItems.OTHER));
     }
 
     public static void setRecipeComponent(ItemStack recipeItem, AssemblerRecipe recipe) {
