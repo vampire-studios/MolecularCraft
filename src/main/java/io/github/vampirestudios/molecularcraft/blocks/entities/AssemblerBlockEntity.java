@@ -9,6 +9,7 @@ import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -147,23 +148,46 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                 for (int i = 0; i < this.getItems().size() - 2; i++) {
                     if (ingredientCount == 0) break;
                     ItemStack slotStack = this.getStack(i);
+                    int amount = slotStack.getCount();
                     if (slotStack.getItem() instanceof StackedAtomItem) {
                         StackedAtomItem stackedAtomItem = (StackedAtomItem) slotStack.getItem();
                         Item atomItem = stackedAtomItem.getAtom().getItem();
                         if (ingredientItem == atomItem) {
-                            int slotCount = 64;
+                            while (amount > 0 && ingredientCount > 0) {
+                                slotStack.decrement(1);
+                                this.setStack(i, slotStack);
+                                int slotCount = 64;
+                                while (ingredientCount > 0 && slotCount > 0) {
+                                    ingredientCount--;
+                                    slotCount--;
+                                }
 
+                                if (slotCount > 0) {
+                                    ItemStack toDropStack = new ItemStack(atomItem, slotCount);
+                                    this.tryInsertingItemStack(toDropStack);
+                                }
+                            }
+                        }
+                    } else if (slotStack.getItem() instanceof StackedMoleculeStackItem) {
+                        StackedMoleculeStackItem stackedAtomItem = (StackedMoleculeStackItem) slotStack.getItem();
+                        Item atomItem = stackedAtomItem.getMoleculeStack().getItem();
+                        if (ingredientItem == atomItem) {
+                            while (amount > 0 && ingredientCount > 0) {
+                                slotStack.decrement(1);
+                                this.setStack(i, slotStack);
+                                int slotCount = 64;
+                                while (ingredientCount > 0 && slotCount > 0) {
+                                    ingredientCount--;
+                                    slotCount--;
+                                }
+
+                                if (slotCount > 0) {
+                                    ItemStack toDropStack = new ItemStack(atomItem, slotCount);
+                                    this.tryInsertingItemStack(toDropStack);
+                                }
+                            }
                         }
                     }
-//                    if (slotStack.getItem() == ingredientItem) {
-//                        while (slotStack.getCount() != 0) {
-//                            if (ingredientCount == 0) break;
-//
-//                            slotStack.decrement(1);
-//                            this.setStack(i, slotStack);
-//                            ingredientCount--;
-//                        }
-//                    }
                 }
             }
         }
@@ -175,6 +199,35 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
             outputStack = new ItemStack(outputItem);
         }
         this.setStack(19, outputStack);
+    }
+
+    public void tryInsertingItemStack(ItemStack stack) {
+        Item stackItem = stack.getItem();
+        int stackAmount = stack.getCount();
+
+        for (int i = 0; i < 18; i++) {
+            if (stackAmount == 0) break;
+            ItemStack slotStack = this.getStack(i);
+            Item slotItem = slotStack.getItem();
+            int slotAmount = slotStack.getCount();
+            if (stackItem == slotItem && slotStack.getTag() == stack.getTag()) {
+                while (slotAmount < slotItem.getMaxCount() && stackAmount > 0) {
+                    slotAmount++;
+                    stackAmount--;
+                }
+                slotStack.setCount(slotAmount);
+                this.setStack(i, slotStack);
+            } else if (slotItem == Items.AIR) {
+                this.setStack(i, stack);
+                stackAmount = 0;
+            }
+        }
+
+        if (stackAmount > 0) {
+            stack.setCount(stackAmount);
+            ItemEntity itemEntity = new ItemEntity(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), stack);
+            this.world.spawnEntity(itemEntity);
+        }
     }
 
     @Override
