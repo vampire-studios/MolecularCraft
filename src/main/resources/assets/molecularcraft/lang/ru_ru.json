@@ -1,6 +1,6 @@
 {
-    "itemGroup.molecularcraft.atoms": "Атомы",
-    "itemGroup.molecularcraft.molecules": "Молекулы",
+    "itemGroup.molecularcraft.atoms": "MolecularCraft: Atoms",
+    "itemGroup.molecularcraft.molecules": "MolecularCraft: Molecules",
     "item.molecularcraft.atom_mole": "Моль Атомов",
     "item.molecularcraft.molecule_mole": "Моль Молекул",
     "item.molecularcraft.isotope_mole": "Моль Изотопа",
@@ -138,5 +138,6 @@
     "text.molecularcraft.gui.microscope.error.no_formula": "The Item you try to get the chemical recipe doesn't have a chemical formula!",
     "item.molecularcraft.recipe": "Recipe",
     "item.molecularcraft.molecule_mole_stack": "Stacked Mole of Molecule",
-    "item.molecularcraft.atom_mole_stack": "Stacked Mole of Atom"
+    "item.molecularcraft.atom_mole_stack": "Stacked Mole of Atom",
+    "itemGroup.molecularcraft.other": "MolecularCraft: Other"
 }
