@@ -34,7 +34,7 @@ public class ItemMolecule {
         return list;
     }
 
-    public ItemMolecule addMoleculeComponment(ItemMoleculeComponment moleculeStack) {
+    public void addMoleculeComponment(ItemMoleculeComponment moleculeStack) {
         if (moleculeStack instanceof MoleculeStack) {
             MoleculeStack moleculeStack1 = (MoleculeStack) moleculeStack;
             List<Molecule> moleculeList = moleculeStack1.getMolecules();
@@ -43,10 +43,26 @@ public class ItemMolecule {
                 if (this.list.get(k) instanceof MoleculeStack) {
                     MoleculeStack listStack = (MoleculeStack) this.list.get(k);
                     List<Molecule> moleculeList1 = listStack.getMolecules();
-                    if (moleculeList.equals(moleculeList1)) {
-                        moleculeStack1 = listStack.setAmount(listStack.getAmount() + moleculeStack1.getAmount());
-                        this.list.set(k, moleculeStack1);
-                        return this;
+                    if (moleculeList.size() == moleculeList1.size()) {
+                        boolean equal = true;
+                        for (Molecule m1 : moleculeList) {
+                            boolean subEqual = false;
+                            for (Molecule m2 : moleculeList1) {
+                                if (m1.getAtom() == m2.getAtom() && m1.getAmount() == m2.getAmount()) {
+                                    subEqual = true;
+                                    break;
+                                }
+                            }
+                            if (!subEqual) {
+                                equal = false;
+                                break;
+                            }
+                        }
+                        if (equal) {
+                            moleculeStack1 = listStack.setAmount(listStack.getAmount() + moleculeStack1.getAmount());
+                            this.list.set(k, moleculeStack1);
+                            return;
+                        }
                     }
                 }
             }
@@ -59,14 +75,13 @@ public class ItemMolecule {
                     if (molecule.getAtom() == listMolecule.getAtom()) {
                         listMolecule = new Molecule(molecule.getAtom(), molecule.getAmount() + listMolecule.getAmount());
                         this.list.set(k, listMolecule);
-                        return this;
+                        return;
                     }
                 }
             }
         }
 
         this.list.add(moleculeStack);
-        return this;
     }
 
     public ItemMolecule addMoleculeComponments(Collection<ItemMoleculeComponment> moleculeStack) {
