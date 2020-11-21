@@ -1,9 +1,13 @@
 package io.github.vampirestudios.molecularcraft.enums;
 
 import io.github.vampirestudios.molecularcraft.molecules.Isotope;
+import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.vampirestudios.molecularcraft.enums.Atoms.*;
 import static io.github.vampirestudios.molecularcraft.utils.TimeHelper.*;
@@ -175,6 +179,127 @@ public class Isotopes {
         register(SCANDIUM, 48, Isotope.Abundance.SYNTHETIC, h(43.67F), new Isotope.Decay[]{
                 new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TITANIUM, 48)
         });
+
+        register(TITANIUM, 44, Isotope.Abundance.SYNTHETIC, y(63F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, SCANDIUM, 44)
+        });
+        register(TITANIUM, 46, 8.25F);
+        register(TITANIUM, 47, 7.44F);
+        register(TITANIUM, 48, 73.72F);
+        register(TITANIUM, 49, 5.41F);
+        register(TITANIUM, 50, 5.18F);
+
+        register(VANADIUM, 48, Isotope.Abundance.SYNTHETIC, d(16F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, TITANIUM, 48)
+        });
+        register(VANADIUM, 49, Isotope.Abundance.SYNTHETIC, d(330F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, TITANIUM, 49)
+        });
+        register(VANADIUM, 50, 0.25F, y(1.5F, 17), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, 83F, TITANIUM, 50),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 17F, CHROMIUM, 50)
+        });
+        register(VANADIUM, 51, 99.75F);
+
+        register(CHROMIUM, 50, 4.345F);
+        register(CHROMIUM, 51, Isotope.Abundance.SYNTHETIC, d(27.7025F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, VANADIUM, 51)
+        });
+        register(CHROMIUM, 52, 83.789F);
+        register(CHROMIUM, 53, 9.501F);
+        register(CHROMIUM, 54, 2.365F);
+
+        register(MANGANESE, 52, Isotope.Abundance.SYNTHETIC, d(5.6F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, CHROMIUM, 52)
+        });
+        register(MANGANESE, 53, Isotope.Abundance.TRACE, y(3.74F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, CHROMIUM, 53)
+        });
+        register(MANGANESE, 54, Isotope.Abundance.SYNTHETIC, d(312F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, 99.98F, CHROMIUM, 54),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 0.01F, IRON, 54),
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 0.01F, CHROMIUM, 54)
+        });
+        register(MANGANESE, 55, 100F);
+
+        register(IRON, 54, 5.85F);
+        register(IRON, 55, Isotope.Abundance.SYNTHETIC, y(2.73F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, MANGANESE, 55)
+        });
+        register(IRON, 56, 91.75F);
+        register(IRON, 57, 2.12F);
+        register(IRON, 58, 0.28F);
+        register(IRON, 59, Isotope.Abundance.SYNTHETIC, d(44.6F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, COBALT, 59)
+        });
+        register(IRON, 60, Isotope.Abundance.TRACE, y(2.6F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, COBALT, 60)
+        });
+
+        register(COBALT, 56, Isotope.Abundance.SYNTHETIC, d(77.27F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, IRON, 56)
+        });
+        register(COBALT, 57, Isotope.Abundance.SYNTHETIC, d(271.79F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, IRON, 57)
+        });
+        register(COBALT, 58, Isotope.Abundance.SYNTHETIC, d(70.86F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, IRON, 58)
+        });
+        register(COBALT, 59, 100F);
+        register(COBALT, 60, Isotope.Abundance.SYNTHETIC, y(5.2714F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, NICKEL, 60)
+        });
+
+        register(NICKEL, 58, 68.077F);
+        register(NICKEL, 59, Isotope.Abundance.TRACE, y(7.6F, 4), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, COBALT, 59)
+        });
+        register(NICKEL, 60, 26.223F);
+        register(NICKEL, 61, 1.14F);
+        register(NICKEL, 62, 3.635F);
+        register(NICKEL, 63, Isotope.Abundance.SYNTHETIC, y(100), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, COPPER, 63)
+        });
+        register(NICKEL, 64, 0.926F);
+
+        register(COPPER, 63, 69.17F);
+        register(COPPER, 64, Isotope.Abundance.SYNTHETIC, h(12.7F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 61, NICKEL, 64),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 39, ZINC, 64)
+        });
+        register(COPPER, 65, 30.83F);
+        register(COPPER, 67, Isotope.Abundance.SYNTHETIC, h(61.83F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, ZINC, 67)
+        });
+
+        register(ZINC, 64, 49.2F);
+        register(ZINC, 65, Isotope.Abundance.SYNTHETIC, d(244), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, COPPER, 65)
+        });
+        register(ZINC, 66, 27.7F);
+        register(ZINC, 67, 4);
+        register(ZINC, 68, 18.5F);
+        register(ZINC, 69, Isotope.Abundance.SYNTHETIC, min(56), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GALLIUM, 69)
+        });
+        register(ZINC, 70, 0.6F);
+        register(ZINC, 71, Isotope.Abundance.SYNTHETIC, min(2.4F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GALLIUM, 71)
+        });
+        register(ZINC, 72, Isotope.Abundance.SYNTHETIC, h(46.5F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GALLIUM, 72)
+        });
+
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            Logger logger = LogManager.getLogger();
+            Isotope isotope = null;
+            int i = 0;
+            while (isotope == null || isotope.getNucleonNumber() != 46) {
+                i++;
+                isotope = getRandomIsotope(CALCIUM);
+            }
+            logger.info(i);
+        }
     }
 
     private static void register(Atoms atom, int nucleonNumber, Isotope.Abundance abundance, float abundancePercent, boolean decay, TimeAmount halfLife, Isotope.Decay... decays) {
@@ -192,6 +317,38 @@ public class Isotopes {
 
     private static void register(Atoms atom, int nucleonNumber, float abundancePercent, TimeAmount halfLife, Isotope.Decay[] decays) {
         register(atom, nucleonNumber, Isotope.Abundance.AMOUNT, abundancePercent, true, halfLife, decays);
+    }
+
+
+    public static Isotope getRandomIsotope(Atoms atom) {
+        Isotope isotope = null;
+        Map<Integer, Isotope> atomIsotopes = ATOM_ISOTOPES_MAP.get(atom);
+        List<Isotope> naturalIsotopes = new ArrayList<>();
+        for (Isotope entry : atomIsotopes.values()) {
+            if (entry.getAbundance() == Isotope.Abundance.AMOUNT) {
+                naturalIsotopes.add(entry);
+            }
+        }
+
+        BigDecimal max = new BigDecimal(0);
+        for (Isotope entry : naturalIsotopes) {
+            max = max.add(new BigDecimal(entry.getAbundancePercent()));
+        }
+
+        Random random = ThreadLocalRandom.current();
+        BigDecimal randomPercent = new BigDecimal(random.nextDouble()).multiply(max);
+
+        BigDecimal currentPercent = new BigDecimal(0);
+
+        for (Isotope entry : naturalIsotopes) {
+            currentPercent = currentPercent.add(new BigDecimal(entry.getAbundancePercent()));
+            if (randomPercent.compareTo(currentPercent) <= 0) {
+                isotope = entry;
+                break;
+            }
+        }
+
+        return isotope;
     }
 
 

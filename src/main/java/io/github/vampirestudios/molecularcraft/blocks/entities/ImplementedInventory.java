@@ -86,7 +86,7 @@ public interface ImplementedInventory extends Inventory {
         }
     }
     /**
-     * Clears {@linkplain #getItems() the item list}}.
+     * Clears {@linkplain #getItems() the item list}.
      */
     @Override
     default void clear() {

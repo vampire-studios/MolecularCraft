@@ -1,6 +1,7 @@
 package io.github.vampirestudios.molecularcraft;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.vampirestudios.molecularcraft.enums.Isotopes;
 import io.github.vampirestudios.molecularcraft.registries.*;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.netty.buffer.Unpooled;
@@ -21,6 +22,7 @@ public class MolecularCraft implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("Initializing MolecularCraft");
+		Isotopes.init();
 		ModItems.init();
 		ModBlocks.init();
 		ModBlockEntities.init();
