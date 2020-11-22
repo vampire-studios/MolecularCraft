@@ -8,11 +8,13 @@ import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -29,8 +31,10 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
@@ -40,9 +44,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory, PropertyDelegateHolder {
+public class AssemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, /*ImplementedInventory,*/ PropertyDelegateHolder, InventoryProvider {
     private double energy;
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(20, ItemStack.EMPTY);
+    private final MachineInventory inventory = new AssemblerInventory(20);
 
     public AssemblerBlockEntity() {
         super(ModBlockEntities.assemblerBlockEntityBlockEntityType);
@@ -51,7 +55,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag = Inventories.toTag(tag, this.items);
+        tag = Inventories.toTag(tag, this.getItems());
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
@@ -60,12 +64,12 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
         if (this.world == null) this.setStored(tag.getDouble("energy"));
-        Inventories.fromTag(tag, this.items);
+        Inventories.fromTag(tag, this.getItems());
     }
 
     @Override
     public void tick() {
-        ItemStack recipe = this.getStack(18);
+        ItemStack recipe = this.inventory.getStack(18);
         if (recipe.getItem() == ModItems.RECIPE) {
             CompoundTag tag = recipe.getTag();
             String outputId = tag.getString("outputId");
@@ -80,12 +84,12 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                 ingredients.add(new ItemStack(item, count));
             });
 
-            ItemStack resultStack = this.getStack(19);
+            ItemStack resultStack = this.inventory.getStack(19);
             if (resultStack.getItem() == outputItem) {
                 if (resultStack.getCount() < outputItem.getMaxCount()) {
                     if (this.canAssemble(ingredients)) this.assemble(outputId, ingredients);
                 }
-            } else if (resultStack.getItem() == Items.AIR) {
+            } else if (resultStack.isEmpty()) {
                 if (this.canAssemble(ingredients)) this.assemble(outputId, ingredients);
             }
         }
@@ -133,13 +137,13 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
             int ingredientCount = ingredient.getCount();
             for (int i = 0; i < this.getItems().size() - 2; i++) {
                 if (ingredientCount == 0) break;
-                ItemStack slotStack = this.getStack(i);
+                ItemStack slotStack = this.inventory.getStack(i);
                 if (slotStack.getItem() == ingredientItem) {
                     while (slotStack.getCount() != 0) {
                         if (ingredientCount == 0) break;
 
                         slotStack.decrement(1);
-                        this.setStack(i, slotStack);
+                        this.inventory.setStack(i, slotStack);
                         ingredientCount--;
                     }
                 }
@@ -148,7 +152,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
             if (ingredientCount > 0) {
                 for (int i = 0; i < this.getItems().size() - 2; i++) {
                     if (ingredientCount == 0) break;
-                    ItemStack slotStack = this.getStack(i);
+                    ItemStack slotStack = this.inventory.getStack(i);
                     int amount = slotStack.getCount();
                     if (slotStack.getItem() instanceof StackedAtomItem) {
                         StackedAtomItem stackedAtomItem = (StackedAtomItem) slotStack.getItem();
@@ -156,7 +160,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                         if (ingredientItem == atomItem) {
                             while (amount > 0 && ingredientCount > 0) {
                                 slotStack.decrement(1);
-                                this.setStack(i, slotStack);
+                                this.inventory.setStack(i, slotStack);
                                 int slotCount = 64;
                                 while (ingredientCount > 0 && slotCount > 0) {
                                     ingredientCount--;
@@ -175,7 +179,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                         if (ingredientItem == atomItem) {
                             while (amount > 0 && ingredientCount > 0) {
                                 slotStack.decrement(1);
-                                this.setStack(i, slotStack);
+                                this.inventory.setStack(i, slotStack);
                                 int slotCount = 64;
                                 while (ingredientCount > 0 && slotCount > 0) {
                                     ingredientCount--;
@@ -193,39 +197,19 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
             }
         }
         Item outputItem = Registry.ITEM.get(new Identifier(outputId));
-        ItemStack outputStack = this.getStack(19);
+        ItemStack outputStack = this.inventory.getStack(19);
         if (outputStack.getItem() == outputItem) {
             outputStack.increment(1);
         } else {
             outputStack = new ItemStack(outputItem);
         }
-        this.setStack(19, outputStack);
+        this.inventory.setStack(19, outputStack);
     }
 
     public void tryInsertingItemStack(ItemStack stack) {
-        Item stackItem = stack.getItem();
-        int stackAmount = stack.getCount();
+        stack = this.inventory.addStack(stack);
 
-        for (int i = 0; i < 18; i++) {
-            if (stackAmount == 0) break;
-            ItemStack slotStack = this.getStack(i);
-            Item slotItem = slotStack.getItem();
-            int slotAmount = slotStack.getCount();
-            if (stackItem == slotItem && slotStack.getTag() == stack.getTag()) {
-                while (slotAmount < slotItem.getMaxCount() && stackAmount > 0) {
-                    slotAmount++;
-                    stackAmount--;
-                }
-                slotStack.setCount(slotAmount);
-                this.setStack(i, slotStack);
-            } else if (slotItem == Items.AIR) {
-                this.setStack(i, stack);
-                stackAmount = 0;
-            }
-        }
-
-        if (stackAmount > 0) {
-            stack.setCount(stackAmount);
+        if (!stack.isEmpty()) {
             ItemEntity itemEntity = new ItemEntity(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), stack);
             this.world.spawnEntity(itemEntity);
         }
@@ -276,9 +260,8 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
         return new AssemblerScreenHandler(syncId, inv, this.pos, ScreenHandlerContext.create(this.world, this.pos));
     }
 
-    @Override
     public DefaultedList<ItemStack> getItems() {
-        return this.items;
+        return this.inventory.getStacks();
     }
 
     @Override
@@ -306,5 +289,10 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
                 return 2;
             }
         };
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+        return this.inventory;
     }
 }

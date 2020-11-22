@@ -9,6 +9,7 @@ import net.fabricmc.fabric.impl.container.ContainerProviderImpl;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
@@ -18,8 +19,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
-public class AssemblerBlock extends BaseMachineBlock {
+public class AssemblerBlock extends BaseMachineBlock implements InventoryProvider {
 
     public AssemblerBlock() {
         super(AbstractBlock.Settings.of(Material.METAL));
@@ -58,8 +60,8 @@ public class AssemblerBlock extends BaseMachineBlock {
         if (state.getBlock() != newState.getBlock()) {
             AssemblerBlockEntity blockEntity = (AssemblerBlockEntity) world.getBlockEntity(pos);
 
-            for (int i = 0; i < blockEntity.size(); ++i) {
-                ItemStack stackB = blockEntity.getStack(i).copy();
+            for (int i = 0; i < blockEntity.getInventory(state, world, pos).size(); ++i) {
+                ItemStack stackB = blockEntity.getInventory(state, world, pos).getStack(i).copy();
 
                 do {
                     int intA = Math.min(stackB.getCount(), stackB.getMaxCount());
@@ -75,5 +77,14 @@ public class AssemblerBlock extends BaseMachineBlock {
 
             super.onStateReplaced(state, world, pos, newState, moved);
         }
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+        BlockEntity e = world.getBlockEntity(pos);
+        if (e instanceof AssemblerBlockEntity) {
+            return ((AssemblerBlockEntity)e).getInventory(state, world, pos);
+        }
+        return null;
     }
 }

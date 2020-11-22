@@ -6,7 +6,8 @@
     "MixinIngredient",
     "MixinMinecraftServer",
     "MixinPlayerManager",
-    "MixinServerResourceManager"
+    "MixinServerResourceManager",
+    "SimpleInventoryAccessor"
   ],
   "server": [
   ],
