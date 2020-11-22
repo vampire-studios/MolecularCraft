@@ -72,6 +72,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
             Item outputItem = Registry.ITEM.get(new Identifier(outputId));
             List<ItemStack> ingredients = new ArrayList<>();
             ListTag list = (ListTag) tag.get("inputs");
+            if (list == null) return;
             list.forEach(tag1 -> {
                 CompoundTag compoundTag = (CompoundTag) tag1;
                 Item item = Registry.ITEM.get(new Identifier(compoundTag.getString("id")));

@@ -10,6 +10,8 @@ import io.github.vampirestudios.molecularcraft.items.StackedMoleculeStackItem;
 import io.github.vampirestudios.molecularcraft.registries.ModContainers;
 import io.github.vampirestudios.molecularcraft.registries.ModItems;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.math.BlockPos;
 
@@ -29,7 +31,17 @@ public class AssemblerScreenHandler extends SyncedGuiDescription {
                         || itemStack.getItem() instanceof StackedMoleculeStackItem);
         root.add(itemSlot, 0, 1);
         WItemSlot itemSlot1 = new WItemSlot(blockInventory, 18, 1,1, false)
-                .setFilter(itemStack -> itemStack.getCount() < 2 && itemStack.getItem() == ModItems.RECIPE);
+                .setFilter(itemStack -> {
+                    boolean bol = true;
+
+                    if (itemStack.getTag() == null) bol = false;
+                    else {
+                        CompoundTag tag = itemStack.getTag();
+                        if (tag.get("inputs") == null) bol = false;
+                    }
+
+                    return itemStack.getCount() < 2 && itemStack.getItem() == ModItems.RECIPE && bol;
+                });
         root.add(itemSlot1, 0, 4);
         WItemSlot itemSlot2 = new WItemSlot(blockInventory, 19, 1,1, false).setInsertingAllowed(false);
         root.add(itemSlot2, 8, 4);

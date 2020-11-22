@@ -1,11 +1,11 @@
 {
   "molecules": [
     {
-      "amount": 16,
+      "amount": 144,
       "formula": "h2o"
     },
     {
-      "amount": 9,
+      "amount": 81,
       "formula": "Fe"
     }
   ],
