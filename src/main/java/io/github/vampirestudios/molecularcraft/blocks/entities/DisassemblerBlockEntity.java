@@ -14,10 +14,12 @@ import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -31,8 +33,10 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
@@ -40,9 +44,9 @@ import team.reborn.energy.EnergyTier;
 
 import java.util.*;
 
-public class DisassemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, ImplementedInventory, PropertyDelegateHolder {
+public class DisassemblerBlockEntity extends BlockEntity implements Tickable, EnergyStorage, ExtendedScreenHandlerFactory, /*ImplementedInventory,*/ PropertyDelegateHolder, InventoryProvider {
     private double energy;
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(19, ItemStack.EMPTY);
+    private final MachineInventory inventory = new DisassemblerInventory(19);
 
     public DisassemblerBlockEntity() {
         super(ModBlockEntities.disassemblerBlockEntityBlockEntityType);
@@ -51,7 +55,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        tag = Inventories.toTag(tag, this.items);
+        tag = Inventories.toTag(tag, this.getItems());
         tag.putDouble("energy", this.getStored(EnergySide.UNKNOWN));
         return super.toTag(tag);
     }
@@ -60,12 +64,12 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
         this.setStored(tag.getDouble("energy"));
-        Inventories.fromTag(tag, this.items);
+        Inventories.fromTag(tag, this.getItems());
     }
 
     @Override
     public void tick() {
-        ItemStack inputStack = this.getStack(0);
+        ItemStack inputStack = this.inventory.getStack(0);
         String inputId = Registry.ITEM.getId(inputStack.getItem()).toString();
         if (ItemMoleculesDataManager.REGISTRY.containsKey(inputId)) {
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(inputId);
@@ -174,26 +178,26 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
         for (ItemStack output : outputs) {
             Item outputItem = output.getItem();
             int outputNumber = output.getCount();
-            for (int i = 1; i < this.size(); i++) {
+            for (int i = 1; i < this.inventory.size(); i++) {
                 if (outputNumber == 0) break;
-                ItemStack slotStack = this.getStack(i);
+                ItemStack slotStack = this.inventory.getStack(i);
                 if (slotStack.getItem() == outputItem) {
                     while (slotStack.getCount() != outputItem.getMaxCount()) {
                         if (outputNumber == 0) break;
                         slotStack.increment(1);
-                        this.setStack(i, slotStack);
+                        this.inventory.setStack(i, slotStack);
                         outputNumber--;
                     }
                 } else if (slotStack.getItem() == Items.AIR) {
                     while (slotStack.getCount() != outputItem.getMaxCount()) {
                         if (outputNumber == 0) break;
                         if (slotStack.getItem() == Items.AIR) {
-                            this.setStack(i, new ItemStack(outputItem));
-                            slotStack = this.getStack(i);
+                            this.inventory.setStack(i, new ItemStack(outputItem));
+                            slotStack = this.inventory.getStack(i);
                             outputNumber--;
                         } else {
                             slotStack.increment(1);
-                            this.setStack(i, slotStack);
+                            this.inventory.setStack(i, slotStack);
                             outputNumber--;
                         }
                     }
@@ -201,7 +205,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
             }
         }
 
-        this.getStack(0).decrement(1);
+        this.inventory.getStack(0).decrement(1);
     }
 
     @Override
@@ -254,9 +258,8 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
         return new DisassemblerScreenHandler(syncId, inv, this.pos, ScreenHandlerContext.create(this.world, this.pos));
     }
 
-    @Override
     public DefaultedList<ItemStack> getItems() {
-        return this.items;
+        return this.inventory.getStacks();
     }
 
     @Override
@@ -279,5 +282,10 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
                 return 2;
             }
         };
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+        return this.inventory;
     }
 }

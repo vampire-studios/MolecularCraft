@@ -4,6 +4,7 @@ import io.github.vampirestudios.molecularcraft.blocks.entities.DisassemblerBlock
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.*;
@@ -11,8 +12,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
-public class DisassemblerBlock extends BaseMachineBlock {
+public class DisassemblerBlock extends BaseMachineBlock implements InventoryProvider{
 
     public DisassemblerBlock() {
         super(AbstractBlock.Settings.of(Material.METAL));
@@ -39,6 +41,15 @@ public class DisassemblerBlock extends BaseMachineBlock {
     @Override
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack) {
         super.onStacksDropped(state, world, pos, stack);
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof DisassemblerBlockEntity) {
+            return ((DisassemblerBlockEntity)be).getInventory(state,world,pos);
+        }
+        return null;
     }
 
 //    @Override
