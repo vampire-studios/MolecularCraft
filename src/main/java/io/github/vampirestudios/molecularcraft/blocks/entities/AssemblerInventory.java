@@ -22,7 +22,7 @@ public class AssemblerInventory extends MachineInventory {
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return dir == Direction.UP && canInsert(stack) && slot < 18;
+        return dir == Direction.UP && slot < 18;
     }
 
     @Override

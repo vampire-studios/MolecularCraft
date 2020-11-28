@@ -3,6 +3,7 @@ package io.github.vampirestudios.molecularcraft.blocks.entities;
 import io.github.vampirestudios.molecularcraft.mixins.SimpleInventoryAccessor;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
@@ -84,6 +85,23 @@ public abstract class MachineInventory extends SimpleInventory implements SidedI
             this.markDirty();
         }
 
+    }
+
+    public int containStack(ItemStack itemStack) {
+        int count = 0;
+
+        for (int i = 0; i < this.size(); i++) {
+            ItemStack slot = this.getStack(i);
+            if (itemStack == slot) {
+                count += slot.getCount();
+            }
+        }
+
+        return count;
+    }
+
+    public int containItem(Item item) {
+        return this.containStack(new ItemStack(item));
     }
 
     public DefaultedList<ItemStack> getStacks() {

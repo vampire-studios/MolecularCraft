@@ -29,4 +29,61 @@ public class DisassemblerInventory extends MachineInventory {
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         return dir == Direction.DOWN && slot != 0;
     }
+
+    @Override
+    public void addToExistingSlot(ItemStack stack) {
+        for(int i = 1; i < this.size(); ++i) {
+            ItemStack itemStack = this.getStack(i);
+            if (this.canCombine(itemStack, stack)) {
+                this.transfer(stack, itemStack);
+                if (stack.isEmpty()) {
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void addToNewSlot(ItemStack stack) {
+        for(int i = 1; i < this.size(); ++i) {
+            ItemStack itemStack = this.getStack(i);
+            if (itemStack.isEmpty()) {
+                this.setStack(i, stack.copy());
+                stack.setCount(0);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public int containStack(ItemStack itemStack) {
+        int count = 0;
+
+        for (int i = 1; i < this.size(); i++) {
+            ItemStack slot = this.getStack(i);
+            if (itemStack == slot) {
+                count += slot.getCount();
+            }
+        }
+
+        return count;
+    }
+
+    @Override
+    public boolean canInsert(ItemStack stack) {
+        int count = stack.getCount();
+        for (int i = 1; i < this.size(); i++) {
+            if (count == 0) break;
+            ItemStack itemStack = this.getStack(i);
+            int slotCount = itemStack.getCount();
+            if (itemStack.isEmpty() || this.canCombine(itemStack, stack) && itemStack.getCount() < itemStack.getMaxCount()) {
+                while (slotCount < itemStack.getMaxCount() && count != 0) {
+                    slotCount++;
+                    count--;
+                }
+            }
+        }
+
+        return count == 0;
+    }
 }

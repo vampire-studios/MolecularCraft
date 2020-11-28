@@ -82,10 +82,8 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
                 }
                 outputs.add(stack);
             }
-            if (outputs.size() < 10) {
-                if (this.canDisassemble(outputs)) {
-                    this.disassemble(outputs);
-                }
+            if (this.canDisassemble(outputs)) {
+                this.disassemble(outputs);
             } else {
                 outputs.clear();
                 for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
@@ -176,36 +174,10 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
 
     private void disassemble(List<ItemStack> outputs) {
         for (ItemStack output : outputs) {
-            Item outputItem = output.getItem();
-            int outputNumber = output.getCount();
-            for (int i = 1; i < this.inventory.size(); i++) {
-                if (outputNumber == 0) break;
-                ItemStack slotStack = this.inventory.getStack(i);
-                if (slotStack.getItem() == outputItem) {
-                    while (slotStack.getCount() != outputItem.getMaxCount()) {
-                        if (outputNumber == 0) break;
-                        slotStack.increment(1);
-                        this.inventory.setStack(i, slotStack);
-                        outputNumber--;
-                    }
-                } else if (slotStack.getItem() == Items.AIR) {
-                    while (slotStack.getCount() != outputItem.getMaxCount()) {
-                        if (outputNumber == 0) break;
-                        if (slotStack.getItem() == Items.AIR) {
-                            this.inventory.setStack(i, new ItemStack(outputItem));
-                            slotStack = this.inventory.getStack(i);
-                            outputNumber--;
-                        } else {
-                            slotStack.increment(1);
-                            this.inventory.setStack(i, slotStack);
-                            outputNumber--;
-                        }
-                    }
-                }
-            }
+            this.inventory.addStack(output);
         }
 
-        this.inventory.getStack(0).decrement(1);
+        this.inventory.removeStack(0, 1);
     }
 
     @Override
