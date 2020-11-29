@@ -73,12 +73,12 @@ dependencies {
 	modImplementation "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
 //	include "com.github.CottonMC:Jankson-Fabric:${project.jankson_version}"
 
-	modRuntime ("curse.maven:techreborn:3093570") {
-		exclude group: "teamreborn", module: "energy"
-	}
-	modRuntime ("curse.maven:reborncore:3094255") {
-		exclude group: "teamreborn", module: "energy"
-	}
+//	modRuntime ("curse.maven:techreborn:3093570") {
+//		exclude group: "teamreborn", module: "energy"
+//	}
+//	modRuntime ("curse.maven:reborncore:3094255") {
+//		exclude group: "teamreborn", module: "energy"
+//	}
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.8.1"
 	modRuntime "me.shedaniel:RoughlyEnoughItems:5.8.1"
 }
