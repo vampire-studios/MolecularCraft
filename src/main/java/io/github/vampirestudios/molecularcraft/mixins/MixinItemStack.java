@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,8 +59,8 @@ public class MixinItemStack {
 
         Identifier id = Registry.ITEM.getId(((ItemStack)(Object) this).getItem());
         if (ItemMoleculesDataManager.REGISTRY.containsKey(id.toString())) {
+            tooltip.add(new LiteralText("Chemical Formula:").formatted(Formatting.DARK_BLUE));
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(id.toString());
-            StringBuilder builder = new StringBuilder();
             if (itemMolecule instanceof ChanceItemMolecule) {
 //                List<List<MoleculeStack>> listList = ((ChanceItemMolecule) itemMolecule).getLists();
 //                for (List<MoleculeStack> list : listList) {
@@ -79,6 +80,7 @@ public class MixinItemStack {
 //                }
             } else {
                 for (ItemMoleculeComponment moleculeStack : itemMolecule.getListCopy()) {
+                    StringBuilder builder = new StringBuilder();
                     int moleculeStackAmount = moleculeStack.getAmount();
                     builder.append(moleculeStackAmount);
                     if (moleculeStack instanceof MoleculeStack) {
@@ -93,12 +95,10 @@ public class MixinItemStack {
                         Atoms atom = ((Molecule) moleculeStack).getAtom();
                         builder.append(atom.getSymbol());
                     }
-                    builder.append(" ");
+                    tooltip.add(new LiteralText("- " + builder.toString()).formatted(Formatting.BLUE));
                 }
             }
-            String string = builder.toString();
 //            if (string.endsWith(" / ")) string = string.substring(0, string.length() - 3);
-            tooltip.add(new LiteralText(string));
         }
 
 //        if (((ItemStack)(Object)this).getItem() instanceof IsotopeItem) {
