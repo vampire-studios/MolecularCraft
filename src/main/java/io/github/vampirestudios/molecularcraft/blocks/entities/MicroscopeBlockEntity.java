@@ -32,7 +32,7 @@ public class MicroscopeBlockEntity extends BlockEntity implements Tickable, Ener
 
     public MicroscopeBlockEntity() {
         super(ModBlockEntities.microscopeBlockEntityBlockEntityType);
-        this.energy = 20_000;
+        this.energy = this.getMaxStoredPower();
     }
 
     @Override

@@ -4,6 +4,7 @@ import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
 import io.github.vampirestudios.molecularcraft.utils.IngredientAccessor;
 import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
 import net.minecraft.server.MinecraftServer;
@@ -23,7 +24,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
     public void setMolecularInfo(MinecraftServer minecraftServer) {
         RecipeManager recipeManager = minecraftServer.getRecipeManager();
         List<String> list = new ArrayList<>();
-//        System.out.println("Parsing recipe to set molecular composition of outputs");
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) System.out.println("Parsing recipe to set molecular composition of outputs");
         for (Recipe<?> recipe : recipeManager.values()) {
             if (recipe.getType() == this.getRecipeType() && (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe)) {
                 ItemStack output = recipe.getOutput();
@@ -52,14 +53,6 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                     componments.add(stack.setAmount((stack.getAmount()/output.getCount())));
                 }
                 ItemMolecule itemMolecule1 = new ItemMolecule(componments);
-                for (ItemMoleculeComponment stack : itemMolecule1.getListCopy()) {
-                    if (stack.getAmount() == 0) {
-//                        System.out.println("---------");
-//                        System.out.println("Recipe id : " + recipe.getId().toString());
-//                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
-//                        System.out.println("---------");
-                    }
-                }
                 if (!itemMolecule1.getListCopy().isEmpty()) {
                     if (!ItemMoleculesDataManager.REGISTRY.containsKey(Registry.ITEM.getId(output.getItem()).toString())) {
                         ItemMoleculesDataManager.register(Registry.ITEM.getId(output.getItem()).toString(), itemMolecule1);
@@ -71,7 +64,7 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 }
             }
         }
-//        System.out.println("Parsing remaining recipes");
+        if (FabricLoader.getInstance().isDevelopmentEnvironment())System.out.println("Parsing remaining recipes");
         while (!list.isEmpty()) {
             List<String> toRemove = new ArrayList<>();
             for (String id : list) {
@@ -101,10 +94,12 @@ public class CraftingMolecularInfoSetter extends AbstractMolecularInfoSetter {
                 ItemMolecule itemMolecule1 = new ItemMolecule(componments);
                 for (ItemMoleculeComponment stack : itemMolecule1.getListCopy()) {
                     if (stack.getAmount() == 0) {
-//                        System.out.println("---------");
-//                        System.out.println("Recipe id : " + recipe.getId().toString());
-//                        System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
-//                        System.out.println("---------");
+                        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                            System.out.println("---------");
+                            System.out.println("Recipe id : " + recipe.getId().toString());
+                            System.out.println("Error, null amount of molecule stack : " + stack.getFormula());
+                            System.out.println("---------");
+                        }
                     }
                 }
                 if (!itemMolecule1.getListCopy().isEmpty()) {

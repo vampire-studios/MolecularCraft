@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "molecules": [
+    {
+      "amount": 12,
+      "formula": "sio2"
+    },
+    {
+      "amount": 4,
+      "formula": "al2o3"
+    },
+    {
+      "amount": 2,
+      "formula": "cao"
+    }
+  ]
+}

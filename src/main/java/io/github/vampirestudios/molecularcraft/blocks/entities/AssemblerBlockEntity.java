@@ -50,7 +50,7 @@ public class AssemblerBlockEntity extends BlockEntity implements Tickable, Energ
 
     public AssemblerBlockEntity() {
         super(ModBlockEntities.assemblerBlockEntityBlockEntityType);
-        this.energy = 20_000;
+        this.energy = this.getMaxStoredPower();
     }
 
     @Override

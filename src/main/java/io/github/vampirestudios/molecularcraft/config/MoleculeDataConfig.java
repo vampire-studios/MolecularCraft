@@ -28,22 +28,26 @@ public class MoleculeDataConfig extends DataConfig {
     @Override
     protected void load(JsonObject jsonObject) {
         JsonArray jsonArray = jsonObject.getAsJsonArray("molecules");
-        for (Iterator<JsonElement> it = jsonArray.iterator(); it.hasNext(); ) {
-            JsonObject molecule = (JsonObject) it.next();
+        for (JsonElement jsonElement : jsonArray) {
+            JsonObject molecule = (JsonObject) jsonElement;
             Identifier id = new Identifier(MolecularCraft.MODID, molecule.get("id").getAsString());
             JsonArray atoms = molecule.getAsJsonArray("atoms");
             List<Molecule> molecules = new ArrayList<>();
-            for (Iterator<JsonElement> iter = atoms.iterator(); iter.hasNext(); ) {
-                JsonObject atom = (JsonObject) iter.next();
+            for (JsonElement element : atoms) {
+                JsonObject atom = (JsonObject) element;
                 Atoms atom1 = Atoms.valueOf(atom.get("atom").getAsString());
                 int number = atom.get("number").getAsInt();
                 molecules.add(new Molecule(atom1, number));
             }
             MoleculeStack moleculeStack = new MoleculeStack(molecules.toArray(new Molecule[molecules.size()]));
-            Registry.register(Registry.ITEM, id, new MoleculeStackItem(moleculeStack));
-            Registry.register(Registry.ITEM, MolecularCraft.id(id.getPath() + "_64"), new StackedMoleculeStackItem(moleculeStack));
-            Registry.register(Molecules.MOLECULE_STACKS, id, moleculeStack);
+            register(id, moleculeStack);
         }
+    }
+
+    public static void register(Identifier id, MoleculeStack moleculeStack) {
+        Registry.register(Registry.ITEM, id, new MoleculeStackItem(moleculeStack));
+        Registry.register(Registry.ITEM, MolecularCraft.id(id.getPath() + "_64"), new StackedMoleculeStackItem(moleculeStack));
+        Registry.register(Molecules.MOLECULE_STACKS, id, moleculeStack);
     }
 
     @Override
@@ -96,6 +100,12 @@ public class MoleculeDataConfig extends DataConfig {
         list.add(new MoleculeStack(new Molecule(MAGNESIUM, 2), new Molecule(SILICON), new Molecule(OXYGEN, 4)));
         list.add(new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(OXYGEN, 3)));
         list.add(new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(SILICON), new Molecule(FLUORINE, 2), new Molecule(OXYGEN, 2), new Molecule(HYDROGEN, 2)));
+        list.add(new MoleculeStack(new Molecule(SODIUM), new Molecule(CALCIUM)));
+        list.add(new MoleculeStack(new Molecule(ALUMINIUM), new Molecule(SILICON)));
+        list.add(new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(OXYGEN, 2)));
+        list.add(new MoleculeStack(new Molecule(SODIUM, 2), new Molecule(OXYGEN)));
+        list.add(new MoleculeStack(new Molecule(POTASSIUM, 2), new Molecule(OXYGEN)));
+        list.add(new MoleculeStack(new Molecule(CALCIUM), new Molecule(OXYGEN)));
 
         return list;
     }

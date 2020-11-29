@@ -50,7 +50,7 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
 
     public DisassemblerBlockEntity() {
         super(ModBlockEntities.disassemblerBlockEntityBlockEntityType);
-        this.energy = 20_000;
+        this.energy = this.getMaxStoredPower();
     }
 
     @Override

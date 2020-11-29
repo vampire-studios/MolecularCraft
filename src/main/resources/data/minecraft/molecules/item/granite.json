@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "molecules": [
+    {
+      "amount": 14,
+      "formula": "sio2"
+    },
+    {
+      "amount": 2,
+      "formula": "al2o2"
+    },
+    {
+      "amount": 2,
+      "formula": "na2o"
+    },
+    {
+      "amount": 2,
+      "formula": "k2o"
+    }
+  ]
+}
