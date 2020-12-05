@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Mixin(PlayerManager.class)
-public class MixinPlayerManager {
+public class PlayerManagerMixin {
 
     @Shadow @Final private List<ServerPlayerEntity> players;
     @Shadow @Final private MinecraftServer server;

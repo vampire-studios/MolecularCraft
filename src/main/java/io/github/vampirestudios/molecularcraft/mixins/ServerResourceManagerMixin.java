@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerResourceManager.class)
-public class MixinServerResourceManager {
+public class ServerResourceManagerMixin {
 
     @Shadow @Final private ReloadableResourceManager resourceManager;
 

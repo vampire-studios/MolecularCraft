@@ -3,16 +3,16 @@
   "package": "io.github.vampirestudios.molecularcraft.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinIngredient",
-    "MixinMinecraftServer",
-    "MixinPlayerManager",
-    "MixinServerResourceManager",
+    "IngredientMixin",
+    "MinecraftServerMixin",
+    "PlayerManagerMixin",
+    "ServerResourceManagerMixin",
     "SimpleInventoryAccessor"
   ],
   "server": [
   ],
   "client": [
-    "MixinItemStack"
+    "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

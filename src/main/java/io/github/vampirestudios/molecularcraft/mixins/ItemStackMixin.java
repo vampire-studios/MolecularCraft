@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ItemStack.class)
-public class MixinItemStack {
+public class ItemStackMixin {
 //        implements IsotopeItemStackImpl {
 //    private long life;
 //
