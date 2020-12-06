@@ -51,7 +51,15 @@ public class Isotope {
     }
 
     public enum DecayMod {
-        STABLE,BETA_MINUS,BETA_PLUS,DOUBLE_BETA_MINUS,DOUBLE_BETA_PLUS,ELECTRON_CAPTURE,GAMMA_RAY, INTERNAL_CONVERSION;
+        STABLE,
+        BETA_MINUS,
+        BETA_PLUS,
+        DOUBLE_BETA_MINUS,
+        DOUBLE_BETA_PLUS,
+        ELECTRON_CAPTURE,
+        GAMMA_RAY,
+        INTERNAL_CONVERSION,
+        DOUBLE_ELECTRON_CAPTURE;
     }
 
     public enum Abundance {

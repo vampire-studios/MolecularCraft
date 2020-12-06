@@ -33,8 +33,7 @@ public class Isotopes {
         register(LITHIUM, 7, 92.41F);
 
         register(BERYLLIUM, 7, Isotope.Abundance.TRACE, d(53.12F), new Isotope.Decay[]{
-                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, LITHIUM, 7),
-                new Isotope.Decay(Isotope.DecayMod.GAMMA_RAY)
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, LITHIUM, 7)
         });
         register(BERYLLIUM, 9, 100F);
         register(BERYLLIUM, 10, Isotope.Abundance.TRACE, y(1.39F, 6), new Isotope.Decay[]{
@@ -147,6 +146,9 @@ public class Isotopes {
                 new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 0.001F, ARGON, 40)
         });
         register(POTASSIUM, 41, 6.73F);
+        register(POTASSIUM, 42, Isotope.Abundance.TRACE, h(12.355F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, CALCIUM, 42)
+        });
 
         register(CALCIUM, 40, 99.941F);
         register(CALCIUM, 41, Isotope.Abundance.TRACE, y(9.94F, 4), new Isotope.Decay[]{
@@ -290,6 +292,163 @@ public class Isotopes {
                 new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GALLIUM, 72)
         });
 
+        register(GALLIUM, 66, Isotope.Abundance.SYNTHETIC, h(9.5F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, ZINC, 66)
+        });
+        register(GALLIUM, 67, Isotope.Abundance.SYNTHETIC, d(3.3F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, ZINC, 67)
+        });
+        register(GALLIUM, 68, Isotope.Abundance.SYNTHETIC, h(1.2F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, ZINC, 68)
+        });
+        register(GALLIUM, 69, 60.11F);
+        register(GALLIUM, 70, Isotope.Abundance.SYNTHETIC, min(21), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 99.59F, GERMANIUM, 70),
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, 0.41F, ZINC, 70)
+        });
+        register(GALLIUM, 71, 39.89F);
+        register(GALLIUM, 72, Isotope.Abundance.SYNTHETIC, h(14.1F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GERMANIUM, 72)
+        });
+        register(GALLIUM, 73, Isotope.Abundance.SYNTHETIC, h(4.9F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, GERMANIUM, 73)
+        });
+
+        register(GERMANIUM, 68, Isotope.Abundance.SYNTHETIC, d(270.95F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, GALLIUM, 68)
+        });
+        register(GERMANIUM, 70, 20.52F);
+        register(GERMANIUM, 71, Isotope.Abundance.SYNTHETIC, d(11.3F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, GALLIUM, 71)
+        });
+        register(GERMANIUM, 72, 27.45F);
+        register(GERMANIUM, 73, 7.76F);
+        register(GERMANIUM, 74, 36.7F);
+        register(GERMANIUM, 76, 7.75F, y(1.78F, 21), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, SELENIUM, 76)
+        });
+
+        register(ARSENIC, 72, Isotope.Abundance.TRACE, h(26.01F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, GERMANIUM, 72)
+        });
+        register(ARSENIC, 73, Isotope.Abundance.SYNTHETIC, d(80.3F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, GERMANIUM, 73)
+        });
+        register(ARSENIC, 74, Isotope.Abundance.SYNTHETIC, d(17.8F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 66F, GERMANIUM, 74),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 34F, SELENIUM, 74)
+        });
+        register(ARSENIC, 75, 100F);
+
+        register(SELENIUM, 72, Isotope.Abundance.SYNTHETIC, d(8.4F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, ARSENIC, 72)
+        });
+        register(SELENIUM, 74, 0.86F);
+        register(SELENIUM, 75, Isotope.Abundance.SYNTHETIC, d(119.8F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, ARSENIC, 75)
+        });
+        register(SELENIUM, 76, 9.23F);
+        register(SELENIUM, 77, 7.6F);
+        register(SELENIUM, 78, 23.69F);
+        register(SELENIUM, 79, Isotope.Abundance.TRACE, y(3.27F, 5), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, BROMINE, 79)
+        });
+        register(SELENIUM, 80, 49.80F);
+        register(SELENIUM, 82, 8.82F, y(1.08F, 20), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, KRYPTON, 82)
+        });
+
+        register(BROMINE, 79, 51F);
+        register(BROMINE, 81, 49F);
+
+        register(KRYPTON, 78, 0.36F, y(9.2F, 21), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_ELECTRON_CAPTURE, SELENIUM, 78)
+        });
+        register(KRYPTON, 79, Isotope.Abundance.SYNTHETIC, h(35F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, BROMINE, 79)
+        });
+        register(KRYPTON, 80, 2.29F);
+        register(KRYPTON, 81, Isotope.Abundance.TRACE, y(2.3F, 5), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, BROMINE, 81)
+        });
+        register(KRYPTON, 82, 11.59F);
+        register(KRYPTON, 83, 11.50F);
+        register(KRYPTON, 84, 56.99F);
+        register(KRYPTON, 85, Isotope.Abundance.SYNTHETIC, y(11F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, RUBIDIUM, 85)
+        });
+        register(KRYPTON, 86, 17.28F);
+
+        register(RUBIDIUM, 82, Isotope.Abundance.TRACE, min(1.273F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, KRYPTON, 82)
+        });
+        register(RUBIDIUM, 83, Isotope.Abundance.SYNTHETIC, d(86.2F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, KRYPTON, 83)
+        });
+        register(RUBIDIUM, 84, Isotope.Abundance.SYNTHETIC, d(32.9F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 96.2F, KRYPTON, 84),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 3.8F, STRONTIUM, 84)
+        });
+        register(RUBIDIUM, 85, 72.71F);
+        register(RUBIDIUM, 86, Isotope.Abundance.SYNTHETIC, d(18.7F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 99.9948F, STRONTIUM, 86),
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, 0.0052F, KRYPTON, 86)
+        });
+        register(RUBIDIUM, 87, 27.83F, y(4.9F, 10), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, STRONTIUM, 87)
+        });
+
+        register(STRONTIUM, 82, Isotope.Abundance.SYNTHETIC, d(25.36F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, RUBIDIUM, 82)
+        });
+        register(STRONTIUM, 83, Isotope.Abundance.SYNTHETIC, d(1.35F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, RUBIDIUM, 83)
+        });
+        register(STRONTIUM, 84, 0.56F);
+        register(STRONTIUM, 85, Isotope.Abundance.SYNTHETIC, d(64.84F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, RUBIDIUM, 85)
+        });
+        register(STRONTIUM, 86, 9.86F);
+        register(STRONTIUM, 87, 7.00F);
+        register(STRONTIUM, 88, 82.58F);
+        register(STRONTIUM, 89, Isotope.Abundance.SYNTHETIC, d(50.52F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, YTTRIUM, 89)
+        });
+        register(STRONTIUM, 90, Isotope.Abundance.TRACE, y(28.90F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, YTTRIUM, 90)
+        });
+
+        register(YTTRIUM, 87, Isotope.Abundance.SYNTHETIC, d(3.4F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, STRONTIUM, 87)
+        });
+        register(YTTRIUM, 88, Isotope.Abundance.SYNTHETIC, d(106.6F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, STRONTIUM, 88)
+        });
+        register(YTTRIUM, 89, 100F);
+        register(YTTRIUM, 90, Isotope.Abundance.SYNTHETIC, d(2.7F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, ZIRCONIUM, 90)
+        });
+        register(YTTRIUM, 91, Isotope.Abundance.SYNTHETIC, d(58.5F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, ZIRCONIUM, 91)
+        });
+
+        register(ZIRCONIUM, 88, Isotope.Abundance.SYNTHETIC, d(83.4F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, YTTRIUM, 88)
+        });
+        register(ZIRCONIUM, 89, Isotope.Abundance.SYNTHETIC, h(78.4F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, YTTRIUM, 89)
+        });
+        register(ZIRCONIUM, 90, 51.45F);
+        register(ZIRCONIUM, 91, 11.22F);
+        register(ZIRCONIUM, 92, 17.15F);
+        register(ZIRCONIUM, 93, Isotope.Abundance.TRACE, y(1.53F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, NIOBIUM, 93)
+        });
+        register(ZIRCONIUM, 94, 17.38F);
+        register(ZIRCONIUM, 96, 2.80F, y(2.0F, 19), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, MOLYBDENUM, 96)
+        });
+
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             Logger logger = LogManager.getLogger();
             Isotope isotope = null;
@@ -299,6 +458,23 @@ public class Isotopes {
                 isotope = getRandomIsotope(CALCIUM);
             }
             logger.info(i);
+
+            for (Map.Entry<Atoms, Map<Integer, Isotope>> entry : ATOM_ISOTOPES_MAP.entrySet()) {
+                Atoms atom = entry.getKey();
+                for (Map.Entry<Integer, Isotope> entry1 : entry.getValue().entrySet()) {
+                    int number= entry1.getKey();
+                    Isotope isotope1 = entry1.getValue();
+                    for (Isotope.Decay decay : isotope1.getDecays()) {
+                        if (decay.hasProduct()) {
+                            Atoms decayAtom = decay.getAtom();
+                            int decayNumber = decay.getNucleonNumber();
+                            if (!ATOM_ISOTOPES_MAP.get(decayAtom).containsKey(decayNumber)) {
+                                logger.info("Unknown Isotope: " + decayAtom.getSymbol() + decayNumber);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
