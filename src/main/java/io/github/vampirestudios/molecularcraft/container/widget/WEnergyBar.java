@@ -63,9 +63,9 @@ public class WEnergyBar extends WBar {
                     break;
                 case RIGHT:
                     if (this.bar != null) {
-                        ScreenDrawing.texturedRect(x+1, y+2, barSize-2, this.getHeight()-4, this.bar.image, this.bar.u1, this.bar.v1, MathHelper.lerp(percent, this.bar.u1, this.bar.u2), this.bar.v2, -1);
+                        ScreenDrawing.texturedRect(x, y, barSize, this.getHeight(), this.bar.image, this.bar.u1, this.bar.v1, MathHelper.lerp(percent, this.bar.u1, this.bar.u2), this.bar.v2, -1);
                     } else {
-                        ScreenDrawing.coloredRect(x+1, y+2, barSize-2, this.getHeight()-4, ScreenDrawing.colorAtOpacity(16777215, 0.5F));
+                        ScreenDrawing.coloredRect(x, y, barSize, this.getHeight(), ScreenDrawing.colorAtOpacity(16777215, 0.5F));
                     }
                     break;
                 case DOWN:
