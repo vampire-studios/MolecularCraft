@@ -4,7 +4,7 @@
   "item.molecularcraft.atom_mole": "一摩尔原子",
   "item.molecularcraft.molecule_mole": "一摩尔分子",
   "item.molecularcraft.isotope_mole": "一摩尔同位素",
-  "block.molecularcraft.assembler": "装配机",
+  "block.molecularcraft.assembler": "化合器",
   "block.molecularcraft.disassembler": "分解器",
   "block.molecularcraft.microscope": "显微器",
   "molecule.molecularcraft.h2o": "水",
