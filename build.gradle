@@ -52,8 +52,8 @@ dependencies {
 	include "io.github.cottonmc:LibGui:${project.libgui_version}"
 
 	// Energy API
-	modApi 'teamreborn:energy:0.1.0'
-	include 'teamreborn:energy:0.1.0'
+	modApi 'teamreborn:energy:0.1.1'
+	include 'teamreborn:energy:0.1.1'
 
 	// Artifice
 	modImplementation "com.lettuce.fudge:artifice:0.14.4+1.16.3"
