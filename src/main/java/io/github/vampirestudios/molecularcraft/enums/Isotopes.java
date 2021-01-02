@@ -449,6 +449,167 @@ public class Isotopes {
                 new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, MOLYBDENUM, 96)
         });
 
+        register(NIOBIUM, 90, Isotope.Abundance.SYNTHETIC, h(15F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, ZIRCONIUM, 90)
+        });
+        register(NIOBIUM, 91, Isotope.Abundance.SYNTHETIC, y(680F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, 99.98F, ZIRCONIUM, 91),
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 0.013F, ZIRCONIUM, 91)
+        });
+        register(NIOBIUM, 92, Isotope.Abundance.TRACE, y(3.47F, 7), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 99.95F, ZIRCONIUM, 92),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 0.05F, MOLYBDENUM, 92)
+        });
+        register(NIOBIUM, 93, 100F);
+        register(NIOBIUM, 94, Isotope.Abundance.TRACE, y(20.3F, 3), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, MOLYBDENUM, 94)
+        });
+        register(NIOBIUM, 95, Isotope.Abundance.SYNTHETIC, d(35F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, MOLYBDENUM, 95)
+        });
+        register(NIOBIUM, 96, Isotope.Abundance.SYNTHETIC, h(24F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, MOLYBDENUM, 96)
+        });
+
+        register(MOLYBDENUM, 92, 14.65F);
+        register(MOLYBDENUM, 93, Isotope.Abundance.SYNTHETIC, y(4, 3), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, NIOBIUM, 93)
+        });
+        register(MOLYBDENUM, 94, 9.19F);
+        register(MOLYBDENUM, 95, 15.87F);
+        register(MOLYBDENUM, 96, 16.67F);
+        register(MOLYBDENUM, 97, 9.58F);
+        register(MOLYBDENUM, 98, 24.29F);
+        register(MOLYBDENUM, 99, Isotope.Abundance.SYNTHETIC, h(65.94F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TECHNETIUM, 99)
+        });
+        register(MOLYBDENUM, 100, 9.74F, y(7.8F, 18), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, RUTHENIUM, 100)
+        });
+
+        register(TECHNETIUM, 95, Isotope.Abundance.SYNTHETIC, h(20.01F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, MOLYBDENUM, 95)
+        });
+        register(TECHNETIUM, 96, Isotope.Abundance.SYNTHETIC, d(4.3F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, MOLYBDENUM, 96)
+        });
+        register(TECHNETIUM, 97, Isotope.Abundance.SYNTHETIC, y(4.21F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, MOLYBDENUM, 97)
+        });
+        register(TECHNETIUM, 98, Isotope.Abundance.SYNTHETIC, y(4.2F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, RUTHENIUM, 98)
+        });
+        register(TECHNETIUM, 99, Isotope.Abundance.TRACE, y(2.111F, 5), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, RUTHENIUM, 99)
+        });
+
+        register(RUTHENIUM, 96, 5.54F);
+        register(RUTHENIUM, 97, Isotope.Abundance.SYNTHETIC, d(2.9F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, TECHNETIUM, 97)
+        });
+        register(RUTHENIUM, 98, 1.87F);
+        register(RUTHENIUM, 99, 12.76F);
+        register(RUTHENIUM, 100, 12.60F);
+        register(RUTHENIUM, 101, 17.06F);
+        register(RUTHENIUM, 102, 31.55F);
+        register(RUTHENIUM, 103, Isotope.Abundance.SYNTHETIC, d(39.26F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, RHODIUM, 103)
+        });
+        register(RUTHENIUM, 104, 18.62F);
+        register(RUTHENIUM, 106, Isotope.Abundance.SYNTHETIC, d(373.59F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, RHODIUM, 106)
+        });
+
+        register(RHODIUM, 99, Isotope.Abundance.SYNTHETIC, d(16.1F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS,  RUTHENIUM, 99)
+        });
+        register(RHODIUM, 100, Isotope.Abundance.SYNTHETIC, h(20.81F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, RUTHENIUM, 100)
+        });
+        register(RHODIUM, 101, Isotope.Abundance.SYNTHETIC, y(3.3F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, RUTHENIUM, 101)
+        });
+        register(RHODIUM, 102, Isotope.Abundance.SYNTHETIC, d(207F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_PLUS, 80, RUTHENIUM, 102),
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, 20, PALLADIUM, 102)
+        });
+        register(RHODIUM, 103, 100);
+        register(RHODIUM, 105, Isotope.Abundance.SYNTHETIC, h(35.36F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, PALLADIUM, 105)
+        });
+        register(RHODIUM, 106, Isotope.Abundance.SYNTHETIC, s(29.808F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, PALLADIUM, 106)
+        });
+
+        register(PALLADIUM, 100, Isotope.Abundance.SYNTHETIC, d(3.63F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, RHODIUM, 100)
+        });
+        register(PALLADIUM, 102, 1.02F);
+        register(PALLADIUM, 103, Isotope.Abundance.SYNTHETIC, d(16.991F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, RHODIUM, 103)
+        });
+        register(PALLADIUM, 104, 11.14F);
+        register(PALLADIUM, 105, 22.33F);
+        register(PALLADIUM, 106, 27.33F);
+        register(PALLADIUM, 107, Isotope.Abundance.TRACE, y(6.5F, 6), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, SILVER, 107)
+        });
+        register(PALLADIUM, 108, 26.46F);
+        register(PALLADIUM, 110, 11.72F);
+
+        register(SILVER, 105, Isotope.Abundance.SYNTHETIC, d(41.2F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, PALLADIUM, 105)
+        });
+        register(SILVER, 107, 51.839F);
+        register(SILVER, 109, 48.161F);
+        register(SILVER, 111, Isotope.Abundance.SYNTHETIC, d(7.45F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, CADMIUM, 111)
+        });
+
+        register(CADMIUM, 106, 1.25F);
+        register(CADMIUM, 107, Isotope.Abundance.SYNTHETIC, h(6.5F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, SILVER, 107)
+        });
+        register(CADMIUM, 108, 0.89F);
+        register(CADMIUM, 109, Isotope.Abundance.SYNTHETIC, d(462.6F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, SILVER, 109)
+        });
+        register(CADMIUM, 110, 12.47F);
+        register(CADMIUM, 111, 12.80F);
+        register(CADMIUM, 112, 24.11F);
+        register(CADMIUM, 113, 12.23F, y(7.7F, 15), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, INDIUM, 113)
+        });
+        register(CADMIUM, 114, 28.75F);
+        register(CADMIUM, 115, Isotope.Abundance.SYNTHETIC, h(53.46F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, INDIUM, 115)
+        });
+        register(CADMIUM, 116, 7.51F, y(3.1F, 19), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.DOUBLE_BETA_MINUS, TIN, 116)
+        });
+
+        register(INDIUM, 111, Isotope.Abundance.SYNTHETIC, d(2.8F), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.ELECTRON_CAPTURE, CADMIUM, 111)
+        });
+        register(INDIUM, 113, 4.28F);
+        register(INDIUM, 115, 95.72F, y(4.41F, 14), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, TIN, 115)
+        });
+
+        register(TIN, 112, 0.97F);
+        register(TIN, 114, 0.66F);
+        register(TIN, 115, 0.34F);
+        register(TIN, 116, 14.54F);
+        register(TIN, 117, 7.68F);
+        register(TIN, 118, 24.22F);
+        register(TIN, 119, 8.59F);
+        register(TIN, 120, 32.58F);
+        register(TIN, 122, 4.63F);
+        register(TIN, 124, 5.79F);
+        register(TIN, 126, Isotope.Abundance.TRACE, y(2.3F, 5), new Isotope.Decay[]{
+                new Isotope.Decay(Isotope.DecayMod.BETA_MINUS, ANTIMONY, 126)
+        });
+
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             Logger logger = LogManager.getLogger();
             Isotope isotope = null;
