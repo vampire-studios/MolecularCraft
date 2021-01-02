@@ -6,5 +6,6 @@ public class WTextPanel extends WGridPanel {
 
     public WTextPanel() {
         this.setBackgroundPainter(BackgroundPainters.TEXT);
+        this.grid = 1;
     }
 }

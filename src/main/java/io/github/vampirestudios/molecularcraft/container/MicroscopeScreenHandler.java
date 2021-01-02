@@ -39,42 +39,42 @@ public class MicroscopeScreenHandler extends SyncedGuiDescription {
         super(ModContainers.MICROSCOPE_SCREEN_HANDLER, synchronizationID, linkedPlayerInventory, getBlockInventory(context, 3), getBlockPropertyDelegate(context, 2));
         blockEntity = (MicroscopeBlockEntity) this.world.getBlockEntity(pos);
 
-        WGridPanel root = new WGridPanel();
+        WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
         root.setSize(160, 200);
 
         WItemSlot itemSlot = new WItemSlot(blockInventory, 0, 1, 1, false);
-        root.add(itemSlot, 0, 1);
+        root.add(itemSlot, 0, 10);
 
         WItemSlot paperSlot = new WItemSlot(blockInventory, 1, 1, 1, false)
                 .setFilter((itemStack) -> itemStack.getItem() == Items.PAPER);
-        root.add(paperSlot, 0, 3);
+        root.add(paperSlot, 0, 49);
 
         WItemSlot resultSlot = new WItemSlot(blockInventory, 2, 1, 1, false)
                 .setFilter((itemStack -> itemStack.getItem() == ModItems.RECIPE))
                 .setInsertingAllowed(false);
         resultSlot.addChangeListener((slot, inventory, var3, stack) -> this.sendContentUpdates());
-        root.add(resultSlot, 2, 2);
+        root.add(resultSlot, 30, 29);
 
         WBar energyBar = new WEnergyBar(0, 1);
-        root.add(energyBar, 0, 4, 4, 1);
+        root.add(energyBar, 0, 68, 60, 10);
 
         WGridPanel textPanel = new WTextPanel();
-        root.add(textPanel, 4, 1, 5, 3);
+        root.add(textPanel, 55, 10, 105, 56);
         dynamicText = new WText(new LiteralText(""))
-                .setHorizontalAlignment(HorizontalAlignment.CENTER)
-                .setVerticalAlignment(VerticalAlignment.CENTER);
-        textPanel.add(dynamicText, 0, 0, 5, 3);
+                .setHorizontalAlignment(HorizontalAlignment.LEFT)
+                .setVerticalAlignment(VerticalAlignment.TOP);
+        textPanel.add(dynamicText, 5, 5, 100, 46);
 
         wButton = new WButton(new TranslatableText("text.molecularcraft.gui.create_recipe")).setOnClick(this::createRecipe);
-        root.add(wButton, 4, 4, 5, 1);
+        root.add(wButton, 62, 68, 80, 10);
 
         errorText = new WText(new LiteralText(""))
                 .setColor(0xf54242).setDarkmodeColor(0xf54242)
                 .setVerticalAlignment(VerticalAlignment.CENTER);
-        root.add(errorText, 0, 5, 9, 2);
+        root.add(errorText, 0, 80, 162, 36);
 
-        root.add(this.createPlayerInventoryPanel(), 0, 7);
+        root.add(this.createPlayerInventoryPanel(), 0, 126);
 
         root.validate(this);
     }
