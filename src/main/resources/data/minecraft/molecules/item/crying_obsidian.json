@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 8,
+      "formula": "sio2"
+    },
+    {
+      "amount": 8,
+      "formula": "h2o"
+    }
+  ],
+  "replace": false
+}

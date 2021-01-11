@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "molecules": [
+    {
+      "amount": 24,
+      "formula": "naca"
+    },
+    {
+      "amount": 18,
+      "formula": "al1si1o4"
+    },
+    {
+      "amount": 6,
+      "formula": "s2o4cl1"
+    }
+  ]
+}

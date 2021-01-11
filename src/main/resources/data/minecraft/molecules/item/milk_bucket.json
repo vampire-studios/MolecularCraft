@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 144,
+      "formula": "c12h22o11"
+    },
+    {
+      "amount": 81,
+      "formula": "Fe"
+    }
+  ],
+  "replace": false
+}

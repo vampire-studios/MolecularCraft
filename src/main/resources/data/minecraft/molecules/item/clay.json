@@ -1,0 +1,25 @@
+{
+  "molecules": [
+    {
+      "amount": 9,
+      "formula": "k1h3o"
+    },
+    {
+      "amount": 9,
+      "formula": "al2mg2fe2"
+    },
+    {
+      "amount": 9,
+      "formula": "si4al4"
+    },
+    {
+      "amount": 9,
+      "formula": "o10"
+    },
+    {
+      "amount": 9,
+      "formula": "o3h6"
+    }
+  ],
+  "replace": false
+}

@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "molecules": [
+    {
+      "amount": 6,
+      "formula": "naca"
+    },
+    {
+      "amount": 24,
+      "formula": "alsi"
+    },
+    {
+      "amount": 48,
+      "formula": "O"
+    },
+    {
+      "amount": 72,
+      "formula": "naca"
+    },
+    {
+      "amount": 54,
+      "formula": "al1si1o4"
+    },
+    {
+      "amount": 18,
+      "formula": "s2o4cl1"
+    }
+  ]
+}
