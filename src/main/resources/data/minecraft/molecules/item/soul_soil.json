@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 108,
+      "formula": "sio2"
+    },
+    {
+      "amount": 54,
+      "formula": "c6h10o5"
+    }
+  ],
+  "replace": false
+}
