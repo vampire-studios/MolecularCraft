@@ -86,7 +86,12 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                     }
                                 }
                                 ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
-                                boolean replace = jsonObject.get("replace").getAsBoolean();
+                                boolean replace = false;
+                                try {
+                                    replace = jsonObject.get("replace").getAsBoolean();
+                                } catch (NullPointerException ignored) {
+
+                                }
 
                                 if (replace) {
                                     if (!itemMolecule.getList().isEmpty()) map.get(type).put(identifier.toString(), itemMolecule);
