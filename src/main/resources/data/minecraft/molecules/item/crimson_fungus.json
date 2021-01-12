@@ -1,0 +1,17 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "chonsp"
+    },
+    {
+      "amount": 54,
+      "formula": "c6h10o5"
+    },
+    {
+      "amount": 27,
+      "formula": "c12h17n2o4p"
+    }
+  ],
+  "replace": false
+}
