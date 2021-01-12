@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
@@ -16,6 +17,8 @@ import net.minecraft.resource.ResourceReloadListener;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.profiler.Profiler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,6 +37,8 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
     public static Map<String, ItemMolecule> TAGS = new HashMap<>();
 
     private static ItemMoleculesDataManager INSTANCE;
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private ItemMoleculesDataManager() {}
 
@@ -70,7 +75,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                         if (resource.getResourcePackName().equals("Default")) continue;
                         try {
                             InputStream inputStream = resource.getInputStream();
-                            try (BufferedReader read = new BufferedReader(new InputStreamReader(inputStream))) {
+                            try (JsonReader read = new JsonReader(new InputStreamReader(inputStream))) {
                                 JsonObject jsonObject = PARSER.parse(read).getAsJsonObject();
                                 List<ItemMoleculeComponment> moleculeStacks = new ArrayList<>();
                                 JsonArray molecules = jsonObject.getAsJsonArray("molecules");
@@ -81,8 +86,11 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                     try {
                                         MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
                                         if (moleculeStack != null) moleculeStacks.add(moleculeStack.setAmount(amount));
+                                        else LOGGER.info("Unable to find molecule or atom with formula \"" + formula + "\"");
                                     } catch (InvalidIdentifierException e) {
-                                        moleculeStacks.add(new Molecule(Atoms.fromSymbol(formula), amount));
+                                        Atoms fallbackAtom = Atoms.fromSymbol(formula);
+                                        moleculeStacks.add(new Molecule(fallbackAtom, amount));
+                                        if (fallbackAtom == null) LOGGER.warn("Unable to find molecule or atom with formula \"" + formula + "\"");
                                     }
                                 }
                                 ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
@@ -107,6 +115,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                 }
                             }
                         } catch (RuntimeException | IOException e) {
+                            LOGGER.warn("An Error occured while parsing " + resourceIdentifier.toString() + "!");
                             e.printStackTrace();
                         }
                     }
