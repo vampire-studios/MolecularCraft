@@ -2,7 +2,7 @@
   "molecules": [
     {
       "amount": 9,
-      "formula": "k1h3o"
+      "formula": "k1h3o1"
     },
     {
       "amount": 9,
@@ -13,8 +13,8 @@
       "formula": "si4al4"
     },
     {
-      "amount": 9,
-      "formula": "o10"
+      "amount": 90,
+      "formula": "O"
     },
     {
       "amount": 9,

@@ -86,11 +86,11 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                     try {
                                         MoleculeStack moleculeStack = Molecules.MOLECULE_STACKS.get(new Identifier(MolecularCraft.MODID, formula));
                                         if (moleculeStack != null) moleculeStacks.add(moleculeStack.setAmount(amount));
-                                        else LOGGER.info("Unable to find molecule or atom with formula \"" + formula + "\"");
+                                        else LOGGER.info("Unable to find molecule or atom with formula \"" + formula + "\", in file " + resourceIdentifier.toString());
                                     } catch (InvalidIdentifierException e) {
                                         Atoms fallbackAtom = Atoms.fromSymbol(formula);
                                         moleculeStacks.add(new Molecule(fallbackAtom, amount));
-                                        if (fallbackAtom == null) LOGGER.warn("Unable to find molecule or atom with formula \"" + formula + "\"");
+                                        if (fallbackAtom == null) LOGGER.warn("Unable to find molecule or atom with formula \"" + formula + "\", in file " + resourceIdentifier.toString());
                                     }
                                 }
                                 ItemMolecule itemMolecule = new ItemMolecule(moleculeStacks);
