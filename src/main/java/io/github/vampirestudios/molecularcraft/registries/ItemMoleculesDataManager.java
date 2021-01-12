@@ -89,7 +89,8 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                                 boolean replace = jsonObject.get("replace").getAsBoolean();
 
                                 if (replace) {
-                                    map.get(type).put(identifier.toString(), itemMolecule);
+                                    if (!itemMolecule.getList().isEmpty()) map.get(type).put(identifier.toString(), itemMolecule);
+                                    else map.get(type).remove(identifier.toString());
                                 } else {
                                     Map<String, ItemMolecule> typeMap = map.get(type);
                                     if (typeMap.containsKey(identifier.toString())) {
