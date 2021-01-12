@@ -106,6 +106,19 @@ public class MoleculeDataConfig extends DataConfig {
         list.add(new MoleculeStack(new Molecule(SODIUM, 2), new Molecule(OXYGEN)));
         list.add(new MoleculeStack(new Molecule(POTASSIUM, 2), new Molecule(OXYGEN)));
         list.add(new MoleculeStack(new Molecule(CALCIUM), new Molecule(OXYGEN)));
+        list.add(new MoleculeStack(new Molecule(CALCIUM), new Molecule(MAGNESIUM), new Molecule(OXYGEN, 6), new Molecule(SILICON, 2)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 12), new Molecule(HYDROGEN, 17), new Molecule(NITROGEN, 2), new Molecule(OXYGEN, 4), new Molecule(PHOSPHORUS)));
+        list.add(new MoleculeStack(new Molecule(POTASSIUM), new Molecule(HYDROGEN, 3), new Molecule(OXYGEN)));
+        list.add(new MoleculeStack(new Molecule(ALUMINIUM, 2), new Molecule(MAGNESIUM, 2), new Molecule(IRON, 2)));
+        list.add(new MoleculeStack(new Molecule(SILICON, 4), new Molecule(ALUMINIUM, 4)));
+        list.add(new MoleculeStack(new Molecule(OXYGEN, 3), new Molecule(HYDROGEN, 6)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 12), new Molecule(HYDROGEN, 4)));
+        list.add(new MoleculeStack(new Molecule(PHOSPHORUS, 4), new Molecule(OXYGEN, 6)));
+        list.add(new MoleculeStack(new Molecule(ALUMINIUM), new Molecule(SILICON), new Molecule(OXYGEN, 4)));
+        list.add(new MoleculeStack(new Molecule(SULFUR, 2), new Molecule(OXYGEN, 4), new Molecule(CHLORINE)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 12), new Molecule(HYDROGEN, 22), new Molecule(OXYGEN, 11)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64), new Molecule(CARBON, 64)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 6), new Molecule(HYDROGEN, 12), new Molecule(OXYGEN, 6)));
 
         return list;
     }
