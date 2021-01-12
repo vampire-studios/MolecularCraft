@@ -2,15 +2,11 @@
   "molecules": [
     {
       "amount": 27,
-      "formula": "c64c64c64c64"
+      "formula": "c1h1o1n1s1p1"
     },
     {
       "amount": 54,
       "formula": "c6h10o5"
-    },
-    {
-      "amount": 64,
-      "formula": "si1o2"
     }
   ],
   "replace": false

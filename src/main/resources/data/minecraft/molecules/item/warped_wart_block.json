@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 243,
+      "formula": "c1h1o1n1s1p1"
+    },
+    {
+      "amount": 486,
+      "formula": "c6h10o5"
+    }
+  ],
+  "replace": false
+}
