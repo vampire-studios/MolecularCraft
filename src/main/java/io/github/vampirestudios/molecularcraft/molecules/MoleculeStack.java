@@ -52,9 +52,7 @@ public class MoleculeStack implements ItemMoleculeComponment {
 
         for (Molecule molecule : getMolecules()) {
             string.append(molecule.getAtom().getSymbol());
-            if (molecule.getAmount() > 1) {
-                string.append(molecule.getAmount());
-            }
+            string.append(molecule.getAmount());
         }
 
         return string.toString().toLowerCase();

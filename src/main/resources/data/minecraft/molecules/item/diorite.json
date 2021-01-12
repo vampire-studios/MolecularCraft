@@ -3,7 +3,7 @@
   "molecules": [
     {
       "amount": 12,
-      "formula": "sio2"
+      "formula": "si1o2"
     },
     {
       "amount": 4,
@@ -11,7 +11,7 @@
     },
     {
       "amount": 2,
-      "formula": "cao"
+      "formula": "ca1o1"
     }
   ]
 }
