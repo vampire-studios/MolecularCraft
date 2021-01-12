@@ -1,0 +1,17 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "ca10"
+    },
+    {
+      "amount": 27,
+      "formula": "p6o24"
+    },
+    {
+      "amount": 27,
+      "formula": "o2h2"
+    }
+  ],
+  "replace": false
+}

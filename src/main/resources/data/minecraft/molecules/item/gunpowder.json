@@ -1,0 +1,17 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "k1n1o3"
+    },
+    {
+      "amount": 5,
+      "formula": "C"
+    },
+    {
+      "amount": 4,
+      "formula": "S"
+    }
+  ],
+  "replace": false
+}

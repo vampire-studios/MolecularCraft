@@ -1,8 +1,12 @@
 {
   "molecules": [
     {
-      "amount": 9,
+      "amount": 54,
       "formula": "c1h1o1n1s1p1"
+    },
+    {
+      "amount": 27,
+      "formula": "c12h17n2o4p"
     }
   ],
   "replace": false

@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "be3al2si16o18"
+    },
+    {
+      "amount": 12,
+      "formula": "p4o6"
+    }
+  ],
+  "replace": false
+}

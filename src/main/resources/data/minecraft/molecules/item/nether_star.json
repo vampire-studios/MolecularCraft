@@ -1,0 +1,21 @@
+{
+  "molecules": [
+    {
+      "amount": 2430,
+      "formula": "c1h1o1n1s1p1"
+    },
+    {
+      "amount": 720,
+      "formula": "si1o2"
+    },
+    {
+      "amount": 720,
+      "formula": "h2o1"
+    },
+    {
+      "amount": 1215,
+      "formula": "c64c64c64c64"
+    }
+  ],
+  "replace": false
+}

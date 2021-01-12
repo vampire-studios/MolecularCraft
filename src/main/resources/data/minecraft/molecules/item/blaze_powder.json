@@ -1,0 +1,17 @@
+{
+  "molecules": [
+    {
+      "amount": 54,
+      "formula": "h2s1o4"
+    },
+    {
+      "amount": 54,
+      "formula": "c6h10o5"
+    },
+    {
+      "amount": 54,
+      "formula": "h2s1o3"
+    }
+  ],
+  "replace": false
+}

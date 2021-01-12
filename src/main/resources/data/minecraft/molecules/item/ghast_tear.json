@@ -1,0 +1,13 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "h2o1"
+    },
+    {
+      "amount": 54,
+      "formula": "c6h10o5"
+    }
+  ],
+  "replace": false
+}

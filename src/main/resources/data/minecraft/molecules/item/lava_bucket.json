@@ -1,17 +1,21 @@
 {
-  "replace": false,
   "molecules": [
     {
       "amount": 6,
-      "formula": "n1a1ca"
+      "formula": "n1a1c1a1"
     },
     {
       "amount": 24,
-      "formula": "alsi"
+      "formula": "a1l1s1i1"
     },
     {
       "amount": 48,
       "formula": "O"
+    },
+    {
+      "amount": 81,
+      "formula": "Fe"
     }
-  ]
+  ],
+  "replace": false
 }

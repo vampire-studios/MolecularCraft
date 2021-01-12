@@ -1,0 +1,17 @@
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "c3h7no3"
+    },
+    {
+      "amount": 27,
+      "formula": "c2h5no2"
+    },
+    {
+      "amount": 27,
+      "formula": "c2h7no2"
+    }
+  ],
+  "replace": false
+}
