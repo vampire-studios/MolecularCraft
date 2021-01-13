@@ -1,1 +1,13 @@
-FUCK REDSTONE
+{
+  "molecules": [
+    {
+      "amount": 27,
+      "formula": "al2o3"
+    },
+    {
+      "amount": 27,
+      "formula": "cu2c1o5h2"
+    }
+  ],
+  "replace": false
+}
