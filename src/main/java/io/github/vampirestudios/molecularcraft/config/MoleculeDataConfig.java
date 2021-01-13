@@ -131,6 +131,8 @@ public class MoleculeDataConfig extends DataConfig {
         list.add(new MoleculeStack(new Molecule(BERYLLIUM, 3), new Molecule(ALUMINIUM, 2), new Molecule(SILICON, 16), new Molecule(OXYGEN, 18)));
         list.add(new MoleculeStack(new Molecule(CARBON, 42), new Molecule(HYDROGEN, 92), new Molecule(OXYGEN, 2)));
         list.add(new MoleculeStack(new Molecule(HYDROGEN, 3), new Molecule(BORON), new Molecule(OXYGEN, 3)));
+        list.add(new MoleculeStack(new Molecule(CARBON, 46), new Molecule(HYDROGEN, 92), new Molecule(OXYGEN, 2)));
+        list.add(new MoleculeStack(new Molecule(COPPER, 2), new Molecule(CARBON), new Molecule(OXYGEN, 5), new Molecule(HYDROGEN, 2)));
 
         return list;
     }
