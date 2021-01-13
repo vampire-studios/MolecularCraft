@@ -2,15 +2,15 @@
   "molecules": [
     {
       "amount": 27,
-      "formula": "c3h7no3"
+      "formula": "c3h7n1o3"
     },
     {
       "amount": 27,
-      "formula": "c2h5no2"
+      "formula": "c2h5n1o2"
     },
     {
       "amount": 27,
-      "formula": "c2h7no2"
+      "formula": "c2h7n1o2"
     }
   ],
   "replace": false
