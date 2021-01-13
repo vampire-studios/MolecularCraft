@@ -1,0 +1,21 @@
+{
+  "molecules": [
+    {
+      "amount": 168,
+      "formula": "c1h1o1n1s1p1"
+    },
+    {
+      "amount": 6,
+      "formula": "c3h7n1o3"
+    },
+    {
+      "amount": 6,
+      "formula": "c2h5n1o2"
+    },
+    {
+      "amount": 6,
+      "formula": "c2h7n1o2"
+    }
+  ],
+  "replace": false
+}
