@@ -1,12 +1,12 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.enums.Atoms;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class Molecule implements ItemMoleculeComponment {
+public class Molecule implements ItemMoleculeComponent {
     private Atoms atom = null;
     private int amount = 1;
 
@@ -29,7 +29,7 @@ public class Molecule implements ItemMoleculeComponment {
     }
 
     @Override
-    public ItemMoleculeComponment setAmount(int amount) {
+    public ItemMoleculeComponent setAmount(int amount) {
         return new Molecule(this.atom, this.amount);
     }
 
@@ -76,7 +76,7 @@ public class Molecule implements ItemMoleculeComponment {
     }
 
     @Override
-    public ItemMoleculeComponment copy() {
+    public ItemMoleculeComponent copy() {
         return new Molecule(this.atom, this.amount);
     }
 }

@@ -11,7 +11,7 @@ import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
 import io.github.vampirestudios.molecularcraft.registries.ModBlockEntities;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
@@ -74,8 +74,8 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
         if (ItemMoleculesDataManager.REGISTRY.containsKey(inputId)) {
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(inputId);
             List<ItemStack> outputs = new ArrayList<>();
-            for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
-                ItemStack stack = itemMoleculeComponment.getItemStack();
+            for (ItemMoleculeComponent itemMoleculeComponent : itemMolecule.getListCopy()) {
+                ItemStack stack = itemMoleculeComponent.getItemStack();
                 while (stack.getCount() > 64) {
                     stack.decrement(64);
                     outputs.add(new ItemStack(stack.getItem(), 64));
@@ -86,17 +86,17 @@ public class DisassemblerBlockEntity extends BlockEntity implements Tickable, En
                 this.disassemble(outputs);
             } else {
                 outputs.clear();
-                for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
-                    int count = itemMoleculeComponment.getAmount();
+                for (ItemMoleculeComponent itemMoleculeComponent : itemMolecule.getListCopy()) {
+                    int count = itemMoleculeComponent.getAmount();
                     if (count > 63) {
-                        ItemStack itemStack = itemMoleculeComponment.getStackedItemStack(1);
+                        ItemStack itemStack = itemMoleculeComponent.getStackedItemStack(1);
                         while (itemStack.getCount() > 64) {
                             inputStack.decrement(64);
                             outputs.add(new ItemStack(itemStack.getItem(), 64));
                         }
                         outputs.add(itemStack);
                     }
-                    outputs.add(itemMoleculeComponment.getItemStack());
+                    outputs.add(itemMoleculeComponent.getItemStack());
                 }
 
                 if (this.canDisassemble(outputs)) {

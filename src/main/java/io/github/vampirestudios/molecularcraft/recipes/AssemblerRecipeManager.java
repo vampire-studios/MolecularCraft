@@ -3,7 +3,7 @@ package io.github.vampirestudios.molecularcraft.recipes;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.recipes.assembler.AssemblerRecipe;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -15,9 +15,9 @@ public class AssemblerRecipeManager {
 
     public static AssemblerRecipe createRecipe(Item output, ItemMolecule itemMolecule) {
         List<ItemStack> list = new ArrayList<>();
-        for (ItemMoleculeComponment itemMoleculeComponment : itemMolecule.getListCopy()) {
-            Item input = itemMoleculeComponment.getItem();
-            list.add(new ItemStack(input, itemMoleculeComponment.getAmount()));
+        for (ItemMoleculeComponent itemMoleculeComponent : itemMolecule.getListCopy()) {
+            Item input = itemMoleculeComponent.getItem();
+            list.add(new ItemStack(input, itemMoleculeComponent.getAmount()));
         }
         return new AssemblerRecipe(list, new ItemStack(output));
     }

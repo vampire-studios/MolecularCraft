@@ -3,7 +3,7 @@ package io.github.vampirestudios.molecularcraft.utils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public interface ItemMoleculeComponment {
+public interface ItemMoleculeComponent {
 
     Item getItem();
 
@@ -15,13 +15,13 @@ public interface ItemMoleculeComponment {
 
     int getAmount();
 
-    ItemMoleculeComponment setAmount(int amount);
+    ItemMoleculeComponent setAmount(int amount);
 
     String getFormula();
 
     Type getType();
 
-    ItemMoleculeComponment copy();
+    ItemMoleculeComponent copy();
 
     enum Type {
         MOLECULE,

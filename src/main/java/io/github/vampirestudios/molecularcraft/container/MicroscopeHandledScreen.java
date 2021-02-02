@@ -10,7 +10,7 @@ import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -33,7 +33,7 @@ public class MicroscopeHandledScreen extends CottonInventoryScreen<MicroscopeScr
         if (ItemMoleculesDataManager.REGISTRY.containsKey(oneId)) {
             ItemMolecule itemMolecule = ItemMoleculesDataManager.REGISTRY.get(oneId);
             StringBuilder string = new StringBuilder();
-            for (ItemMoleculeComponment moleculeStack : itemMolecule.getListCopy()) {
+            for (ItemMoleculeComponent moleculeStack : itemMolecule.getListCopy()) {
                 int moleculeStackAmount = moleculeStack.getAmount();
                 string.append(moleculeStackAmount);
                 if (moleculeStack instanceof MoleculeStack) {

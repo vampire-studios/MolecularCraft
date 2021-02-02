@@ -10,7 +10,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +23,20 @@ public class PacketHandler {
         for (Map.Entry<String, ItemMolecule> entry : ItemMoleculesDataManager.REGISTRY.entrySet()) {
             packetByteBuf.writeString(entry.getKey());
             ItemMolecule itemMolecule = entry.getValue();
-            List<ItemMoleculeComponment> itemMoleculeComponmentList = itemMolecule.getListCopy();
-            packetByteBuf.writeInt(itemMoleculeComponmentList.size());
+            List<ItemMoleculeComponent> itemMoleculeComponentList = itemMolecule.getListCopy();
+            packetByteBuf.writeInt(itemMoleculeComponentList.size());
 
-            for (ItemMoleculeComponment itemMoleculeComponment : itemMoleculeComponmentList) {
-                ItemMoleculeComponment.Type type = itemMoleculeComponment.getType();
+            for (ItemMoleculeComponent itemMoleculeComponent : itemMoleculeComponentList) {
+                ItemMoleculeComponent.Type type = itemMoleculeComponent.getType();
                 packetByteBuf.writeEnumConstant(type);
-                packetByteBuf.writeInt(itemMoleculeComponment.getAmount());
+                packetByteBuf.writeInt(itemMoleculeComponent.getAmount());
                 switch (type) {
                     case MOLECULE:
-                        Molecule molecule = (Molecule) itemMoleculeComponment;
+                        Molecule molecule = (Molecule) itemMoleculeComponent;
                         packetByteBuf.writeEnumConstant(molecule.getAtom());
                         break;
                     case MOLECULE_STACK:
-                        MoleculeStack moleculeStack = (MoleculeStack) itemMoleculeComponment;
+                        MoleculeStack moleculeStack = (MoleculeStack) itemMoleculeComponent;
                         packetByteBuf.writeInt(moleculeStack.getMolecules().size());
                         for (Molecule molecule1 : moleculeStack.getMolecules()) {
                             packetByteBuf.writeEnumConstant(molecule1.getAtom());
@@ -59,16 +58,16 @@ public class PacketHandler {
 
         for (int i = 0; i < size; i++) {
             String id = packetByteBuf.readString();
-            List<ItemMoleculeComponment> itemMoleculeComponmentList = new ArrayList<>();
+            List<ItemMoleculeComponent> itemMoleculeComponentList = new ArrayList<>();
             int iMCLSize = packetByteBuf.readInt();
 
             for (int j = 0; j < iMCLSize; j++) {
-                ItemMoleculeComponment.Type type = packetByteBuf.readEnumConstant(ItemMoleculeComponment.Type.class);
+                ItemMoleculeComponent.Type type = packetByteBuf.readEnumConstant(ItemMoleculeComponent.Type.class);
                 int amount = packetByteBuf.readInt();
                 switch (type) {
                     case MOLECULE:
                         Atoms atom = packetByteBuf.readEnumConstant(Atoms.class);
-                        itemMoleculeComponmentList.add(new Molecule(atom, amount));
+                        itemMoleculeComponentList.add(new Molecule(atom, amount));
                         break;
                     case MOLECULE_STACK:
                         int moleculeSize = packetByteBuf.readInt();
@@ -78,14 +77,14 @@ public class PacketHandler {
                             int moleculeAmount = packetByteBuf.readInt();
                             moleculeList.add(new Molecule(atoms, moleculeAmount));
                         }
-                        itemMoleculeComponmentList.add(new MoleculeStack(amount, moleculeList));
+                        itemMoleculeComponentList.add(new MoleculeStack(amount, moleculeList));
                         break;
                     default:
                         break;
                 }
             }
 
-            ItemMoleculesDataManager.REGISTRY.put(id, new ItemMolecule(itemMoleculeComponmentList));
+            ItemMoleculesDataManager.REGISTRY.put(id, new ItemMolecule(itemMoleculeComponentList));
         }
     }
 }

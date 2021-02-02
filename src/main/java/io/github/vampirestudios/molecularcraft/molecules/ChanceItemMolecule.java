@@ -1,12 +1,12 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 
 import java.util.*;
 
 public class ChanceItemMolecule extends ItemMolecule {
-    private List<List<ItemMoleculeComponment>> lists = new ArrayList<>();
+    private List<List<ItemMoleculeComponent>> lists = new ArrayList<>();
 
     public ChanceItemMolecule() {
         super();
@@ -20,21 +20,21 @@ public class ChanceItemMolecule extends ItemMolecule {
     }
 
     @Override
-    public List<ItemMoleculeComponment> getListCopy() {
+    public List<ItemMoleculeComponent> getListCopy() {
         return lists.get(new Random().nextInt(lists.size()));
     }
 
-    public List<List<ItemMoleculeComponment>> getLists() {
+    public List<List<ItemMoleculeComponent>> getLists() {
         return lists;
     }
 
-    public ChanceItemMolecule addMoleculeStackList(List<ItemMoleculeComponment> moleculeStackList) {
+    public ChanceItemMolecule addMoleculeStackList(List<ItemMoleculeComponent> moleculeStackList) {
         this.lists.add(moleculeStackList);
 
         return this;
     }
 
-    public ChanceItemMolecule addMoleculeStackList(Collection<List<ItemMoleculeComponment>> moleculeStackListList) {
+    public ChanceItemMolecule addMoleculeStackList(Collection<List<ItemMoleculeComponent>> moleculeStackListList) {
         moleculeStackListList.forEach(this::addMoleculeStackList);
         return this;
     }

@@ -22,14 +22,14 @@ public class TagsMolecularInfoSetter extends AbstractMolecularInfoSetter {
             if (itemTag != null) {
                 itemTag.values().forEach(item -> {
                     Identifier identifier = Registry.ITEM.getId(item);
-                    ItemMoleculesDataManager.register(identifier.toString(), itemMolecules);
+                    ItemMoleculesDataManager.registerData(identifier.toString(), itemMolecules);
                 });
             }
             Tag<Block> blockTag = minecraftServer.getTagManager().getBlocks().getTag(new Identifier(s));
             if (blockTag != null) {
                 blockTag.values().forEach(block -> {
                     Identifier identifier = Registry.BLOCK.getId(block);
-                    ItemMoleculesDataManager.register(identifier.toString(), itemMolecules);
+                    ItemMoleculesDataManager.registerData(identifier.toString(), itemMolecules);
                 });
             }
         });

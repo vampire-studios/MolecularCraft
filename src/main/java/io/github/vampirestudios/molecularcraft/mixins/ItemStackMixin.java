@@ -6,7 +6,7 @@ import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
 import io.github.vampirestudios.molecularcraft.registries.ItemMolecule;
 import io.github.vampirestudios.molecularcraft.registries.ItemMoleculesDataManager;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,8 +49,8 @@ public class ItemStackMixin {
 //    }
 
     @Inject(method = "getTooltip(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/client/item/TooltipContext;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
-    public void molecularcraft_getToolTip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable callbackInfo) {
-        List<Text> tooltip = (List<Text>)callbackInfo.getReturnValue();
+    public void molecularcraft_getToolTip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> callbackInfo) {
+        List<Text> tooltip = callbackInfo.getReturnValue();
         CompoundTag tag = ((ItemStack)(Object)this).getOrCreateTag();
         if (tag.contains("inputs", 9)) {
             String outputId = tag.getString("outputId");
@@ -79,7 +79,7 @@ public class ItemStackMixin {
 //                    builder.append("/ ");
 //                }
             } else {
-                for (ItemMoleculeComponment moleculeStack : itemMolecule.getListCopy()) {
+                for (ItemMoleculeComponent moleculeStack : itemMolecule.getListCopy()) {
                     StringBuilder builder = new StringBuilder();
                     int moleculeStackAmount = moleculeStack.getAmount();
                     builder.append(moleculeStackAmount);

@@ -10,7 +10,7 @@ import io.github.vampirestudios.molecularcraft.enums.Atoms;
 import io.github.vampirestudios.molecularcraft.enums.Molecules;
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceReloadListener;
@@ -20,7 +20,6 @@ import net.minecraft.util.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,6 +32,8 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
     private static final JsonParser PARSER = new JsonParser();
 
     public static Map<String, ItemMolecule> REGISTRY = new HashMap<>();
+
+    public static Map<String, ItemMolecule> DATA_PACKED = new HashMap<>();
 
     public static Map<String, ItemMolecule> TAGS = new HashMap<>();
 
@@ -51,6 +52,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
     public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Profiler prepareProfiler, Profiler applyProfiler, Executor prepareExecutor, Executor applyExecutor) {
         CompletableFuture<Map<RegistryEntryType, Map<String, ItemMolecule>>> completableFuture = CompletableFuture.supplyAsync(() -> {
             REGISTRY.clear();
+            DATA_PACKED.clear();
             TAGS.clear();
             Map<RegistryEntryType, Map<String, ItemMolecule>> map = new HashMap<>();
             map.put(RegistryEntryType.item, new HashMap<>());
@@ -77,7 +79,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                             InputStream inputStream = resource.getInputStream();
                             try (JsonReader read = new JsonReader(new InputStreamReader(inputStream))) {
                                 JsonObject jsonObject = PARSER.parse(read).getAsJsonObject();
-                                List<ItemMoleculeComponment> moleculeStacks = new ArrayList<>();
+                                List<ItemMoleculeComponent> moleculeStacks = new ArrayList<>();
                                 JsonArray molecules = jsonObject.getAsJsonArray("molecules");
                                 for (Iterator<JsonElement> iter = molecules.iterator(); iter.hasNext(); ) {
                                     JsonObject moleculeObject = (JsonObject) iter.next();
@@ -137,6 +139,7 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
                     case item:
                     default:
                         REGISTRY.putAll(entry.getValue());
+                        DATA_PACKED.putAll(entry.getValue());
                 }
             }
         });
@@ -152,6 +155,11 @@ public class ItemMoleculesDataManager implements ResourceReloadListener {
 
     public static void register(String id, ItemMolecule itemMolecule) {
         if (!REGISTRY.containsKey(id)) REGISTRY.put(id, itemMolecule);
+    }
+
+    public static void registerData(String id, ItemMolecule itemMolecule) {
+        if (!REGISTRY.containsKey(id)) REGISTRY.put(id, itemMolecule);
+        if (!DATA_PACKED.containsKey(id)) DATA_PACKED.put(id, itemMolecule);
     }
 
     public static void tag(String id, MoleculeStack... stack) {

@@ -1,7 +1,7 @@
 package io.github.vampirestudios.molecularcraft.molecules;
 
 import io.github.vampirestudios.molecularcraft.MolecularCraft;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 import io.github.vampirestudios.molecularcraft.utils.StringHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MoleculeStack implements ItemMoleculeComponment {
+public class MoleculeStack implements ItemMoleculeComponent {
     private List<Molecule> molecules = new ArrayList<>();
     private int amount;
 
@@ -102,7 +102,7 @@ public class MoleculeStack implements ItemMoleculeComponment {
     }
 
     @Override
-    public ItemMoleculeComponment copy() {
+    public ItemMoleculeComponent copy() {
         List<Molecule> newList = new ArrayList<>();
         for (Molecule molecule : this.molecules) {
             newList.add((Molecule) molecule.copy());

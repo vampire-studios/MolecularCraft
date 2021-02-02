@@ -2,39 +2,39 @@ package io.github.vampirestudios.molecularcraft.registries;
 
 import io.github.vampirestudios.molecularcraft.molecules.Molecule;
 import io.github.vampirestudios.molecularcraft.molecules.MoleculeStack;
-import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponment;
+import io.github.vampirestudios.molecularcraft.utils.ItemMoleculeComponent;
 
 import java.util.*;
 
 public class ItemMolecule {
 
-    private List<ItemMoleculeComponment> list;
+    private List<ItemMoleculeComponent> list;
 
-    public ItemMolecule(ItemMoleculeComponment... stack) {
+    public ItemMolecule(ItemMoleculeComponent... stack) {
         this(Arrays.asList(stack));
     }
 
-    public ItemMolecule(List<ItemMoleculeComponment> list) {
+    public ItemMolecule(List<ItemMoleculeComponent> list) {
         this.list = list;
     }
 
     public ItemMolecule() {
-        this(new ArrayList<ItemMoleculeComponment>());
+        this(new ArrayList<ItemMoleculeComponent>());
     }
 
-    public List<ItemMoleculeComponment> getListCopy() {
-        List<ItemMoleculeComponment> newList = new ArrayList<>();
-        for (ItemMoleculeComponment itemMoleculeComponment : this.list) {
-            newList.add(itemMoleculeComponment.copy());
+    public List<ItemMoleculeComponent> getListCopy() {
+        List<ItemMoleculeComponent> newList = new ArrayList<>();
+        for (ItemMoleculeComponent itemMoleculeComponent : this.list) {
+            newList.add(itemMoleculeComponent.copy());
         }
         return newList;
     }
 
-    public List<ItemMoleculeComponment> getList() {
+    public List<ItemMoleculeComponent> getList() {
         return list;
     }
 
-    public void addMoleculeComponment(ItemMoleculeComponment moleculeStack) {
+    public void addMoleculeComponment(ItemMoleculeComponent moleculeStack) {
         if (moleculeStack instanceof MoleculeStack) {
             MoleculeStack moleculeStack1 = (MoleculeStack) moleculeStack;
             List<Molecule> moleculeList = moleculeStack1.getMolecules();
@@ -84,7 +84,7 @@ public class ItemMolecule {
         this.list.add(moleculeStack);
     }
 
-    public ItemMolecule addMoleculeComponments(Collection<ItemMoleculeComponment> moleculeStack) {
+    public ItemMolecule addMoleculeComponments(Collection<ItemMoleculeComponent> moleculeStack) {
         moleculeStack.forEach(this::addMoleculeComponment);
         return this;
     }
